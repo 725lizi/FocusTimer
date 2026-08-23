@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/Notes",
+    "pages/Statistics",
+    "pages/Report",
+    "pages/DeviceWhitelistPage",
+    "pages/EncryptedFolderPage"
+  ]
+}

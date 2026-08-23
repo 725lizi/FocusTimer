@@ -1,0 +1,60 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "鸿端时记 - 鸿蒙分布式学习计时与笔记应用"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "鸿端时记主入口"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "鸿端时记"
+    },
+    {
+      "name": "permission_distributed_datasync_reason",
+      "value": "用于跨设备同步计时任务和笔记数据"
+    },
+    {
+      "name": "permission_biometric_reason",
+      "value": "用于加密文件夹的生物识别验证"
+    },
+    {
+      "name": "permission_vibrate_reason",
+      "value": "用于久坐提醒和专注完成的震动反馈"
+    },
+    {
+      "name": "permission_internet_reason",
+      "value": "用于分布式设备间数据同步"
+    },
+    {
+      "name": "permission_network_info_reason",
+      "value": "用于检测网络状态，实现离线缓存和自动同步"
+    },
+    {
+      "name": "permission_sensor_reason",
+      "value": "用于环境光线监测，提供护眼提醒"
+    },
+    {
+      "name": "EntryFormAbility_desc",
+      "value": "form_description"
+    },
+    {
+      "name": "EntryFormAbility_label",
+      "value": "form_label"
+    },
+    {
+      "name": "FocusTimercard_desc",
+      "value": "This is a service widget."
+    },
+    {
+      "name": "FocusTimercard_display_name",
+      "value": "FocusTimercard"
+    },
+    {
+      "name": "permission_require_form_reason",
+      "value": "用于更新桌面卡片信息"
+    }
+  ]
+}
