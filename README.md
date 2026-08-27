@@ -32,7 +32,9 @@
 | ![数据统计](shot-stats.png) | ![AI 智能周报](shot-report.png) | ![桌面卡片](screenshot_card.png) |
 
 ## 🛠️ 快速上手
-
+> ⚠️ CI说明
+> GitHub云端无法获取HarmonyOS NEXT API24 SDK，云端仅执行仓库规范性校验。
+> **应用构建与全部52个单元测试，请在本地DevEco Studio环境执行。**
 1. 使用 DevEco Studio 打开本项目
 2. 配置应用签名（模拟器可直接运行）
 3. 运行 HarmonyOS 模拟器即可体验
