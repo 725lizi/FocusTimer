@@ -1,4 +1,4 @@
-name: CI
+name: Repository-Check
 
 on:
   push:
@@ -8,93 +8,26 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build (HarmonyOS 6.1.0)
+  repo-check:
+    name: Repository Standards Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 18
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Setup JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-
-      # 缓存鸿蒙命令行工具（约 2GB），命中可跳过下载
-      - name: Cache Command Line Tools
-        id: cache-tools
-        uses: actions/cache@v4
-        with:
-          path: ./command-line-tools
-          key: ${{ runner.os }}-harmony-tools-6.1.0.816
-
-      # 缓存未命中时，从社区预发布镜像下载（与 targetSdk 6.1.1(24) 匹配）
-      - name: Download Command Line Tools
-        if: steps.cache-tools.outputs.cache-hit != 'true'
+      # 说明：HarmonyOS 官方 Command Line Tools / API 24 SDK 需登录华为开发者中心下载，
+      # GitHub Actions 云端无法获取，因此云端 CI 不做 HAP 构建与单元测试。
+      # 应用构建与 52 个单元测试请在本地 DevEco Studio 中执行。
+      - name: Verify critical repository files
         run: |
-          curl -L -o tools.zip https://github.com/Okysu/harmony-auto-build/releases/download/commandline-tools-linux-x64-6.1.0.816/commandline-tools-linux-x64-6.1.0.816.zip
-          unzip tools.zip
-          rm tools.zip
+          test -f LICENSE
+          test -f README.md
+          test -f oh-package.json5
+          test -f build-profile.json5
+          test -d entry/src/test
+          test -d docs
 
-      - name: Setup Build Environment
+      - name: Repository check passed
         run: |
-          TOOLS_DIR=$(pwd)/command-line-tools
-          # 指定 SDK 路径，供 hvigor 构建工具读取
-          echo "hwsdk.dir=$TOOLS_DIR/sdk" > local.properties
-          # 将工具目录加入 PATH（内含 ohpm / hvigorw）
-          echo "$TOOLS_DIR/bin" >> $GITHUB_PATH
-          # 导出鸿蒙工具所需环境变量
-          echo "OHPM_HOME=$TOOLS_DIR/ohpm" >> $GITHUB_ENV
-          echo "HOS_SDK_HOME=$TOOLS_DIR/sdk" >> $GITHUB_ENV
-          # 赋予工具脚本执行权限
-          chmod -R +x $TOOLS_DIR/bin
-
-      - name: Install Dependencies (ohpm)
-        run: |
-          ohpm install
-
-      - name: Diagnostics (Java / hvigor / SDK versions)
-        run: |
-          java -version
-          echo "JAVA_HOME=$JAVA_HOME"
-          hvigorw -v
-          echo "--- SDK ---"
-          cat "$HOS_SDK_HOME/default/sdk-pkg.json" 2>/dev/null || ls "$HOS_SDK_HOME"
-
-      - name: Build HAP (debug)
-        run: |
-          hvigorw assembleHap --mode module -p product=default -p buildMode=debug --no-daemon --stacktrace 2>&1 | tee build-output.log
-          exit ${PIPESTATUS[0]}
-
-      # 构建失败时上传完整日志，便于定位
-      - name: Upload build logs on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: hvigor-build-logs
-          path: |
-            build-output.log
-            .hvigor/**/outputs/build-logs/**/*
-          if-no-files-found: warn
-
-      # 说明：HarmonyOS Local Test（hvigorw test）官方暂不支持在 Linux 上执行，
-      # 因此单元测试在本地 Windows（DevEco Studio）运行：hvigorw test -p module=entry --no-daemon
-      - name: Note on unit tests
-        run: |
-          echo "Unit tests (hypium, 52 cases) run locally on Windows:"
-          echo "  hvigorw test -p module=entry --no-daemon"
-
-      - name: Upload HAP artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: FocusTimer-unsigned-hap
-          path: |
-            entry/build/default/outputs/**/*.hap
-            **/build/**/outputs/**/*.hap
-          if-no-files-found: warn
+          echo "OK - repository standards check passed."
+          echo "Note: HarmonyOS build & unit tests require local DevEco Studio."

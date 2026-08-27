@@ -32,12 +32,21 @@
 | ![数据统计](shot-stats.png) | ![AI 智能周报](shot-report.png) | ![桌面卡片](screenshot_card.png) |
 
 ## 🛠️ 快速上手
-> ⚠️ CI说明
-> GitHub云端无法获取HarmonyOS NEXT API24 SDK，云端仅执行仓库规范性校验。
-> **应用构建与全部52个单元测试，请在本地DevEco Studio环境执行。**
+
 1. 使用 DevEco Studio 打开本项目
 2. 配置应用签名（模拟器可直接运行）
 3. 运行 HarmonyOS 模拟器即可体验
+
+## 🤖 CI 说明
+
+> GitHub Actions 云端无法获取 HarmonyOS NEXT API 24 SDK（华为官方仅允许登录开发者中心下载），
+> 因此云端 CI 仅执行**仓库规范性校验**（关键文件、配置与测试目录完整性检查）；
+> 应用构建与全部 52 个单元测试请在**本地 DevEco Studio** 中执行：
+>
+> ```bash
+> hvigorw assembleHap --mode module -p product=default -p buildMode=debug --no-daemon
+> hvigorw test -p module=entry --no-daemon
+> ```
 
 ## 🏗️ 技术架构
 
