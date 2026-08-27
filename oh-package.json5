@@ -1,5 +1,5 @@
 {
-  "modelVersion": "6.1.1",
+  "modelVersion": "6.1.0",
   "description": "鸿蒙多端专注计时本：基于 HarmonyOS NEXT 的多端协同专注学习工具，支持专注计时、多端笔记流转、AI 智能周报、桌面元服务卡片与数据安全加密。",
   "version": "1.0.0",
   "keywords": [
