@@ -9,16 +9,16 @@ on:
 
 jobs:
   build-and-test:
-    name: Build & Test (HarmonyOS)
+    name: Build & Test (HarmonyOS 6.1.0)
     runs-on: ubuntu-latest
-    env:
-      # 鸿蒙命令行工具（内含 HarmonyOS SDK + hvigor + ohpm）
-      HOS_CLT_DIR: ${{ github.workspace }}/command-line-tools
-      # 工程 targetSdk 为 6.1.1(24)，请确保 Command Line Tools 版本匹配
-      HOS_CLT_VERSION: "6.1.1"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
       - name: Setup JDK 17
         uses: actions/setup-java@v4
@@ -26,57 +26,44 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Cache HarmonyOS command-line-tools
-        id: cache-sdk
+      # 缓存鸿蒙命令行工具（约 2GB），命中可跳过下载
+      - name: Cache Command Line Tools
+        id: cache-tools
         uses: actions/cache@v4
         with:
-          path: command-line-tools
-          key: harmonyos-clt-${{ env.HOS_CLT_VERSION }}
+          path: ./command-line-tools
+          key: ${{ runner.os }}-harmony-tools-6.1.0.816
 
-      - name: Download HarmonyOS command-line-tools
-        if: steps.cache-sdk.outputs.cache-hit != 'true'
-        shell: bash
+      # 缓存未命中时，从社区预发布镜像下载（与 targetSdk 6.1.1(24) 匹配）
+      - name: Download Command Line Tools
+        if: steps.cache-tools.outputs.cache-hit != 'true'
         run: |
-          # 华为官方 Command Line Tools 需登录开发者中心下载，GitHub Actions 无法直接使用。
-          # 依次尝试：仓库 Secret 自定义直链 > 社区镜像（GitHub Releases / HuggingFace）。
-          # 若默认源版本与工程 targetSdk 6.1.1(24) 不匹配导致构建失败，
-          # 请在仓库 Settings -> Secrets 配置 SDK_DOWNLOAD_URL 指向正确版本直链。
-          URLS="${{ secrets.SDK_DOWNLOAD_URL }} https://github.com/wxpusher/harmony-setup-sdk/releases/download/commandline-tools-linux-x64-6.0.2.650/commandline-tools-linux-x64-6.0.2.650.zip"
-          for url in $URLS; do
-            if curl -fSL -o clt.zip "$url"; then
-              echo "downloaded from $url"
-              break
-            else
-              echo "failed: $url"
-            fi
-          done
-          test -f clt.zip
-          unzip -q clt.zip
-          rm clt.zip
-          ls -la command-line-tools/bin
+          curl -L -o tools.zip https://github.com/Okysu/harmony-auto-build/releases/download/commandline-tools-linux-x64-6.1.0.816/commandline-tools-linux-x64-6.1.0.816.zip
+          unzip tools.zip
+          rm tools.zip
 
-      - name: Configure environment
-        shell: bash
+      - name: Setup Build Environment
         run: |
-          echo "$GITHUB_WORKSPACE/command-line-tools/bin" >> "$GITHUB_PATH"
-          echo "$GITHUB_WORKSPACE/command-line-tools/sdk/default/openharmony/toolchains" >> "$GITHUB_PATH"
-          node -v
-          ohpm -v
-          hvigorw -v
+          TOOLS_DIR=$(pwd)/command-line-tools
+          # 指定 SDK 路径，供 hvigor 构建工具读取
+          echo "hwsdk.dir=$TOOLS_DIR/sdk" > local.properties
+          # 将工具目录加入 PATH（内含 ohpm / hvigorw）
+          echo "$TOOLS_DIR/bin" >> $GITHUB_PATH
+          # 导出鸿蒙工具所需环境变量
+          echo "OHPM_HOME=$TOOLS_DIR/ohpm" >> $GITHUB_ENV
+          echo "HOS_SDK_HOME=$TOOLS_DIR/sdk" >> $GITHUB_ENV
+          # 赋予工具脚本执行权限
+          chmod -R +x $TOOLS_DIR/bin
 
-      - name: Install dependencies (ohpm)
-        shell: bash
+      - name: Install Dependencies (ohpm)
         run: |
-          ohpm config set registry https://ohpm.openharmony.cn/ohpm/
-          ohpm install --all
+          ohpm install
 
       - name: Run unit tests (hypium)
-        shell: bash
         run: |
           hvigorw test --mode module -p module=entry@default --no-daemon
 
       - name: Build HAP (debug)
-        shell: bash
         run: |
           hvigorw assembleHap --mode module -p product=default -p buildMode=debug --no-daemon
 
@@ -84,5 +71,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: FocusTimer-unsigned-hap
-          path: entry/build/default/outputs/default/*.hap
+          path: |
+            entry/build/default/outputs/**/*.hap
+            **/build/**/outputs/**/*.hap
           if-no-files-found: warn
