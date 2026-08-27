@@ -10,3 +10,16 @@
 /.clang-tidy
 **/.test
 /.appanalyzer
+
+# 备份副本目录（防止误提交）
+**/* - 副本/
+
+# 学习资料与个人文档（开源时排除，另行放私有仓库）
+/doc_task/
+/FocusTimer3_逐文件代码详解学习文档.docx
+/FocusTimer3高频报错踩坑全文档.docx
+/面试口述逐字稿_7题必背.docx
+/鸿蒙多端专注计时本_作品说明文档_更新版.docx
+
+# Word 临时锁文件
+~$*
