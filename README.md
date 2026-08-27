@@ -1,5 +1,7 @@
 # 鸿蒙多端专注计时本（FocusTimer）
 
+![CI](https://github.com/725lizi/FocusTimer/actions/workflows/ci.yml/badge.svg)
+
 基于 HarmonyOS NEXT 的多端协同专注学习工具——专注计时、笔记流转、AI 智能周报、桌面元服务卡片与数据安全加密，帮你建立可持续的学习节奏。
 
 ## ✨ 亮点

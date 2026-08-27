@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Build & Publish Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      HOS_CLT_VERSION: "6.1.1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Cache HarmonyOS command-line-tools
+        id: cache-sdk
+        uses: actions/cache@v4
+        with:
+          path: command-line-tools
+          key: harmonyos-clt-${{ env.HOS_CLT_VERSION }}
+
+      - name: Download HarmonyOS command-line-tools
+        if: steps.cache-sdk.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          URLS="${{ secrets.SDK_DOWNLOAD_URL }} https://github.com/wxpusher/harmony-setup-sdk/releases/download/commandline-tools-linux-x64-6.0.2.650/commandline-tools-linux-x64-6.0.2.650.zip"
+          for url in $URLS; do
+            if curl -fSL -o clt.zip "$url"; then
+              echo "downloaded from $url"
+              break
+            fi
+          done
+          test -f clt.zip
+          unzip -q clt.zip
+          rm clt.zip
+
+      - name: Configure environment
+        shell: bash
+        run: |
+          echo "$GITHUB_WORKSPACE/command-line-tools/bin" >> "$GITHUB_PATH"
+          ohpm -v
+          hvigorw -v
+
+      - name: Install dependencies (ohpm)
+        shell: bash
+        run: |
+          ohpm config set registry https://ohpm.openharmony.cn/ohpm/
+          ohpm install --all
+
+      - name: Build HAP (release)
+        shell: bash
+        run: |
+          hvigorw assembleHap --mode module -p product=default -p buildMode=release --no-daemon
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            entry/build/default/outputs/default/*.hap
+          generate_release_notes: true
