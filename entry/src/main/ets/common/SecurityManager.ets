@@ -33,6 +33,15 @@ export class SecurityManager {
   }
 
   /**
+   * 校验加密文件夹名是否合法（非空且去除首尾空格后仍有内容）
+   * 对应 createEncryptedFolder 中的空名校验逻辑
+   */
+  public static isValidFolderName(folderName: string): boolean {
+    const trimmed: string = folderName ? folderName.trim() : '';
+    return trimmed.length > 0;
+  }
+
+  /**
    * 检查生物识别是否可用
    */
   public async checkBiometricSupport(): Promise<boolean> {
@@ -82,7 +91,7 @@ export class SecurityManager {
    */
   public async createEncryptedFolder(folderName: string): Promise<boolean> {
     try {
-      if (!folderName || folderName.trim().length === 0) {
+      if (!SecurityManager.isValidFolderName(folderName)) {
         return false;
       }
       const db = DatabaseHelper.getInstance();

@@ -25,6 +25,15 @@ export class SubjectTagManager {
   }
 
   /**
+   * 校验科目标签名是否合法（非空且去除首尾空格后仍有内容）
+   * 对应 createTag 中的空名校验逻辑
+   */
+  public static isValidName(name: string): boolean {
+    const trimmed: string = name ? name.trim() : '';
+    return trimmed.length > 0;
+  }
+
+  /**
    * 获取所有科目标签
    */
   public async getAllTags(): Promise<SubjectTagModel[]> {
@@ -57,7 +66,7 @@ export class SubjectTagManager {
    */
   public async createTag(name: string, color: string = '', icon: string = ''): Promise<boolean> {
     try {
-      if (!name || name.trim().length === 0) {
+      if (!SubjectTagManager.isValidName(name)) {
         return false;
       }
 

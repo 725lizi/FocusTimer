@@ -34,11 +34,19 @@ export class DeviceWhitelistManager {
   }
 
   /**
+   * 校验设备 ID 是否合法（非空字符串）
+   * 对应 addDevice / removeDevice 中的空 ID 校验逻辑
+   */
+  public static isValidDeviceId(deviceId: string): boolean {
+    return deviceId.length > 0;
+  }
+
+  /**
    * 添加设备到白名单
    */
   public async addDevice(deviceId: string, deviceName: string, deviceType: string = 'unknown'): Promise<boolean> {
     try {
-      if (!deviceId) {
+      if (!DeviceWhitelistManager.isValidDeviceId(deviceId)) {
         return false;
       }
       const db = DatabaseHelper.getInstance();
@@ -64,7 +72,7 @@ export class DeviceWhitelistManager {
    */
   public async removeDevice(deviceId: string): Promise<boolean> {
     try {
-      if (!deviceId) {
+      if (!DeviceWhitelistManager.isValidDeviceId(deviceId)) {
         return false;
       }
       const db = DatabaseHelper.getInstance();

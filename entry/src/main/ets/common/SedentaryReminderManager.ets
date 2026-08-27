@@ -27,6 +27,14 @@ export class SedentaryReminderManager {
   }
 
   /**
+   * 是否达到久坐提醒阈值（连续学习达到阈值分钟数且本周期尚未提醒过）
+   * 对应 setInterval 回调中的触发判定逻辑
+   */
+  public static shouldTriggerReminder(elapsedMinutes: number, hasReminded: boolean): boolean {
+    return elapsedMinutes >= Constants.SEDENTARY_THRESHOLD && !hasReminded;
+  }
+
+  /**
    * 开始监测
    */
   public startMonitoring(callback: () => void): void {
@@ -36,7 +44,7 @@ export class SedentaryReminderManager {
 
     this.reminderTimerId = setInterval(() => {
       const elapsedMinutes = Math.floor((Date.now() - this.studyStartTime) / (60 * 1000));
-      if (elapsedMinutes >= Constants.SEDENTARY_THRESHOLD && !this.hasReminded) {
+      if (SedentaryReminderManager.shouldTriggerReminder(elapsedMinutes, this.hasReminded)) {
         this.hasReminded = true;
         this.triggerReminder();
       }

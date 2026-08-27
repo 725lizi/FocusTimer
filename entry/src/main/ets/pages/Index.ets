@@ -15,17 +15,10 @@ import { SedentaryReminderManager } from '../common/SedentaryReminderManager';
 import { GlobalContext } from '../common/GlobalContext';
 import { DatabaseHelper } from '../common/DatabaseHelper';
 import { formProvider, formBindingData } from '@kit.FormKit';
+import { CardDataBuilder, WidgetCardData } from '../common/CardDataBuilder';
 
 
 import EntryFormAbility from '../entryformability/EntryFormAbility';
-
-
-interface WidgetCardData {
-  title: string;
-  focusTime: string;
-  taskInfo: string;
-  todayMinutes: string;
-}
 
 @Entry
 @Component
@@ -237,12 +230,7 @@ struct Index {
         return;
       }
 
-      const cardData: WidgetCardData = {
-        title: '专注计时',
-        focusTime: '25:00',
-        taskInfo: '今日待学：高等数学',
-        todayMinutes: `${minutes}分钟`
-      };
+      const cardData: WidgetCardData = CardDataBuilder.build(minutes);
 
       const formData = formBindingData.createFormBindingData(cardData);
 

@@ -26,6 +26,14 @@ export class OfflineCacheManager {
   }
 
   /**
+   * 网络状态是否发生变化
+   * 对应 checkAndUpdateOfflineStatus 中的状态切换判定逻辑
+   */
+  public static hasStatusChanged(newStatus: boolean, currentStatus: boolean): boolean {
+    return newStatus !== currentStatus;
+  }
+
+  /**
    * 初始化并启动网络状态监测
    */
   public init(): void {
@@ -49,7 +57,7 @@ export class OfflineCacheManager {
     const offlineFlag = GlobalContext.getContext().getObject(Constants.OFFLINE_FLAG);
     const newOfflineStatus = offlineFlag === true;
 
-    if (newOfflineStatus !== this.isOffline) {
+    if (OfflineCacheManager.hasStatusChanged(newOfflineStatus, this.isOffline)) {
       this.isOffline = newOfflineStatus;
       if (!this.isOffline) {
         this.syncPendingData();
