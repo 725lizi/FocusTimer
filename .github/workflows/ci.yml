@@ -59,9 +59,29 @@ jobs:
         run: |
           ohpm install
 
+      - name: Diagnostics (Java / hvigor / SDK versions)
+        run: |
+          java -version
+          echo "JAVA_HOME=$JAVA_HOME"
+          hvigorw -v
+          echo "--- SDK ---"
+          cat "$HOS_SDK_HOME/default/sdk-pkg.json" 2>/dev/null || ls "$HOS_SDK_HOME"
+
       - name: Build HAP (debug)
         run: |
-          hvigorw assembleHap --mode module -p product=default -p buildMode=debug --no-daemon
+          hvigorw assembleHap --mode module -p product=default -p buildMode=debug --no-daemon --stacktrace 2>&1 | tee build-output.log
+          exit ${PIPESTATUS[0]}
+
+      # 构建失败时上传完整日志，便于定位
+      - name: Upload build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hvigor-build-logs
+          path: |
+            build-output.log
+            .hvigor/**/outputs/build-logs/**/*
+          if-no-files-found: warn
 
       # 说明：HarmonyOS Local Test（hvigorw test）官方暂不支持在 Linux 上执行，
       # 因此单元测试在本地 Windows（DevEco Studio）运行：hvigorw test -p module=entry --no-daemon
