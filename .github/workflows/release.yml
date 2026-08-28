@@ -6,61 +6,45 @@ on:
       - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  release:
-    name: Build & Publish Release
+  draft-release:
+    name: Create Draft Release
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 18
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Setup JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-
-      - name: Cache Command Line Tools
-        id: cache-tools
-        uses: actions/cache@v4
-        with:
-          path: ./command-line-tools
-          key: ${{ runner.os }}-harmony-tools-6.1.0.816
-
-      - name: Download Command Line Tools
-        if: steps.cache-tools.outputs.cache-hit != 'true'
+      # 与 CI 相同的仓库规范校验：发版前再确认一次仓库完整性
+      - name: Verify repository standards
         run: |
-          curl -L -o tools.zip https://github.com/Okysu/harmony-auto-build/releases/download/commandline-tools-linux-x64-6.1.0.816/commandline-tools-linux-x64-6.1.0.816.zip
-          unzip tools.zip
-          rm tools.zip
+          set -e
+          test -f LICENSE
+          test -f README.md
+          test -f oh-package.json5
+          test -f build-profile.json5
+          test -d entry/src/test
+          test -d docs
+          echo "Repository standards OK."
 
-      - name: Setup Build Environment
-        run: |
-          TOOLS_DIR=$(pwd)/command-line-tools
-          echo "hwsdk.dir=$TOOLS_DIR/sdk" > local.properties
-          echo "$TOOLS_DIR/bin" >> $GITHUB_PATH
-          echo "OHPM_HOME=$TOOLS_DIR/ohpm" >> $GITHUB_ENV
-          echo "HOS_SDK_HOME=$TOOLS_DIR/sdk" >> $GITHUB_ENV
-          chmod -R +x $TOOLS_DIR/bin
-
-      - name: Install Dependencies (ohpm)
-        run: |
-          ohpm install
-
-      - name: Build HAP (release)
-        run: |
-          hvigorw assembleHap --mode module -p product=default -p buildMode=release --no-daemon
-
-      - name: Create GitHub Release
+      # 云端无法获取 HarmonyOS SDK，因此只创建「草稿 Release」：
+      # 自动生成提交记录，作者在本地 DevEco Studio 构建 HAP 后拖入草稿并手动发布。
+      - name: Create draft GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            **/build/**/outputs/**/*.hap
+          draft: true
+          name: FocusTimer ${{ github.ref_name }}
           generate_release_notes: true
+          body: |
+            ## 📦 安装包（HAP）附件说明
+
+            GitHub 云端无法获取 HarmonyOS NEXT API 24 SDK（华为官方仅允许登录开发者中心下载），
+            因此本 Release 由 CI 自动创建为**草稿**，HAP 安装包请在本地构建后手动附加：
+
+            1. 用 DevEco Studio 打开项目，执行 **Build > Build Hap(s)/APP(s) > Build Hap(s)**（release）
+            2. 产物位于 `entry/build/default/outputs/default/` 目录下的 `.hap` 文件
+            3. 将 `.hap` 拖到本页底部附件区，确认更新说明后点击 **Publish release** 即可发布
+
+            > 以下更新记录由 GitHub 自动生成：

@@ -37,16 +37,19 @@
 2. 配置应用签名（模拟器可直接运行）
 3. 运行 HarmonyOS 模拟器即可体验
 
-## 🤖 CI 说明
+## 🤖 CI 与发版说明
 
 > GitHub Actions 云端无法获取 HarmonyOS NEXT API 24 SDK（华为官方仅允许登录开发者中心下载），
 > 因此云端 CI 仅执行**仓库规范性校验**（关键文件、配置与测试目录完整性检查）；
-> 应用构建与全部 52 个单元测试请在**本地 DevEco Studio** 中执行：
->
-> ```bash
-> hvigorw assembleHap --mode module -p product=default -p buildMode=debug --no-daemon
-> hvigorw test -p module=entry --no-daemon
-> ```
+> 应用构建与全部 52 个单元测试请在**本地 DevEco Studio** 中执行。
+
+**日常更新**：直接向 `main` 分支提交并推送即可，CI 自动完成仓库规范校验，无需额外操作。
+
+**版本发布**：
+
+1. 在 DevEco Studio 中构建 release HAP（`entry/build/default/outputs/default/` 下的 `.hap` 文件）
+2. 运行发版脚本：`.\scripts\New-Release.ps1 -Version v1.1.0`（自动校验工作区、打 tag 并推送）
+3. CI 自动创建**草稿 Release** 并生成更新记录；到 [Releases 页面](https://github.com/725lizi/FocusTimer/releases) 把 `.hap` 拖入草稿附件区，点击 **Publish release** 即完成发布
 
 ## 🏗️ 技术架构
 
