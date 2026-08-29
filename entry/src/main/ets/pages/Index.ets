@@ -3,7 +3,6 @@ import { router } from '@kit.ArkUI';
 import { promptAction } from '@kit.ArkUI';
 import { AIAnalysisService, StudySession, AIReport } from '../services/AIAnalysisService';
 import { preferences } from '@kit.ArkData';
-import { vibrator } from '@kit.SensorServiceKit';
 import { sensor } from '@kit.SensorServiceKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { ContinuationManager, SessionState } from '../common/ContinuationManager';
@@ -11,14 +10,10 @@ import { TimerEngine } from '../common/TimerEngine';
 import { FocusSessionStore } from '../common/FocusSessionStore';
 import { SubjectTagManager } from '../common/SubjectTagManager';
 import { SubjectTagModel } from '../model/SubjectTagModel';
-import { OfflineCacheManager } from '../common/OfflineCacheManager';
 import { FocusModeManager } from '../common/FocusModeManager';
 import { SedentaryReminderManager } from '../common/SedentaryReminderManager';
 import { GlobalContext } from '../common/GlobalContext';
 import { DatabaseHelper } from '../common/DatabaseHelper';
-import { formProvider, formBindingData } from '@kit.FormKit';
-import { CardDataBuilder, WidgetCardData } from '../common/CardDataBuilder';
-
 
 import EntryFormAbility from '../entryformability/EntryFormAbility';
 import { BottomNavBar } from '../components/BottomNavBar';
@@ -56,6 +51,7 @@ struct Index {
   @State isOffline: boolean = false;
 
   private timerId: number = -1;
+  private autoSchedulerId: number = -1;
   // 纯逻辑计时状态机；下面的 @State 仅作为它的镜像，用于驱动界面刷新
   private timerEngine: TimerEngine = new TimerEngine(Constants.PRESET_DURATIONS[Constants.DEFAULT_INDEX]);
 
@@ -93,6 +89,17 @@ struct Index {
   }
 
   aboutToDisappear(): void {
+    // 页面销毁时对称释放全部定时器与系统监听，避免后台空转耗电（生命周期防泄漏）
+    if (this.timerId !== -1) {
+      clearInterval(this.timerId);
+      this.timerId = -1;
+    }
+    if (this.autoSchedulerId !== -1) {
+      clearInterval(this.autoSchedulerId);
+      this.autoSchedulerId = -1;
+    }
+    FocusModeManager.getInstance().stopFocusMode();
+    SedentaryReminderManager.getInstance().stopMonitoring();
     this.stopLightMonitoring();
   }
 
@@ -224,29 +231,8 @@ struct Index {
     }
   }
 
-  // 主动更新桌面卡片今日专注分钟数
-  private async updateWidgetTodayMinutes(minutes: number): Promise<void> {
-    try {
-      const formsInfo = await formProvider.getFormsInfo();
-      if (!formsInfo || formsInfo.length === 0) {
-        return;
-      }
-
-      const cardData: WidgetCardData = CardDataBuilder.build(minutes);
-
-      const formData = formBindingData.createFormBindingData(cardData);
-
-      for (const formInfoItem of formsInfo) {
-        const formId = (formInfoItem as Object as Record<string, Object>)['formId'] as string;
-        await formProvider.updateForm(formId, formData);
-      }
-    } catch (err) {
-      console.error('更新桌面卡片失败: ' + JSON.stringify(err));
-    }
-  }
-
   private startAutoFocusScheduler(): void {
-    setInterval(() => {
+    this.autoSchedulerId = setInterval(() => {
       const now = new Date();
       const hour = now.getHours();
       const isAutoFocusTime = hour >= Index.AUTO_FOCUS_START_HOUR && hour < Index.AUTO_FOCUS_END_HOUR;
@@ -509,9 +495,29 @@ struct Index {
     console.info(`📊 分析报告 - 专注评分: ${report.focusScore}, 总时长: ${report.totalMinutes}分钟`);
   }
 
-  private startLightMonitoring(): void {}
-  private stopLightMonitoring(): void {}
-  private triggerRestReminder(): void {}
+  // 订阅环境光传感器，实时驱动首页光线卡片（设备无该传感器时静默兜底）
+  private startLightMonitoring(): void {
+    try {
+      sensor.on(sensor.SensorId.AMBIENT_LIGHT, (data: sensor.AmbientLightResponse) => {
+        this.lightValue = Math.round(data.intensity);
+      }, { interval: 2000000000 }); // 采样间隔 2 秒（单位纳秒），降低功耗
+    } catch (err) {
+      console.error('环境光传感器订阅失败: ' + JSON.stringify(err));
+    }
+  }
+
+  private stopLightMonitoring(): void {
+    try {
+      sensor.off(sensor.SensorId.AMBIENT_LIGHT);
+    } catch (err) {
+      console.error('环境光传感器取消订阅失败: ' + JSON.stringify(err));
+    }
+  }
+
+  // 连续专注满 45 分钟的休息提醒（阈值判定在 TimerEngine，这里负责呈现）
+  private triggerRestReminder(): void {
+    this.showToast('已连续专注 45 分钟，建议起身活动、远眺放松');
+  }
 
   @Builder
   continuationDialogBuilder() {
