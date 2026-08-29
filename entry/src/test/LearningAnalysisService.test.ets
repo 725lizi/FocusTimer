@@ -1,5 +1,5 @@
 import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
-import { AIAnalysisService, StudySession } from '../main/ets/services/AIAnalysisService';
+import { LearningAnalysisService, StudySession } from '../main/ets/services/LearningAnalysisService';
 
 function makeSession(id: string, startTime: number, duration: number, tags: string[],
   isInterrupted: boolean = false, interruptCount: number = 0): StudySession {
@@ -14,9 +14,9 @@ function makeSession(id: string, startTime: number, duration: number, tags: stri
   return session;
 }
 
-export default function aiAnalysisTest() {
-  const service: AIAnalysisService = AIAnalysisService.getInstance();
-  describe('AIAnalysisService', () => {
+export default function learningAnalysisTest() {
+  const service: LearningAnalysisService = LearningAnalysisService.getInstance();
+  describe('LearningAnalysisService', () => {
     beforeAll(() => {
     });
     beforeEach(() => {

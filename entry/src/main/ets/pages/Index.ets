@@ -1,7 +1,7 @@
 import { Constants } from '../model/Constants';
 import { router } from '@kit.ArkUI';
 import { promptAction } from '@kit.ArkUI';
-import { AIAnalysisService, StudySession, AIReport } from '../services/AIAnalysisService';
+import { LearningAnalysisService, StudySession, LearningReport } from '../services/LearningAnalysisService';
 import { preferences } from '@kit.ArkData';
 import { sensor } from '@kit.SensorServiceKit';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -470,8 +470,8 @@ struct Index {
       await FocusSessionStore.getInstance().appendSession(session);
       await this.loadTodayStats();
       const allSessions = await FocusSessionStore.getInstance().getAllSessions();
-      const report = await AIAnalysisService.getInstance().generateReport(allSessions);
-      this.showAIReport(report);
+      const report = await LearningAnalysisService.getInstance().generateReport(allSessions);
+      this.showLearningReport(report);
     } catch (err) {
       console.error('handleSessionEnd failed: ' + JSON.stringify(err));
     }
@@ -491,7 +491,7 @@ struct Index {
     }
   }
 
-  private showAIReport(report: AIReport): void {
+  private showLearningReport(report: LearningReport): void {
     console.info(`📊 分析报告 - 专注评分: ${report.focusScore}, 总时长: ${report.totalMinutes}分钟`);
   }
 

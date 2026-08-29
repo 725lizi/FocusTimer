@@ -1,4 +1,4 @@
-// services/AIAnalysisService.ets
+// services/LearningAnalysisService.ets
 export interface DocumentParseResult {
   keywords: string[];
   summary: string;
@@ -13,8 +13,8 @@ export interface StudySession {
   interruptCount: number;
 }
 
-// AI生成的报告结构
-export interface AIReport {
+// 学习分析生成的报告结构（当前为规则模板，阶段2再接入大模型）
+export interface LearningReport {
   focusScore: number;
   totalMinutes: number;
   totalDays: number;
@@ -25,26 +25,31 @@ export interface AIReport {
   trend: 'up' | 'down' | 'stable';
 }
 
-export class AIAnalysisService {
-  private static instance: AIAnalysisService | null = null;
+/**
+ * 学习分析服务。当前实现是本地规则模板（按统计阈值算分、拼建议，不联网、不调大模型）；
+ * 阶段 2 将在保持对外方法不变的前提下新增大模型实现，并做到「无网自动回退规则版」。
+ * 刻意不命名为 AI，正是为了和未来真正接入的大模型能力区分开。
+ */
+export class LearningAnalysisService {
+  private static instance: LearningAnalysisService | null = null;
   private context: Context | null = null;
 
   private constructor() {
     // 私有构造函数，防止外部实例化
   }
 
-  public static getInstance(): AIAnalysisService {
-    if (AIAnalysisService.instance === null) {
-      AIAnalysisService.instance = new AIAnalysisService();
+  public static getInstance(): LearningAnalysisService {
+    if (LearningAnalysisService.instance === null) {
+      LearningAnalysisService.instance = new LearningAnalysisService();
     }
-    return AIAnalysisService.instance;
+    return LearningAnalysisService.instance;
   }
 
   init(context: Context): void {
     this.context = context;
   }
 
-  async generateReport(sessions: StudySession[]): Promise<AIReport> {
+  async generateReport(sessions: StudySession[]): Promise<LearningReport> {
     if (sessions.length === 0) {
       return this.getEmptyReport();
     }
@@ -196,7 +201,7 @@ export class AIAnalysisService {
     return '🌙 深夜（21-6点）';
   }
 
-  private getEmptyReport(): AIReport {
+  private getEmptyReport(): LearningReport {
     return {
       focusScore: 0,
       totalMinutes: 0,

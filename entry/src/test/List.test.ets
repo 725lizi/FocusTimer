@@ -2,7 +2,7 @@ import localUnitTest from './LocalUnit.test';
 import timerEngineTest from './TimerEngine.test';
 import subjectTagTest from './SubjectTag.test';
 import continuationTest from './Continuation.test';
-import aiAnalysisTest from './AIAnalysisService.test';
+import learningAnalysisTest from './LearningAnalysisService.test';
 import focusAndSedentaryTest from './FocusModeAndSedentary.test';
 import securityAndWhitelistTest from './SecurityAndWhitelist.test';
 import offlineAndCardTest from './OfflineCacheAndCard.test';
@@ -12,7 +12,7 @@ export default function testsuite() {
   timerEngineTest();
   subjectTagTest();
   continuationTest();
-  aiAnalysisTest();
+  learningAnalysisTest();
   focusAndSedentaryTest();
   securityAndWhitelistTest();
   offlineAndCardTest();

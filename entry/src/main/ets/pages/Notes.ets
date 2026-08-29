@@ -7,7 +7,7 @@ import { SubjectTagModel } from '../model/SubjectTagModel';
 import { DatabaseHelper } from '../common/DatabaseHelper';
 import { GlobalContext } from '../common/GlobalContext';
 import { ContinuationManager } from '../common/ContinuationManager';
-import { AIAnalysisService } from '../services/AIAnalysisService';
+import { LearningAnalysisService } from '../services/LearningAnalysisService';
 
 /** 笔记条目 */
 interface NoteItem {
@@ -151,8 +151,8 @@ struct Notes {
         return;
       }
 
-      const aiService = AIAnalysisService.getInstance();
-      const result = await aiService.parseDocument(this.editContent);
+      const analysisService = LearningAnalysisService.getInstance();
+      const result = await analysisService.parseDocument(this.editContent);
 
       if (result.keywords.length === 0) {
         this.aiParseResult = '未能提取有效知识点，请添加更多内容。';

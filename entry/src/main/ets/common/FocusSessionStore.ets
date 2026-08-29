@@ -1,6 +1,6 @@
 import { preferences } from '@kit.ArkData';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { StudySession } from '../services/AIAnalysisService';
+import { StudySession } from '../services/LearningAnalysisService';
 import { ContinuationManager } from './ContinuationManager';
 
 const DOMAIN = 0x0001;

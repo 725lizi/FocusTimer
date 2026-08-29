@@ -6,7 +6,7 @@ import { CalendarSyncManager } from '../common/CalendarSyncManager';
 import { ShareManager } from '../common/ShareManager';
 import { SubjectTagManager } from '../common/SubjectTagManager';
 import { SubjectTagModel } from '../model/SubjectTagModel';
-import { AIAnalysisService, StudySession } from '../services/AIAnalysisService';
+import { LearningAnalysisService, StudySession } from '../services/LearningAnalysisService';
 import { FocusSessionStore } from '../common/FocusSessionStore';
 import { GlobalContext } from '../common/GlobalContext';
 
@@ -143,8 +143,8 @@ struct Statistics {
 
       this.subjectDistribution = distribution;
 
-      const aiService = AIAnalysisService.getInstance();
-      this.weeklyReport = (await aiService.generateWeeklyReport(sessions)).replace(/\\\\n/g, '\\n');
+      const analysisService = LearningAnalysisService.getInstance();
+      this.weeklyReport = (await analysisService.generateWeeklyReport(sessions)).replace(/\\\\n/g, '\\n');
     } catch (err) {
       console.error('loadStatistics failed: ' + JSON.stringify(err));
     }
