@@ -20,6 +20,15 @@ import { CardDataBuilder, WidgetCardData } from '../common/CardDataBuilder';
 
 import EntryFormAbility from '../entryformability/EntryFormAbility';
 import { BottomNavBar } from '../components/BottomNavBar';
+import { OfflineBanner } from '../components/OfflineBanner';
+import { IndexHeader } from '../components/IndexHeader';
+import { TimerRingSection } from '../components/TimerRingSection';
+import { DailyGoalCard } from '../components/DailyGoalCard';
+import { SubjectChips } from '../components/SubjectChips';
+import { DurationSelector } from '../components/DurationSelector';
+import { FocusModeToggle } from '../components/FocusModeToggle';
+import { AmbientLightCard } from '../components/AmbientLightCard';
+import { TodayStatsCard } from '../components/TodayStatsCard';
 
 @Entry
 @Component
@@ -57,7 +66,6 @@ struct Index {
 
   @State lightValue: number = 0;
   @State isEyeCareAlertShown: boolean = false;
-  private static readonly DARK_LIGHT_THRESHOLD = 50;
 
   // 自动专注时间段（晚自习）
   private static readonly AUTO_FOCUS_START_HOUR = 19;
@@ -198,17 +206,6 @@ struct Index {
       console.error('saveSessionToDb failed: ' + JSON.stringify(err));
     }
   }
-  private get progress(): number {
-    if (this.totalSecond === 0) return 0;
-    return 1 - this.currentSecond / this.totalSecond;
-  }
-
-  private get timeDisplay(): string {
-    const min = Math.floor(this.currentSecond / 60);
-    const sec = this.currentSecond % 60;
-    return `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
-  }
-
   // 更新每日进度，确保不会出现 NaN 或 undefined
   private updateDailyProgress(): void {
     if (this.dailyGoalMinutes <= 0) {
@@ -263,267 +260,59 @@ struct Index {
   build() {
     Column() {
       if (this.isOffline) {
-        Row() {
-          Text('📡 离线模式 · 数据已本地保存，联网后自动同步')
-            .fontSize(12)
-            .fontColor(Color.White)
-            .textAlign(TextAlign.Center)
-        }
-        .width('100%')
-        .padding(8)
-        .backgroundColor(Constants.COLOR_WARNING)
+        OfflineBanner()
       }
 
-      Row() {
-        Text('专注计时')
-          .fontSize(22)
-          .fontWeight(FontWeight.Bold)
-          .fontColor(Constants.COLOR_TEXT)
-        Blank()
-        Button('流转')
-          .height(32)
-          .fontSize(14)
-          .backgroundColor(Constants.COLOR_PRIMARY)
-          .fontColor(Color.White)
-          .borderRadius(16)
-          .onClick(() => {
-            this.navigateToPage(Constants.PAGE_NOTES);
-          })
-      }
-      .width('100%')
-      .padding({ left: 20, right: 20, top: 15, bottom: 10 })
+      IndexHeader({ onTransfer: () => this.navigateToPage(Constants.PAGE_NOTES) })
 
       // ====== 可滚动内容区域 ======
       Scroll() {
         Column() {
-          Column() {
-            Stack() {
-              Circle()
-                .width(240)
-                .height(240)
-                .fill(Color.White)
-                .shadow({ radius: 20, color: 'rgba(74,144,217,0.15)', offsetX: 0, offsetY: 4 })
-              Circle()
-                .width(220)
-                .height(220)
-                .fill(Color.White)
-                .stroke(this.isRunning ? Constants.COLOR_PRIMARY : Constants.COLOR_ACCENT)
-                .strokeWidth(8)
-                .strokeDashArray([this.progress * 690, 690])
-              Column() {
-                Text(this.timeDisplay)
-                  .fontSize(52)
-                  .fontWeight(FontWeight.Bold)
-                  .fontColor(Constants.COLOR_TEXT)
-                  .fontFamily('monospace')
-                Text(this.isRunning ? '专注中...' : '准备就绪')
-                  .fontSize(14)
-                  .fontColor(Constants.COLOR_TEXT_SUB)
-                  .margin({ top: 8 })
-              }
-            }
-            .margin({ top: 30 })
+          TimerRingSection({
+            currentSecond: this.currentSecond,
+            totalSecond: this.totalSecond,
+            isRunning: this.isRunning,
+            onToggle: () => this.toggleTimer(),
+            onReset: () => this.resetTimer()
+          })
 
-            Button(this.isRunning ? '暂停' : '开始专注')
-              .width(180)
-              .height(50)
-              .fontSize(18)
-              .fontWeight(FontWeight.Medium)
-              .backgroundColor(this.isRunning ? Constants.COLOR_ACCENT : Constants.COLOR_PRIMARY)
-              .fontColor(Color.White)
-              .borderRadius(25)
-              .margin({ top: 40 })
-              .onClick(() => {
-                this.toggleTimer();
-              })
-
-            if (!this.isRunning && this.currentSecond !== this.totalSecond) {
-              Button('重置')
-                .width(120)
-                .height(40)
-                .fontSize(14)
-                .backgroundColor(Color.Transparent)
-                .fontColor(Constants.COLOR_TEXT_SUB)
-                .borderRadius(20)
-                .border({ width: 1, color: Constants.COLOR_TEXT_SUB })
-                .margin({ top: 16 })
-                .onClick(() => {
-                  this.resetTimer();
-                })
-            }
-          }
-          .width('100%')
-          .padding(20)
-
-          // 今日学习目标进度
-          Column() {
-            Row() {
-              Text('🎯 今日学习目标')
-                .fontSize(15)
-                .fontWeight(FontWeight.Medium)
-                .fontColor(Constants.COLOR_TEXT)
-              Blank()
-              Text(`${this.todayFocusMinutes}/${this.dailyGoalMinutes}分钟`)
-                .fontSize(13)
-                .fontColor(Constants.COLOR_TEXT_SUB)
-            }
-            .width('100%')
-
-            Stack({ alignContent: Alignment.Start }) {
-              Row()
-                .width('100%')
-                .height(10)
-                .backgroundColor('#EEEEEE')
-                .borderRadius(5)
-              Row()
-                .width(`${this.dailyProgressValue}%`)
-                .height(10)
-                .backgroundColor(Constants.COLOR_PRIMARY)
-                .borderRadius(5)
-            }
-            .width('100%')
-            .margin({ top: 10 })
-
-            Text(this.dailyProgressValue >= 100 ? '🎉 今日目标已达成！太棒了！' : `已完成 ${this.dailyProgressValue}%，继续加油！`)
-              .fontSize(13)
-              .fontColor(this.dailyProgressValue >= 100 ? Constants.COLOR_SUCCESS : Constants.COLOR_PRIMARY)
-              .margin({ top: 8 })
-          }
-          .width('90%')
-          .padding(16)
-          .backgroundColor(Color.White)
-          .borderRadius(16)
-          .margin({ top: 20 })
+          DailyGoalCard({
+            todayFocusMinutes: this.todayFocusMinutes,
+            dailyGoalMinutes: this.dailyGoalMinutes,
+            dailyProgressValue: this.dailyProgressValue
+          })
 
           if (this.subjectTags.length > 0) {
-            Scroll() {
-              Row({ space: 8 }) {
-                ForEach(this.subjectTags, (tag: SubjectTagModel) => {
-                  Column() {
-                    Text(tag.icon).fontSize(18)
-                    Text(tag.name)
-                      .fontSize(10)
-                      .fontColor(this.selectedSubjectTagId === tag.id ? Color.White : Constants.COLOR_TEXT_SUB)
-                  }
-                  .padding({ left: 12, right: 12, top: 6, bottom: 6 })
-                  .backgroundColor(this.selectedSubjectTagId === tag.id ? tag.color : Color.White)
-                  .borderRadius(16)
-                  .border({ width: 1, color: tag.color })
-                  .onClick(() => {
-                    this.selectedSubjectTagId = tag.id;
-                  })
-                })
+            SubjectChips({
+              tags: this.subjectTags,
+              selectedId: this.selectedSubjectTagId,
+              onSelect: (id: string) => {
+                this.selectedSubjectTagId = id;
               }
-            }
-            .scrollable(ScrollDirection.Horizontal)
-            .width('90%')
-            .margin({ top: 12 })
+            })
           }
 
-          Column() {
-            Text('选择时长')
-              .fontSize(16)
-              .fontWeight(FontWeight.Medium)
-              .fontColor(Constants.COLOR_TEXT)
-              .margin({ bottom: 12 })
-            Row({ space: 10 }) {
-              ForEach(Constants.PRESET_LABELS, (label: string, index: number) => {
-                Text(label)
-                  .fontSize(13)
-                  .fontColor(this.selectedDuration === index ? Color.White : Constants.COLOR_PRIMARY)
-                  .backgroundColor(this.selectedDuration === index ? Constants.COLOR_PRIMARY : Color.White)
-                  .borderRadius(16)
-                  .padding({ left: 14, right: 14, top: 8, bottom: 8 })
-                  .border({ width: 1, color: Constants.COLOR_PRIMARY })
-                  .onClick(() => {
-                    if (!this.isRunning) {
-                      this.selectedDuration = index;
-                      this.totalSecond = Constants.PRESET_DURATIONS[index];
-                      this.currentSecond = Constants.PRESET_DURATIONS[index];
-                    }
-                  })
-              })
+          DurationSelector({
+            selectedIndex: this.selectedDuration,
+            disabled: this.isRunning,
+            onSelect: (index: number) => {
+              this.selectedDuration = index;
+              this.totalSecond = Constants.PRESET_DURATIONS[index];
+              this.currentSecond = Constants.PRESET_DURATIONS[index];
             }
-            .width('100%')
-            .justifyContent(FlexAlign.SpaceBetween)
-          }
-          .width('90%')
-          .padding(16)
-          .backgroundColor(Color.White)
-          .borderRadius(16)
-          .margin({ top: 20 })
+          })
 
-          Row() {
-            Text('专注免打扰模式')
-              .fontSize(15)
-              .fontColor(Constants.COLOR_TEXT)
-            Blank()
-            Toggle({ type: ToggleType.Switch, isOn: this.focusMode })
-              .selectedColor(Constants.COLOR_PRIMARY)
-              .onChange((isOn: boolean) => {
-                this.focusMode = isOn;
-                this.showToast(isOn ? '已开启免打扰' : '已关闭免打扰');
-              })
-          }
-          .width('90%')
-          .padding(16)
-          .backgroundColor(Color.White)
-          .borderRadius(16)
-          .margin({ top: 12 })
-
-          Row() {
-            Text(this.lightValue < Index.DARK_LIGHT_THRESHOLD ? '🌙' : '☀️')
-              .fontSize(22)
-            Column() {
-              Text('环境光线')
-                .fontSize(14)
-                .fontColor(Constants.COLOR_TEXT)
-              Text(`${Math.round(this.lightValue)} lux${this.lightValue < Index.DARK_LIGHT_THRESHOLD ? ' (偏暗，注意护眼)' : ''}`)
-                .fontSize(12)
-                .fontColor(this.lightValue < Index.DARK_LIGHT_THRESHOLD ? '#FF6B35' : Constants.COLOR_TEXT_SUB)
-                .margin({ top: 2 })
+          FocusModeToggle({
+            isOn: this.focusMode,
+            onChange: (isOn: boolean) => {
+              this.focusMode = isOn;
+              this.showToast(isOn ? '已开启免打扰' : '已关闭免打扰');
             }
-            .alignItems(HorizontalAlign.Start)
-            .margin({ left: 10 })
-          }
-          .width('90%')
-          .padding(16)
-          .backgroundColor(Color.White)
-          .borderRadius(16)
-          .margin({ top: 12 })
+          })
 
-          Row() {
-            Column() {
-              Text(`${this.todayFocusCount}`)
-                .fontSize(24)
-                .fontWeight(FontWeight.Bold)
-                .fontColor(Constants.COLOR_PRIMARY)
-              Text('今日次数')
-                .fontSize(12)
-                .fontColor(Constants.COLOR_TEXT_SUB)
-                .margin({ top: 4 })
-            }
-            .layoutWeight(1)
+          AmbientLightCard({ lightValue: this.lightValue })
 
-            Divider().vertical(true).height(30)
-
-            Column() {
-              Text(`${this.todayFocusMinutes}`)
-                .fontSize(24)
-                .fontWeight(FontWeight.Bold)
-                .fontColor(Constants.COLOR_ACCENT)
-              Text('今日分钟')
-                .fontSize(12)
-                .fontColor(Constants.COLOR_TEXT_SUB)
-                .margin({ top: 4 })
-            }
-            .layoutWeight(1)
-          }
-          .width('90%')
-          .padding(16)
-          .backgroundColor(Color.White)
-          .borderRadius(16)
-          .margin({ bottom: 10 })
+          TodayStatsCard({ count: this.todayFocusCount, minutes: this.todayFocusMinutes })
         }
         .width('100%')
         .padding({ bottom: 20 })
