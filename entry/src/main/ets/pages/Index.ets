@@ -498,7 +498,7 @@ struct Index {
   // 订阅环境光传感器，实时驱动首页光线卡片（设备无该传感器时静默兜底）
   private startLightMonitoring(): void {
     try {
-      sensor.on(sensor.SensorId.AMBIENT_LIGHT, (data: sensor.AmbientLightResponse) => {
+      sensor.on(sensor.SensorId.AMBIENT_LIGHT, (data: sensor.LightResponse) => {
         this.lightValue = Math.round(data.intensity);
       }, { interval: 2000000000 }); // 采样间隔 2 秒（单位纳秒），降低功耗
     } catch (err) {

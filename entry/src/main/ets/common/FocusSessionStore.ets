@@ -42,6 +42,9 @@ export class FocusSessionStore {
 
   /** 读取全部专注会话（保持存储原顺序）；异常或无数据时返回空数组 */
   public async getAllSessions(): Promise<StudySession[]> {
+    if (this.context === null) {
+      return [];
+    }
     try {
       const prefs = await preferences.getPreferences(this.context, SESSION_PREFS);
       const raw = await prefs.get(SESSIONS_KEY, '[]') as string;
@@ -54,6 +57,9 @@ export class FocusSessionStore {
 
   /** 追加一条专注会话（读-改-写，与历史实现行为一致） */
   public async appendSession(session: StudySession): Promise<void> {
+    if (this.context === null) {
+      return;
+    }
     try {
       const prefs = await preferences.getPreferences(this.context, SESSION_PREFS);
       const sessions = await this.getAllSessions();
