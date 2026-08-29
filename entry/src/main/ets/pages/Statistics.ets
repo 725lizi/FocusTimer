@@ -7,7 +7,7 @@ import { ShareManager } from '../common/ShareManager';
 import { SubjectTagManager } from '../common/SubjectTagManager';
 import { SubjectTagModel } from '../model/SubjectTagModel';
 import { AIAnalysisService, StudySession } from '../services/AIAnalysisService';
-import { preferences } from '@kit.ArkData';
+import { FocusSessionStore } from '../common/FocusSessionStore';
 import { GlobalContext } from '../common/GlobalContext';
 
 /** 统计项接口 */
@@ -76,9 +76,7 @@ struct Statistics {
   private async loadStatistics(): Promise<void> {
     try {
       const calendarManager = CalendarSyncManager.getInstance();
-      const prefs = await preferences.getPreferences(getContext(this), 'study_data');
-      const data = await prefs.get('sessions', '[]') as string;
-      let sessions: StudySession[] = JSON.parse(data);
+      let sessions: StudySession[] = await FocusSessionStore.getInstance().getAllSessions();
 
       // 兼容旧数据：把"X分钟"这种错误标签（旧版把时长预设名当科目名存了）清洗为"未分类"
       sessions = sessions.map((s: StudySession) => {
@@ -156,9 +154,7 @@ struct Statistics {
     try {
       this.selectedSubjectFilter = subjectTagId;
 
-      const prefs = await preferences.getPreferences(getContext(this), 'study_data');
-      const data = await prefs.get('sessions', '[]') as string;
-      const sessions: StudySession[] = JSON.parse(data);
+      const sessions: StudySession[] = await FocusSessionStore.getInstance().getAllSessions();
 
       let filteredSessions = sessions;
       if (subjectTagId) {

@@ -8,6 +8,7 @@ import { sensor } from '@kit.SensorServiceKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { ContinuationManager, SessionState } from '../common/ContinuationManager';
 import { TimerEngine } from '../common/TimerEngine';
+import { FocusSessionStore } from '../common/FocusSessionStore';
 import { SubjectTagManager } from '../common/SubjectTagManager';
 import { SubjectTagModel } from '../model/SubjectTagModel';
 import { OfflineCacheManager } from '../common/OfflineCacheManager';
@@ -172,12 +173,12 @@ struct Index {
 
   private async saveSessionToDb(): Promise<void> {
     try {
-      const continuationManager = ContinuationManager.getInstance();
+      const sessionStore = FocusSessionStore.getInstance();
       const tagManager = SubjectTagManager.getInstance();
       const tagName = await tagManager.getTagName(this.selectedSubjectTagId);
       const taskName = tagName ? `${tagName}学习` : '专注学习';
 
-      await continuationManager.saveStudySessionToDb(
+      await sessionStore.insertStudyRecord(
         taskName,
         this.sessionStartTime,
         Date.now(),
@@ -185,7 +186,7 @@ struct Index {
         this.selectedSubjectTagId
       );
 
-      const dbMinutes = await continuationManager.loadTodayTotalMinutes();
+      const dbMinutes = await sessionStore.getTodayTotalMinutes();
       this.todayFocusMinutes = dbMinutes;
       this.updateDailyProgress();
 
@@ -480,9 +481,9 @@ struct Index {
 
   private async handleSessionEnd(session: StudySession) {
     try {
-      await this.saveSession(session);
+      await FocusSessionStore.getInstance().appendSession(session);
       await this.loadTodayStats();
-      const allSessions = await this.loadAllSessions();
+      const allSessions = await FocusSessionStore.getInstance().getAllSessions();
       const report = await AIAnalysisService.getInstance().generateReport(allSessions);
       this.showAIReport(report);
     } catch (err) {
@@ -490,39 +491,11 @@ struct Index {
     }
   }
 
-  private async saveSession(session: StudySession) {
-    try {
-      const prefs = await preferences.getPreferences(getContext(this), 'study_data');
-      const existing = await prefs.get('sessions', '[]') as string;
-      const sessions: StudySession[] = JSON.parse(existing);
-      sessions.push(session);
-      await prefs.put('sessions', JSON.stringify(sessions));
-      await prefs.flush();
-    } catch (err) {
-      console.error('saveSession failed: ' + JSON.stringify(err));
-    }
-  }
-
-  private async loadAllSessions(): Promise<StudySession[]> {
-    try {
-      const prefs = await preferences.getPreferences(getContext(this), 'study_data');
-      const existing = await prefs.get('sessions', '[]') as string;
-      return JSON.parse(existing) as StudySession[];
-    } catch (err) {
-      console.error('loadAllSessions failed: ' + JSON.stringify(err));
-      return [];
-    }
-  }
-
   private async loadTodayStats(): Promise<void> {
     try {
-      const continuationManager = ContinuationManager.getInstance();
-      const todayMinutes = await continuationManager.loadTodayTotalMinutes();
-      this.todayFocusMinutes = todayMinutes;
-      const allSessions = await this.loadAllSessions();
-      const todayStart = new Date();
-      todayStart.setHours(0, 0, 0, 0);
-      const todaySessions = allSessions.filter(s => s.startTime >= todayStart.getTime());
+      const sessionStore = FocusSessionStore.getInstance();
+      this.todayFocusMinutes = await sessionStore.getTodayTotalMinutes();
+      const todaySessions = await sessionStore.getTodaySessions();
       this.todayFocusCount = todaySessions.length;
 
       // 更新进度条

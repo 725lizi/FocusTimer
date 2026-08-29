@@ -5,6 +5,7 @@ import window from '@ohos.window';
 
 import { DatabaseHelper } from '../common/DatabaseHelper';
 import { ContinuationManager } from '../common/ContinuationManager';
+import { FocusSessionStore } from '../common/FocusSessionStore';
 
 const DOMAIN = 0x0001;
 const TAG = "FocusTimer";
@@ -41,6 +42,8 @@ export default class EntryAbility extends UIAbility {
 
     // 初始化跨设备接续管理器（从 Preferences 恢复未完成的计时状态）
     ContinuationManager.getInstance().init(this.context);
+    // 初始化专注记录仓库（统一专注会话读写入口）
+    FocusSessionStore.getInstance().init(this.context);
 
     this.initDistributedFocus();
     this.initDistributedNote();
