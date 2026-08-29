@@ -155,5 +155,33 @@ export default function timerEngineTest() {
       engine.pause();
       expect(engine.pauseCount).assertEqual(2);
     });
+
+    it('restoreFromCheckpoint_shouldRebuildTotalAndRemain', 0, () => {
+      const engine = new TimerEngine(1500);
+      engine.start();
+      engine.tick();
+      engine.restoreFromCheckpoint(3600, 1200);
+      expect(engine.totalSecond).assertEqual(3600);
+      expect(engine.currentSecond).assertEqual(1200);
+      expect(engine.isRunning).assertFalse();
+      expect(engine.pauseCount).assertEqual(0);
+      engine.start();
+      engine.tick();
+      expect(engine.currentSecond).assertEqual(1199);
+    });
+
+    it('tick_whenNotStarted_shouldStayFrozen', 0, () => {
+      const engine = new TimerEngine(600);
+      expect(engine.tick()).assertFalse();
+      expect(engine.currentSecond).assertEqual(600);
+    });
+
+    it('checkpoint_atZero_shouldNotPersist', 0, () => {
+      const engine = new TimerEngine(1);
+      engine.start();
+      engine.tick(); // 1 -> 0
+      expect(engine.currentSecond).assertEqual(0);
+      expect(engine.shouldPersistCheckpoint()).assertFalse();
+    });
   });
 }

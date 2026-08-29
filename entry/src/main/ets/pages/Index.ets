@@ -7,6 +7,7 @@ import { vibrator } from '@kit.SensorServiceKit';
 import { sensor } from '@kit.SensorServiceKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { ContinuationManager, SessionState } from '../common/ContinuationManager';
+import { TimerEngine } from '../common/TimerEngine';
 import { SubjectTagManager } from '../common/SubjectTagManager';
 import { SubjectTagModel } from '../model/SubjectTagModel';
 import { OfflineCacheManager } from '../common/OfflineCacheManager';
@@ -54,6 +55,8 @@ struct Index {
   @State isOffline: boolean = false;
 
   private timerId: number = -1;
+  // 纯逻辑计时状态机；下面的 @State 仅作为它的镜像，用于驱动界面刷新
+  private timerEngine: TimerEngine = new TimerEngine(Constants.PRESET_DURATIONS[Constants.DEFAULT_INDEX]);
 
   @State todayFocusCount: number = 0;
   @State todayFocusMinutes: number = 0;
@@ -61,8 +64,6 @@ struct Index {
   @State dailyProgressValue: number = 0; // 保存计算后的进度百分比
 
   private sessionStartTime: number = 0;
-  private interruptCount: number = 0;
-  private hasRemindedToRest: boolean = false;
 
   @State lightValue: number = 0;
   @State isEyeCareAlertShown: boolean = false;
@@ -137,8 +138,10 @@ struct Index {
     try {
       const continuationManager = ContinuationManager.getInstance();
       const sessionState: SessionState = continuationManager.getSessionState();
-      this.currentSecond = sessionState.remainSeconds || this.currentSecond;
-      this.totalSecond = sessionState.totalSeconds || this.totalSecond;
+      const totalSeconds: number = sessionState.totalSeconds || this.timerEngine.totalSecond;
+      const remainSeconds: number = sessionState.remainSeconds || this.timerEngine.currentSecond;
+      this.timerEngine.restoreFromCheckpoint(totalSeconds, remainSeconds);
+      this.syncFromEngine();
       this.selectedSubjectTagId = sessionState.subjectTagId || '';
       if (sessionState.isPaused !== true) {
         this.startTimer();
@@ -297,8 +300,8 @@ struct Index {
             disabled: this.isRunning,
             onSelect: (index: number) => {
               this.selectedDuration = index;
-              this.totalSecond = Constants.PRESET_DURATIONS[index];
-              this.currentSecond = Constants.PRESET_DURATIONS[index];
+              this.timerEngine.setDuration(Constants.PRESET_DURATIONS[index]);
+              this.syncFromEngine();
             }
           })
 
@@ -355,14 +358,28 @@ struct Index {
     }
   }
 
-  private startTimer(): void {
-    if (this.currentSecond <= 0) {
-      this.currentSecond = this.totalSecond;
+  // 把纯逻辑引擎的当前状态同步为驱动界面的 @State 镜像
+  private syncFromEngine(): void {
+    this.currentSecond = this.timerEngine.currentSecond;
+    this.totalSecond = this.timerEngine.totalSecond;
+    this.isRunning = this.timerEngine.isRunning;
+  }
+
+  // 停止计时时的系统侧副作用：清定时器、退出免打扰与久坐监测、保存接续点
+  private stopRunningSideEffects(): void {
+    if (this.timerId !== -1) {
+      clearInterval(this.timerId);
+      this.timerId = -1;
     }
-    this.isRunning = true;
+    FocusModeManager.getInstance().stopFocusMode();
+    SedentaryReminderManager.getInstance().stopMonitoring();
+    this.saveContinuationState();
+  }
+
+  private startTimer(): void {
+    this.timerEngine.start();
+    this.syncFromEngine();
     this.sessionStartTime = Date.now();
-    this.interruptCount = 0;
-    this.hasRemindedToRest = false;
     this.saveContinuationState();
     if (this.focusMode) {
       FocusModeManager.getInstance().startFocusMode(Math.floor(this.totalSecond / 60));
@@ -371,38 +388,38 @@ struct Index {
       console.info('🪑 久坐提醒触发');
     });
     this.timerId = setInterval(() => {
-      if (this.currentSecond > 0) {
-        this.currentSecond--;
-        if (this.currentSecond % 30 === 0) {
-          this.saveContinuationState();
-        }
-        const elapsed = this.totalSecond - this.currentSecond;
-        if (elapsed >= 2700 && !this.hasRemindedToRest) {
-          this.hasRemindedToRest = true;
-          this.triggerRestReminder();
-        }
-      } else {
+      const completed: boolean = this.timerEngine.tick();
+      this.syncFromEngine();
+      if (completed) {
         this.onTimerComplete();
+        return;
+      }
+      if (this.timerEngine.shouldPersistCheckpoint()) {
+        this.saveContinuationState();
+      }
+      if (this.timerEngine.shouldTriggerRestReminder()) {
+        this.triggerRestReminder();
       }
     }, 1000);
   }
 
   private pauseTimer(): void {
-    this.isRunning = false;
+    this.timerEngine.pause();
+    this.syncFromEngine();
+    this.stopRunningSideEffects();
+  }
+
+  private resetTimer(): void {
     if (this.timerId !== -1) {
       clearInterval(this.timerId);
       this.timerId = -1;
     }
-    this.interruptCount++;
     FocusModeManager.getInstance().stopFocusMode();
     SedentaryReminderManager.getInstance().stopMonitoring();
+    // 引擎 reset 内部暂停一次（中断计数 +1，与历史行为一致）、剩余回满并清除休息提醒标记
+    this.timerEngine.reset();
+    this.syncFromEngine();
     this.saveContinuationState();
-  }
-
-  private resetTimer(): void {
-    this.pauseTimer();
-    this.currentSecond = this.totalSecond;
-    this.hasRemindedToRest = false;
   }
 
   private onTimerComplete(): void {
@@ -423,7 +440,6 @@ struct Index {
         ]
       }).then((result: promptAction.ShowDialogSuccessResponse) => {
         if (result.index === 0) {
-          this.currentSecond = this.totalSecond;
           this.startTimer();
         }
       }).catch((err: BusinessError) => {
@@ -456,8 +472,8 @@ struct Index {
       startTime: this.sessionStartTime || Date.now(),
       duration: durationMinutes,
       tags: [subjectName],
-      isInterrupted: this.interruptCount > 0,
-      interruptCount: this.interruptCount
+      isInterrupted: this.timerEngine.pauseCount > 0,
+      interruptCount: this.timerEngine.pauseCount
     };
     await this.handleSessionEnd(session);
   }

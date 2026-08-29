@@ -99,6 +99,18 @@ export class TimerEngine {
   }
 
   /**
+   * 从异常接续点恢复：用保存的总时长与剩余时长重建引擎状态（默认不立即运行，
+   * 由调用方决定是否再调用 start()）。对应 Index.acceptContinuation 的场景。
+   */
+  restoreFromCheckpoint(totalSeconds: number, remainSeconds: number): void {
+    this.totalSecondValue = totalSeconds;
+    this.currentSecondValue = remainSeconds;
+    this.running = false;
+    this.pauseCountValue = 0;
+    this.restReminderTriggeredFlag = false;
+  }
+
+  /**
    * 推进一秒，由 UI 的 setInterval 每 1000ms 调用。
    *
    * 与 Index 的 setInterval 回调语义一致：
