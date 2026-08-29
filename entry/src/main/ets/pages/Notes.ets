@@ -60,7 +60,7 @@ struct Notes {
   // 加密选项
   @State isEncrypted: boolean = false;
 
-  // AI 解析结果
+  // 要点解析结果
   @State aiParseResult: string = '';
 
   // ====== 生命周期 ======
@@ -143,7 +143,7 @@ struct Notes {
     );
   }
 
-  // ====== AI 解析笔记内容 ======
+  // ====== 笔记要点解析（端侧关键词/公式/术语提取） ======
   private async performAIParse(): Promise<void> {
     try {
       if (!this.editContent || this.editContent.trim().length === 0) {
@@ -163,7 +163,7 @@ struct Notes {
       this.aiParseResult = `知识点提取：\n${keywordsText}\n\n摘要：\n${result.summary}`;
     } catch (err) {
       console.error('performAIParse failed: ' + JSON.stringify(err));
-      this.aiParseResult = 'AI 解析失败，请稍后重试。';
+      this.aiParseResult = '要点解析失败，请稍后重试。';
     }
   }
 
@@ -268,8 +268,8 @@ struct Notes {
           }
           .width('100%')
 
-          // AI 解析按钮
-          Button('AI 解析笔记')
+          // 要点解析按钮
+          Button('解析笔记要点')
             .width('100%')
             .height(40)
             .fontSize(14)
@@ -280,7 +280,7 @@ struct Notes {
               this.performAIParse();
             })
 
-          // AI 解析结果展示
+          // 要点解析结果展示
           if (this.aiParseResult) {
             Text(this.aiParseResult)
               .fontSize(13)

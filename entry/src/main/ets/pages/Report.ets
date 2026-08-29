@@ -219,7 +219,7 @@ struct Notes {
 
         Column() {
           Circle({ width: 6, height: 6 }).fill(Constants.COLOR_PRIMARY)
-          Text('AI报告')
+          Text('分析报告')
             .fontSize(12)
             .fontColor(Constants.COLOR_PRIMARY)
             .fontWeight(FontWeight.Bold)

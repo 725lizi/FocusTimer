@@ -411,7 +411,7 @@ struct Statistics {
 
           if (this.weeklyReport) {
             Column() {
-              Text('🤖 AI 智能周报')
+              Text('📊 学习分析周报')
                 .fontSize(16)
                 .fontWeight(FontWeight.Bold)
                 .fontColor(Constants.COLOR_TEXT)

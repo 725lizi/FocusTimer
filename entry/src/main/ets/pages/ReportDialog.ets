@@ -193,9 +193,9 @@ export struct ReportDialog {
             .borderRadius(12)
           }
 
-          // AI建议
+          // 学习建议
           Column() {
-            Text('AI学习建议')
+            Text('学习建议')
               .fontSize(15)
               .fontWeight(FontWeight.Medium)
               .fontColor(Constants.COLOR_TEXT)

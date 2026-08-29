@@ -553,7 +553,7 @@ struct Index {
 
         Column() {
           Circle({ width: 6, height: 6 }).fill(Color.Transparent)
-          Text('AI报告').fontSize(12).fontColor(Constants.COLOR_TEXT_SUB).margin({ top: 4 })
+          Text('分析报告').fontSize(12).fontColor(Constants.COLOR_TEXT_SUB).margin({ top: 4 })
         }.layoutWeight(1)
         .onClick(() => this.navigateToPage(Constants.PAGE_REPORT))
       }
@@ -755,7 +755,7 @@ struct Index {
   }
 
   private showAIReport(report: AIReport): void {
-    console.info(`📊 AI报告 - 专注评分: ${report.focusScore}, 总时长: ${report.totalMinutes}分钟`);
+    console.info(`📊 分析报告 - 专注评分: ${report.focusScore}, 总时长: ${report.totalMinutes}分钟`);
   }
 
   private startLightMonitoring(): void {}
