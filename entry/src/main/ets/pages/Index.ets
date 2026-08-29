@@ -19,6 +19,7 @@ import { CardDataBuilder, WidgetCardData } from '../common/CardDataBuilder';
 
 
 import EntryFormAbility from '../entryformability/EntryFormAbility';
+import { BottomNavBar } from '../components/BottomNavBar';
 
 @Entry
 @Component
@@ -531,36 +532,8 @@ struct Index {
       .scrollBar(BarState.Off)
       .width('100%')
 
-      // ====== 底部导航（固定） ======
-      // ====== 底部导航（固定） ======
-      Row() {
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Constants.COLOR_PRIMARY)
-          Text('计时').fontSize(12).fontColor(Constants.COLOR_PRIMARY).fontWeight(FontWeight.Bold).margin({ top: 4 })
-        }.layoutWeight(1)
-
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Color.Transparent)
-          Text('笔记').fontSize(12).fontColor(Constants.COLOR_TEXT_SUB).margin({ top: 4 })
-        }.layoutWeight(1)
-        .onClick(() => this.navigateToPage(Constants.PAGE_NOTES))
-
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Color.Transparent)
-          Text('统计').fontSize(12).fontColor(Constants.COLOR_TEXT_SUB).margin({ top: 4 })
-        }.layoutWeight(1)
-        .onClick(() => this.navigateToPage(Constants.PAGE_STATS))
-
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Color.Transparent)
-          Text('分析报告').fontSize(12).fontColor(Constants.COLOR_TEXT_SUB).margin({ top: 4 })
-        }.layoutWeight(1)
-        .onClick(() => this.navigateToPage(Constants.PAGE_REPORT))
-      }
-      .width('100%')
-      .height(60)
-      .backgroundColor(Color.White)
-      .borderRadius({ topLeft: 16, topRight: 16 })
+      // ====== 底部导航（全局公共组件） ======
+      BottomNavBar({ active: 'timer' })
 
     }
     .width('100%')

@@ -1,6 +1,6 @@
 import { relationalStore } from '@kit.ArkData';
+import { BottomNavBar } from '../components/BottomNavBar';
 import { Constants } from '../model/Constants';
-import { router } from '@kit.ArkUI';
 import { promptAction } from '@kit.ArkUI';
 import { SubjectTagManager } from '../common/SubjectTagManager';
 import { SubjectTagModel } from '../model/SubjectTagModel';
@@ -389,30 +389,8 @@ struct Notes {
           })
       }
 
-      // 底部导航
-      // 底部导航
-      Row() {
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Constants.COLOR_PRIMARY)
-          Text('计时').fontSize(12).fontColor(Constants.COLOR_PRIMARY).margin({ top: 4 })
-        }.layoutWeight(1)
-        .onClick(() => this.navigateToPage(Constants.PAGE_INDEX))
-
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Color.Transparent)
-          Text('笔记').fontSize(12).fontColor(Constants.COLOR_PRIMARY).fontWeight(FontWeight.Bold).margin({ top: 4 })
-        }.layoutWeight(1)
-
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Color.Transparent)
-          Text('统计').fontSize(12).fontColor(Constants.COLOR_TEXT_SUB).margin({ top: 4 })
-        }.layoutWeight(1)
-        .onClick(() => this.navigateToPage(Constants.PAGE_STATS))
-      }
-      .width('100%')
-      .height(60)
-      .backgroundColor(Color.White)
-      .borderRadius({ topLeft: 16, topRight: 16 })
+      // 底部导航（全局公共组件）
+      BottomNavBar({ active: 'notes' })
 
     }
     .width('100%')
@@ -420,15 +398,6 @@ struct Notes {
     .backgroundColor(Constants.COLOR_BG)
     .bindSheet($$this.showDeviceList, this.deviceSheetBuilder(), { height: 300, dragBar: true })
     .bindContentCover($$this.showTransferConfirm, this.transferConfirmBuilder())
-  }
-
-  // ====== 导航辅助 ======
-  private navigateToPage(url: string): void {
-    try {
-      router.pushUrl({ url: url });
-    } catch (err) {
-      console.error('pushUrl failed: ' + JSON.stringify(err));
-    }
   }
 
   private showToast(message: string): void {

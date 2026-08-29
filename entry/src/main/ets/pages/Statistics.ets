@@ -1,5 +1,5 @@
 import { Constants } from '../model/Constants';
-import { router } from '@kit.ArkUI';
+import { BottomNavBar } from '../components/BottomNavBar';
 import { promptAction } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { CalendarSyncManager } from '../common/CalendarSyncManager';
@@ -194,14 +194,6 @@ struct Statistics {
     weekStart.setTime(weekStart.getTime() - mondayOffset);
     weekStart.setHours(0, 0, 0, 0);
     return weekStart.getTime();
-  }
-
-  private navigateToPage(url: string): void {
-    try {
-      router.pushUrl({ url: url });
-    } catch (err) {
-      console.error('pushUrl failed: ' + JSON.stringify(err));
-    }
   }
 
   private showToast(message: string): void {
@@ -436,45 +428,8 @@ struct Statistics {
       .layoutWeight(1)
       .scrollBar(BarState.Off)
 
-      Row() {
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Color.Transparent)
-          Text('计时')
-            .fontSize(12)
-            .fontColor(Constants.COLOR_TEXT_SUB)
-            .margin({ top: 4 })
-        }
-        .layoutWeight(1)
-        .onClick(() => {
-          this.navigateToPage(Constants.PAGE_INDEX);
-        })
-
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Color.Transparent)
-          Text('笔记')
-            .fontSize(12)
-            .fontColor(Constants.COLOR_TEXT_SUB)
-            .margin({ top: 4 })
-        }
-        .layoutWeight(1)
-        .onClick(() => {
-          this.navigateToPage(Constants.PAGE_NOTES);
-        })
-
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Constants.COLOR_PRIMARY)
-          Text('统计')
-            .fontSize(12)
-            .fontColor(Constants.COLOR_PRIMARY)
-            .fontWeight(FontWeight.Bold)
-            .margin({ top: 4 })
-        }
-        .layoutWeight(1)
-      }
-      .width('100%')
-      .height(60)
-      .backgroundColor(Color.White)
-      .borderRadius({ topLeft: 16, topRight: 16 })
+      // 底部导航（全局公共组件）
+      BottomNavBar({ active: 'stats' })
 
     }
     .width('100%')

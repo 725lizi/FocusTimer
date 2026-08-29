@@ -1,5 +1,5 @@
 import { Constants } from '../model/Constants';
-import { router } from '@kit.ArkUI';
+import { BottomNavBar } from '../components/BottomNavBar';
 import { promptAction } from '@kit.ArkUI';
 
 /** 笔记条目 */
@@ -166,71 +166,8 @@ struct Notes {
           })
       }
 
-      // ====== 底部导航 ======
-      // ====== 底部导航 ======
-      Row() {
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Color.Transparent)
-          Text('计时')
-            .fontSize(12)
-            .fontColor(Constants.COLOR_TEXT_SUB)
-            .margin({ top: 4 })
-        }
-        .layoutWeight(1)
-        .onClick(() => {
-          try {
-            router.pushUrl({ url: Constants.PAGE_INDEX });
-          } catch (err) {
-            console.error('pushUrl failed: ' + JSON.stringify(err));
-          }
-        })
-
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Color.Transparent)
-          Text('笔记')
-            .fontSize(12)
-            .fontColor(Constants.COLOR_TEXT_SUB)
-            .margin({ top: 4 })
-        }
-        .layoutWeight(1)
-        .onClick(() => {
-          try {
-            router.pushUrl({ url: Constants.PAGE_NOTES });
-          } catch (err) {
-            console.error('pushUrl failed: ' + JSON.stringify(err));
-          }
-        })
-
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Color.Transparent)
-          Text('统计')
-            .fontSize(12)
-            .fontColor(Constants.COLOR_TEXT_SUB)
-            .margin({ top: 4 })
-        }
-        .layoutWeight(1)
-        .onClick(() => {
-          try {
-            router.pushUrl({ url: Constants.PAGE_STATS });
-          } catch (err) {
-            console.error('pushUrl failed: ' + JSON.stringify(err));
-          }
-        })
-
-        Column() {
-          Circle({ width: 6, height: 6 }).fill(Constants.COLOR_PRIMARY)
-          Text('分析报告')
-            .fontSize(12)
-            .fontColor(Constants.COLOR_PRIMARY)
-            .fontWeight(FontWeight.Bold)
-            .margin({ top: 4 })
-        }
-        .layoutWeight(1)
-      }
-      .width('100%')
-      .height(60)
-      .backgroundColor(Color.White)
-      .borderRadius({ topLeft: 16, topRight: 16 })
+      // ====== 底部导航（全局公共组件） ======
+      BottomNavBar({ active: 'report' })
 
     }
     .width('100%')
