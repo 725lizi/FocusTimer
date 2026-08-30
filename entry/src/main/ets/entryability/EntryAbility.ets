@@ -6,6 +6,7 @@ import window from '@ohos.window';
 import { DatabaseHelper } from '../common/DatabaseHelper';
 import { ContinuationManager } from '../common/ContinuationManager';
 import { FocusSessionStore } from '../common/FocusSessionStore';
+import { ApiKeyStore } from '../services/ai/ApiKeyStore';
 
 const DOMAIN = 0x0001;
 const TAG = "FocusTimer";
@@ -44,6 +45,12 @@ export default class EntryAbility extends UIAbility {
     ContinuationManager.getInstance().init(this.context);
     // 初始化专注记录仓库（统一专注会话读写入口）
     FocusSessionStore.getInstance().init(this.context);
+
+    // 初始化 AI Key 存储（应用沙箱）；异步载入已保存的 Key/开关，不阻塞启动，失败内部已兜底
+    ApiKeyStore.getInstance().init(this.context);
+    ApiKeyStore.getInstance().load().catch((err: Object) => {
+      hilog.warn(DOMAIN, TAG, 'AI 设置加载失败: ' + JSON.stringify(err));
+    });
 
     this.initDistributedFocus();
     this.initDistributedNote();

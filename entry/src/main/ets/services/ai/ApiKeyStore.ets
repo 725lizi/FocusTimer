@@ -56,9 +56,9 @@ export class ApiKeyStore {
     if (prefs === null) {
       return;
     }
-    this.cachedApiKey = await prefs.get(AiConfig.KEY_API_KEY, '') as string;
-    this.cachedEnabled = await prefs.get(AiConfig.KEY_LLM_ENABLED, false) as boolean;
-    this.cachedModel = await prefs.get(AiConfig.KEY_MODEL, AiConfig.DEFAULT_MODEL) as string;
+    this.cachedApiKey = (await prefs.get(AiConfig.KEY_API_KEY, '')) as string;
+    this.cachedEnabled = (await prefs.get(AiConfig.KEY_LLM_ENABLED, false)) as boolean;
+    this.cachedModel = (await prefs.get(AiConfig.KEY_MODEL, AiConfig.DEFAULT_MODEL)) as string;
     this.loaded = true;
   }
 

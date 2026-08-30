@@ -9,6 +9,9 @@ import { SubjectTagModel } from '../model/SubjectTagModel';
 import { LearningAnalysisService, StudySession } from '../services/LearningAnalysisService';
 import { FocusSessionStore } from '../common/FocusSessionStore';
 import { GlobalContext } from '../common/GlobalContext';
+import { AiReportOrchestrator } from '../services/ai/AiReportOrchestrator';
+import { ApiKeyStore } from '../services/ai/ApiKeyStore';
+import { ReportSource, ReportStatus } from '../services/ai/AiChatTypes';
 
 /** 统计项接口 */
 interface StatItem {
@@ -53,15 +56,32 @@ struct Statistics {
 
   @State isOffline: boolean = false;
 
+  // ===== AI 周报相关状态 =====
+  @State reportStatus: string = 'idle';        // idle/requesting/streaming/succeeded/fallback/failed
+  @State reportSource: string = 'rule';       // llm=AI生成 / rule=本地规则
+  @State reportHint: string = '';             // 降级原因或来源说明（诚实展示给用户）
+  @State showAiSettings: boolean = false;     // AI 设置弹层
+  @State apiKeyInput: string = '';            // 弹层里待保存的 Key
+  @State aiSwitchInSheet: boolean = false;    // 弹层里的 AI 开关
+  @State hasKey: boolean = false;             // 当前是否已保存 Key
+  private orchestrator: AiReportOrchestrator = new AiReportOrchestrator();
+  private allSessions: StudySession[] = [];   // 缓存最近一次记录，供 AI 生成复用
+
   @State subjectDistribution: SubjectDistributionItem[] = [];
 
   async aboutToAppear(): Promise<void> {
+    this.refreshKeyState();
     await this.loadSubjectTags();
 
     const offlineFlag: Object | undefined = GlobalContext.getContext().getObject(Constants.OFFLINE_FLAG);
     this.isOffline = offlineFlag === true;
 
     await this.loadStatistics();
+  }
+
+  aboutToDisappear(): void {
+    // 离开页面取消未完成的流式请求，避免监听/请求泄漏
+    this.orchestrator.cancel();
   }
 
   private async loadSubjectTags(): Promise<void> {
@@ -88,6 +108,8 @@ struct Statistics {
         });
         return s;
       });
+      // 缓存清洗后的记录，供「AI 生成周报」直接复用
+      this.allSessions = sessions;
 
       const today = new Date().toDateString();
       const weekStart = this.getWeekStartTime();
@@ -143,8 +165,12 @@ struct Statistics {
 
       this.subjectDistribution = distribution;
 
+      // 进页面默认先给本地规则版周报（保证一进来就有内容，AI 由用户手动触发）
       const analysisService = LearningAnalysisService.getInstance();
-      this.weeklyReport = (await analysisService.generateWeeklyReport(sessions)).replace(/\\\\n/g, '\\n');
+      this.weeklyReport = (await analysisService.generateWeeklyReport(sessions)).replace(/\\n/g, '\n');
+      this.reportSource = 'rule';
+      this.reportStatus = 'succeeded';
+      this.reportHint = '';
     } catch (err) {
       console.error('loadStatistics failed: ' + JSON.stringify(err));
     }
@@ -197,6 +223,91 @@ struct Statistics {
       promptAction.showToast({ message: message });
     } catch (err) {
       console.error('showToast failed: ' + JSON.stringify(err));
+    }
+  }
+
+  // ============ AI 周报：编排接入 ============
+
+  private refreshKeyState(): void {
+    this.hasKey = ApiKeyStore.getInstance().hasApiKeySync();
+  }
+
+  /** 点击「✨ AI生成」：走编排服务，自动决策 AI / 规则 / 降级 */
+  private async generateAiReport(): Promise<void> {
+    try {
+      if (this.reportStatus === 'requesting' || this.reportStatus === 'streaming') {
+        return; // 生成中防重复点击
+      }
+      let sessions: StudySession[] = this.allSessions;
+      if (sessions.length === 0) {
+        sessions = await FocusSessionStore.getInstance().getAllSessions();
+        this.allSessions = sessions;
+      }
+
+      this.reportHint = '';
+      this.weeklyReport = '';
+      this.reportStatus = 'requesting';
+
+      await this.orchestrator.generate(sessions, {
+        onStatus: (status: ReportStatus, source: ReportSource, hint: string) => {
+          this.reportStatus = status;
+          this.reportSource = source;
+          if (hint.length > 0) {
+            this.reportHint = hint;
+          }
+        },
+        onDelta: (fullText: string) => {
+          // 流式：每来一段就用累计全文刷新界面，实现逐字出现
+          this.weeklyReport = fullText;
+        },
+        onDone: (text: string, source: ReportSource, hint: string) => {
+          this.weeklyReport = text;
+          this.reportSource = source;
+          this.reportStatus = 'succeeded';
+          if (hint.length > 0) {
+            this.reportHint = hint;
+          }
+        }
+      });
+    } catch (err) {
+      this.reportStatus = 'failed';
+      this.showToast('AI 周报生成异常，请查看本地规则版');
+      console.error('generateAiReport failed: ' + JSON.stringify(err));
+    }
+  }
+
+  private openAiSettings(): void {
+    const store = ApiKeyStore.getInstance();
+    this.apiKeyInput = '';
+    this.aiSwitchInSheet = store.isEnabledSync();
+    this.refreshKeyState();
+    this.showAiSettings = true;
+  }
+
+  private async saveAiSettings(): Promise<void> {
+    try {
+      const store = ApiKeyStore.getInstance();
+      if (this.apiKeyInput.trim().length > 0) {
+        await store.saveApiKey(this.apiKeyInput.trim());
+      }
+      await store.setLlmEnabled(this.aiSwitchInSheet);
+      this.refreshKeyState();
+      this.showAiSettings = false;
+      this.showToast('AI 设置已保存');
+    } catch (err) {
+      this.showToast('保存失败，请重试');
+      console.error('saveAiSettings failed: ' + JSON.stringify(err));
+    }
+  }
+
+  private async clearAiKey(): Promise<void> {
+    try {
+      await ApiKeyStore.getInstance().clearApiKey();
+      this.apiKeyInput = '';
+      this.refreshKeyState();
+      this.showToast('已清空 Key');
+    } catch (err) {
+      console.error('clearAiKey failed: ' + JSON.stringify(err));
     }
   }
 
@@ -397,26 +508,89 @@ struct Statistics {
             .alignItems(HorizontalAlign.Start)
           }
 
-          if (this.weeklyReport) {
-            Column() {
+          // ===== 学习分析周报（规则版 + AI 流式版共用卡片）=====
+          Column() {
+            Row() {
               Text('📊 学习分析周报')
                 .fontSize(16)
                 .fontWeight(FontWeight.Bold)
                 .fontColor(Constants.COLOR_TEXT)
-                .margin({ bottom: 8 })
+              Blank()
+              Text(this.reportSource === 'llm' ? '✨ AI 周报' : '本地规则')
+                .fontSize(10)
+                .fontColor(Color.White)
+                .backgroundColor(this.reportSource === 'llm' ? '#6C5CE7' : '#9AA5B1')
+                .borderRadius(8)
+                .padding({ left: 6, right: 6, top: 2, bottom: 2 })
+                .margin({ right: 8 })
+              Button('✨ AI生成')
+                .height(28)
+                .fontSize(12)
+                .backgroundColor(Constants.COLOR_PRIMARY)
+                .fontColor(Color.White)
+                .borderRadius(14)
+                .enabled(this.reportStatus !== 'requesting' && this.reportStatus !== 'streaming')
+                .onClick(() => {
+                  this.generateAiReport();
+                })
+              Button('设置')
+                .height(28)
+                .fontSize(12)
+                .margin({ left: 6 })
+                .backgroundColor(Color.White)
+                .fontColor(Constants.COLOR_PRIMARY)
+                .borderRadius(14)
+                .border({ width: 1, color: Constants.COLOR_PRIMARY })
+                .onClick(() => {
+                  this.openAiSettings();
+                })
+            }
+            .width('100%')
+            .margin({ bottom: 8 })
 
-              Text(this.weeklyReport)
-                .fontSize(13)
+            if (this.reportHint.length > 0) {
+              Text(this.reportHint)
+                .fontSize(11)
                 .fontColor(Constants.COLOR_TEXT_SUB)
-                .lineHeight(20)
+                .margin({ bottom: 6 })
                 .textAlign(TextAlign.Start)
             }
-            .width('90%')
-            .padding(16)
-            .backgroundColor(Color.White)
-            .borderRadius(16)
-            .alignItems(HorizontalAlign.Start)
+
+            if (this.reportStatus === 'requesting') {
+              Row({ space: 8 }) {
+                LoadingProgress()
+                  .width(18)
+                  .height(18)
+                  .color(Constants.COLOR_PRIMARY)
+                Text('AI 正在连接并生成…')
+                  .fontSize(12)
+                  .fontColor(Constants.COLOR_TEXT_SUB)
+              }
+              .margin({ bottom: 6 })
+            } else if (this.reportStatus === 'streaming') {
+              Row({ space: 8 }) {
+                LoadingProgress()
+                  .width(18)
+                  .height(18)
+                  .color('#6C5CE7')
+                Text('正在逐字生成…')
+                  .fontSize(12)
+                  .fontColor('#6C5CE7')
+              }
+              .margin({ bottom: 6 })
+            }
+
+            Text(this.weeklyReport || '暂无周报数据')
+              .fontSize(13)
+              .fontColor(Constants.COLOR_TEXT_SUB)
+              .lineHeight(20)
+              .textAlign(TextAlign.Start)
           }
+          .width('90%')
+          .padding(16)
+          .backgroundColor(Color.White)
+          .borderRadius(16)
+          .alignItems(HorizontalAlign.Start)
         }
         .width('100%')
         .padding({ top: 16, bottom: 20 })
@@ -433,6 +607,10 @@ struct Statistics {
     .backgroundColor(Constants.COLOR_BG)
     .bindSheet($$this.showShareDialog, this.shareSheetBuilder(), {
       height: 250,
+      dragBar: true
+    })
+    .bindSheet($$this.showAiSettings, this.aiSettingsBuilder(), {
+      height: 480,
       dragBar: true
     })
   }
@@ -483,5 +661,82 @@ struct Statistics {
     }
     .width('100%')
     .padding(24)
+  }
+
+  // ===== AI 设置底部弹层：填 Key、开关、保存、清空 =====
+  @Builder
+  aiSettingsBuilder() {
+    Column({ space: 14 }) {
+      Text('AI 周报设置')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+
+      Column({ space: 6 }) {
+        Text('DeepSeek API Key（只保存在本机沙箱，不会上传、不进代码仓库）')
+          .fontSize(12)
+          .fontColor(Constants.COLOR_TEXT_SUB)
+        TextInput({
+          text: this.apiKeyInput,
+          placeholder: this.hasKey ? '已保存，输入新值可覆盖' : '粘贴 sk- 开头的 Key'
+        })
+          .type(InputType.Password)
+          .height(44)
+          .borderRadius(8)
+          .backgroundColor('#F5F6F8')
+          .onChange((value: string) => {
+            this.apiKeyInput = value;
+          })
+      }
+      .width('100%')
+      .alignItems(HorizontalAlign.Start)
+
+      Row() {
+        Text('启用 AI 周报')
+          .fontSize(14)
+          .fontColor(Constants.COLOR_TEXT)
+          .layoutWeight(1)
+        Toggle({ type: ToggleType.Switch, isOn: this.aiSwitchInSheet })
+          .selectedColor(Constants.COLOR_PRIMARY)
+          .onChange((isOn: boolean) => {
+            this.aiSwitchInSheet = isOn;
+          })
+      }
+      .width('100%')
+
+      Row({ space: 12 }) {
+        Button('清空 Key')
+          .layoutWeight(1)
+          .height(42)
+          .fontSize(13)
+          .backgroundColor(Color.White)
+          .fontColor('#E74C3C')
+          .borderRadius(21)
+          .border({ width: 1, color: '#E74C3C' })
+          .onClick(() => {
+            this.clearAiKey();
+          })
+        Button('保存')
+          .layoutWeight(1)
+          .height(42)
+          .fontSize(14)
+          .backgroundColor(Constants.COLOR_PRIMARY)
+          .fontColor(Color.White)
+          .borderRadius(21)
+          .onClick(() => {
+            this.saveAiSettings();
+          })
+      }
+      .width('100%')
+
+      Text('未开启 AI、未填 Key 或无网络时，会自动使用本地规则周报，功能不会中断；AI 出错也会自动回退。')
+        .fontSize(11)
+        .fontColor('#BBBBBB')
+        .textAlign(TextAlign.Start)
+    }
+    .width('100%')
+    .padding(24)
+    .backgroundColor(Color.White)
+    .borderRadius({ topLeft: 20, topRight: 20 })
+    .alignItems(HorizontalAlign.Start)
   }
 }
