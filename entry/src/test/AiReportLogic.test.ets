@@ -77,13 +77,15 @@ export default function aiReportLogicTest() {
       expect(req.max_tokens > 0).assertTrue();
     });
 
-    it('promptBuilder_weekStart_shouldBeMondayMidnight', 0, () => {
-      // 周日 08-30 12:00 与周一 08-31 00:30 都应归属到同一个本周一 08-24 00:00
+    it('promptBuilder_weekStart_shouldSnapToMondayMidnight', 0, () => {
+      // 一周从周一 00:00 起：周日 08-30（上一周最后一天）回退到本周一 08-24；
+      // 周一 08-31 00:30 已进入新一周，其本周一就是当天 08-31 00:00
       const sunday: Date = new Date(2026, 7, 30, 12, 0);
-      const monday: Date = new Date(2026, 7, 31, 0, 30);
-      const expected: number = new Date(2026, 7, 24, 0, 0, 0, 0).getTime();
-      expect(ReportPromptBuilder.getWeekStartTime(sunday)).assertEqual(expected);
-      expect(ReportPromptBuilder.getWeekStartTime(monday)).assertEqual(expected);
+      const mondayEarly: Date = new Date(2026, 7, 31, 0, 30);
+      const mondayOfSundayWeek: number = new Date(2026, 7, 24, 0, 0, 0, 0).getTime();
+      const mondayOfNewWeek: number = new Date(2026, 7, 31, 0, 0, 0, 0).getTime();
+      expect(ReportPromptBuilder.getWeekStartTime(sunday)).assertEqual(mondayOfSundayWeek);
+      expect(ReportPromptBuilder.getWeekStartTime(mondayEarly)).assertEqual(mondayOfNewWeek);
     });
 
     // ===== SseChunkParser =====
