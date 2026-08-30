@@ -7,6 +7,7 @@ import focusAndSedentaryTest from './FocusModeAndSedentary.test';
 import securityAndWhitelistTest from './SecurityAndWhitelist.test';
 import offlineAndCardTest from './OfflineCacheAndCard.test';
 import aiReportLogicTest from './AiReportLogic.test';
+import aiNetworkLogicTest from './AiNetworkLogic.test';
 
 export default function testsuite() {
   localUnitTest();
@@ -18,4 +19,5 @@ export default function testsuite() {
   securityAndWhitelistTest();
   offlineAndCardTest();
   aiReportLogicTest();
+  aiNetworkLogicTest();
 }
