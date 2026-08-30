@@ -1,13 +1,7 @@
 import { formBindingData, formProvider, FormExtensionAbility, formInfo } from '@kit.FormKit';
 import { Want } from '@kit.AbilityKit';
 import { preferences } from '@kit.ArkData';
-
-interface CardData {
-  title: string;
-  focusTime: string;
-  taskInfo: string;
-  todayMinutes: string;
-}
+import { CardDataBuilder, CardData } from '../common/CardDataBuilder';
 
 export default class EntryFormAbility extends FormExtensionAbility {
   // 内存缓存的 formId（App 运行期间用）
@@ -96,24 +90,10 @@ export default class EntryFormAbility extends FormExtensionAbility {
       const lastDuration = await prefs.get('lastDuration', 0) as number;
       const lastSubject = await prefs.get('lastSubject', '') as string;
 
-      const min = Math.floor(lastDuration);
-      const focusTime = `${min < 10 ? '0' + min : min}:00`;
-      const subjectText = lastSubject ? `今日待学：${lastSubject}` : '今日待学：未选择';
-
-      return {
-        title: '专注计时',
-        focusTime: focusTime,
-        taskInfo: subjectText,
-        todayMinutes: `${todayMinutes}分钟`
-      };
+      return CardDataBuilder.build(todayMinutes, lastDuration, lastSubject);
     } catch (err) {
       console.error('加载卡片数据失败: ' + JSON.stringify(err));
-      return {
-        title: '专注计时',
-        focusTime: '00:00',
-        taskInfo: '今日待学：未选择',
-        todayMinutes: '0分钟'
-      };
+      return CardDataBuilder.build(0, 0, '');
     }
   }
 
