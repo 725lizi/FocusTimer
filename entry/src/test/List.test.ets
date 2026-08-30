@@ -8,6 +8,7 @@ import securityAndWhitelistTest from './SecurityAndWhitelist.test';
 import offlineAndCardTest from './OfflineCacheAndCard.test';
 import aiReportLogicTest from './AiReportLogic.test';
 import aiNetworkLogicTest from './AiNetworkLogic.test';
+import markdownLiteTest from './MarkdownLite.test';
 
 export default function testsuite() {
   localUnitTest();
@@ -20,4 +21,5 @@ export default function testsuite() {
   offlineAndCardTest();
   aiReportLogicTest();
   aiNetworkLogicTest();
+  markdownLiteTest();
 }

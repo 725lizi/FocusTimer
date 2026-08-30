@@ -12,6 +12,7 @@ import { GlobalContext } from '../common/GlobalContext';
 import { AiReportOrchestrator } from '../services/ai/AiReportOrchestrator';
 import { ApiKeyStore } from '../services/ai/ApiKeyStore';
 import { ReportSource, ReportStatus } from '../services/ai/AiChatTypes';
+import { MarkdownLite, TextSpan } from '../common/MarkdownLite';
 
 /** 统计项接口 */
 interface StatItem {
@@ -580,11 +581,29 @@ struct Statistics {
               .margin({ bottom: 6 })
             }
 
-            Text(this.weeklyReport || '暂无周报数据')
-              .fontSize(13)
-              .fontColor(Constants.COLOR_TEXT_SUB)
-              .lineHeight(20)
-              .textAlign(TextAlign.Start)
+            if (this.weeklyReport.length > 0) {
+              // 规则版/AI 版正文都可能含 Markdown 的 **加粗** 标记：
+              // 解析成片段后用 Span 渲染，加粗段用粗体深色，普通段用常规色，且不再显示星号
+              Text() {
+                ForEach(MarkdownLite.parseBoldSpans(this.weeklyReport),
+                  (span: TextSpan) => {
+                    Span(span.text)
+                      .fontSize(13)
+                      .fontWeight(span.bold ? FontWeight.Bold : FontWeight.Normal)
+                      .fontColor(span.bold ? '#2D3436' : Constants.COLOR_TEXT_SUB)
+                  },
+                  (span: TextSpan, index: number) => `${index}-${span.bold}-${span.text.length}`)
+              }
+                .width('100%')
+                .lineHeight(20)
+                .textAlign(TextAlign.Start)
+            } else {
+              Text('暂无周报数据')
+                .fontSize(13)
+                .fontColor(Constants.COLOR_TEXT_SUB)
+                .lineHeight(20)
+                .textAlign(TextAlign.Start)
+            }
           }
           .width('90%')
           .padding(16)
