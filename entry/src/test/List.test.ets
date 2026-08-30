@@ -6,6 +6,7 @@ import learningAnalysisTest from './LearningAnalysisService.test';
 import focusAndSedentaryTest from './FocusModeAndSedentary.test';
 import securityAndWhitelistTest from './SecurityAndWhitelist.test';
 import offlineAndCardTest from './OfflineCacheAndCard.test';
+import aiReportLogicTest from './AiReportLogic.test';
 
 export default function testsuite() {
   localUnitTest();
@@ -16,4 +17,5 @@ export default function testsuite() {
   focusAndSedentaryTest();
   securityAndWhitelistTest();
   offlineAndCardTest();
+  aiReportLogicTest();
 }
