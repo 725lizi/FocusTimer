@@ -14,6 +14,7 @@ import vectorMathTest from './VectorMath.test';
 import embeddingParserTest from './EmbeddingParser.test';
 import vectorStoreAndRetrieverTest from './VectorStoreAndRetriever.test';
 import indexPipelineTest from './IndexPipeline.test';
+import qaPlannerTest from './QaPlanner.test';
 
 export default function testsuite() {
   localUnitTest();
@@ -32,4 +33,5 @@ export default function testsuite() {
   embeddingParserTest();
   vectorStoreAndRetrieverTest();
   indexPipelineTest();
+  qaPlannerTest();
 }

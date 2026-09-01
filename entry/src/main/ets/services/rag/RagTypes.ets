@@ -43,3 +43,27 @@ export interface ScoredChunk {
   chunk: EmbeddedChunk;
   score: number;
 }
+
+/** 回答模式：grounded=有个人材料可依据；no_evidence=本地没找到足够相关的材料 */
+export type QaMode = 'grounded' | 'no_evidence';
+
+/** 一条来源引用（同一篇笔记的多个块合并成一条），用于界面展示「答案依据了我的哪些材料」 */
+export interface Citation {
+  sourceId: string;
+  sourceType: ChunkSourceType;
+  title: string;
+  /** 命中的块序号 */
+  chunkIndexes: number[];
+  /** 这些块里的最高相似度 */
+  topScore: number;
+}
+
+/** 问答规划结果：决策模式 + 拼好的材料上下文 + 最终提示词 + 引用清单 */
+export interface QaPlan {
+  mode: QaMode;
+  question: string;
+  contextBlock: string;
+  prompt: string;
+  citations: Citation[];
+  usedCount: number;
+}
