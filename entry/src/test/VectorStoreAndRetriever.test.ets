@@ -16,6 +16,18 @@ function chunk(sourceId: string, idx: number, vector: number[], text: string): E
   return c;
 }
 
+function buildStore(): VectorStore {
+  const store: VectorStore = new VectorStore();
+  store.addChunks([
+    chunk('s', 0, [1, 0], 'A'),        // 与 [1,0] 同向，余弦 1
+    chunk('s', 1, [1, 1], 'B'),        // 余弦 1/sqrt2 ≈ 0.707
+    chunk('s', 2, [0, 1], 'C'),        // 正交，余弦 0
+    chunk('s', 3, [-1, 0], 'D'),       // 反向，余弦 -1（默认阈值 0 会被过滤）
+    chunk('s', 4, [1, 0, 0], 'E')      // 维度不一致，应跳过不崩
+  ]);
+  return store;
+}
+
 export default function vectorStoreAndRetrieverTest() {
   describe('VectorStore', () => {
 
@@ -54,18 +66,6 @@ export default function vectorStoreAndRetrieverTest() {
   });
 
   describe('VectorRetriever', () => {
-
-    function buildStore(): VectorStore {
-      const store: VectorStore = new VectorStore();
-      store.addChunks([
-        chunk('s', 0, [1, 0], 'A'),        // 与 [1,0] 同向，余弦 1
-        chunk('s', 1, [1, 1], 'B'),        // 余弦 1/sqrt2 ≈ 0.707
-        chunk('s', 2, [0, 1], 'C'),        // 正交，余弦 0
-        chunk('s', 3, [-1, 0], 'D'),       // 反向，余弦 -1（默认阈值 0 会被过滤）
-        chunk('s', 4, [1, 0, 0], 'E')      // 维度不一致，应跳过不崩
-      ]);
-      return store;
-    }
 
     it('retriever_emptyStoreReturnsEmpty', 0, () => {
       expect(VectorRetriever.search(new VectorStore(), [1, 0], 3).length).assertEqual(0);
