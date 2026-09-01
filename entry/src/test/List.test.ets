@@ -12,6 +12,7 @@ import markdownLiteTest from './MarkdownLite.test';
 import textChunkerTest from './TextChunker.test';
 import vectorMathTest from './VectorMath.test';
 import embeddingParserTest from './EmbeddingParser.test';
+import vectorStoreAndRetrieverTest from './VectorStoreAndRetriever.test';
 
 export default function testsuite() {
   localUnitTest();
@@ -28,4 +29,5 @@ export default function testsuite() {
   textChunkerTest();
   vectorMathTest();
   embeddingParserTest();
+  vectorStoreAndRetrieverTest();
 }

@@ -37,3 +37,9 @@ export interface EmbeddingInputItem {
   text: string;
   index: number;
 }
+
+/** 检索命中结果：被命中的已向量化块 + 它与查询的相似度分数（余弦，-1~1，越大越相关） */
+export interface ScoredChunk {
+  chunk: EmbeddedChunk;
+  score: number;
+}
