@@ -22,6 +22,7 @@ import { HttpErrorMapper } from '../services/ai/HttpErrorMapper';
 struct KnowledgeBase {
   @State answer: string = '';
   @State status: string = 'idle';          // idle / working / streaming / succeeded / failed
+  @State isAsking: boolean = false;       // 是否正在问答（显式状态，驱动输入框/按钮，避免在 UI 里绑定方法调用）
   @State hint: string = '';
   @State citations: Citation[] = [];
   @State qaMode: string = '';              // grounded / no_evidence
@@ -57,14 +58,10 @@ struct KnowledgeBase {
     }
   }
 
-  private busy(): boolean {
-    return this.status === 'working' || this.status === 'streaming';
-  }
-
   // ============ 提问 ============
   private async sendQuestion(): Promise<void> {
     const question: string = this.questionInput.trim();
-    if (this.busy()) {
+    if (this.isAsking) {
       return;
     }
     if (question.length === 0) {
@@ -88,6 +85,7 @@ struct KnowledgeBase {
     this.qaMode = '';
     this.hint = '';
     this.status = 'working';
+    this.isAsking = true;
 
     try {
       await RagRuntime.getInstance().ask(question, embedKey, llmKey, {
@@ -106,16 +104,19 @@ struct KnowledgeBase {
         },
         onError: (kind: LlmErrorKind, message: string) => {
           this.status = 'failed';
+          this.isAsking = false;
           this.hint = HttpErrorMapper.userMessage(kind);
           console.error('RAG QA error: ' + kind + ' ' + message);
         },
         onComplete: (fullText: string) => {
           this.answer = fullText;
           this.status = 'succeeded';
+          this.isAsking = false;
         }
       }, 5);
     } catch (err) {
       this.status = 'failed';
+      this.isAsking = false;
       this.hint = '问答失败，请检查网络或 Key 后重试';
       console.error('sendQuestion failed: ' + JSON.stringify(err));
     }
@@ -123,6 +124,7 @@ struct KnowledgeBase {
 
   private cancelQuestion(): void {
     RagRuntime.getInstance().cancelQa();
+    this.isAsking = false;
     this.status = this.answer.length > 0 ? 'succeeded' : 'idle';
   }
 
@@ -278,7 +280,7 @@ struct KnowledgeBase {
       // 答案区
       Scroll() {
         Column() {
-          if (this.busy()) {
+          if (this.isAsking) {
             Row({ space: 8 }) {
               LoadingProgress()
                 .width(18)
@@ -314,7 +316,7 @@ struct KnowledgeBase {
             .width('100%')
             .lineHeight(22)
             .textAlign(TextAlign.Start)
-          } else if (!this.busy()) {
+          } else if (!this.isAsking) {
             Text('向我提问吧，我会优先根据你自己的笔记回答。\n例如：我这周学的导数有哪些要点？\n\n第一次使用请先点「重建知识库」收录笔记。')
               .fontSize(13)
               .fontColor(Constants.COLOR_TEXT_SUB)
@@ -340,11 +342,11 @@ struct KnowledgeBase {
           .height(40)
           .borderRadius(20)
           .backgroundColor('#F5F6F8')
-          .enabled(!this.busy())
+          .enabled(!this.isAsking)
           .onChange((value: string) => {
             this.questionInput = value;
           })
-        if (this.busy()) {
+        if (this.isAsking) {
           Button('停止')
             .height(40)
             .fontSize(13)
