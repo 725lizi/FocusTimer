@@ -337,12 +337,12 @@ struct KnowledgeBase {
 
       // 底部输入栏
       Row({ space: 8 }) {
-        TextInput({ text: this.questionInput, placeholder: '基于你的笔记提问…' })
+        TextInput({ placeholder: '基于你的笔记提问…', text: this.questionInput })
           .layoutWeight(1)
           .height(40)
+          .fontSize(14)
           .borderRadius(20)
           .backgroundColor('#F5F6F8')
-          .enabled(!this.isAsking)
           .onChange((value: string) => {
             this.questionInput = value;
           })
