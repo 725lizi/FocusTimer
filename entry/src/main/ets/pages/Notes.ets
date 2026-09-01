@@ -171,6 +171,16 @@ struct Notes {
     Column() {
       // 顶部标题栏
       Row() {
+        // 编辑状态下在左上角提供快速返回，避免内容过长时要滚到底部才能退出
+        if (this.isEditing) {
+          Text('‹ 返回')
+            .fontSize(15)
+            .fontColor(Constants.COLOR_PRIMARY)
+            .margin({ right: 10 })
+            .onClick(() => {
+              this.isEditing = false;
+            })
+        }
         Text('笔记流转')
           .fontSize(22)
           .fontWeight(FontWeight.Bold)
