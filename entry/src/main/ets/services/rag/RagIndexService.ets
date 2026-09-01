@@ -73,6 +73,11 @@ export class RagIndexService {
     return result;
   }
 
+  /** 删除某来源的索引（数据库 + 由调用方同步内存库） */
+  async removeSource(sourceId: string): Promise<void> {
+    await this.repository.deleteSource(sourceId);
+  }
+
   /** 从数据库把已有索引全部加载进内存向量库（App 启动时调用，实现重启后可检索） */
   async hydrateInto(memoryStore: VectorStore): Promise<number> {
     const all: EmbeddedChunk[] = await this.repository.loadAll();

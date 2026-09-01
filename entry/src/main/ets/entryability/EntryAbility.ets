@@ -7,6 +7,8 @@ import { DatabaseHelper } from '../common/DatabaseHelper';
 import { ContinuationManager } from '../common/ContinuationManager';
 import { FocusSessionStore } from '../common/FocusSessionStore';
 import { ApiKeyStore } from '../services/ai/ApiKeyStore';
+import { EmbeddingKeyStore } from '../services/rag/EmbeddingKeyStore';
+import { RagRuntime } from '../services/rag/RagRuntime';
 
 const DOMAIN = 0x0001;
 const TAG = "FocusTimer";
@@ -50,6 +52,17 @@ export default class EntryAbility extends UIAbility {
     ApiKeyStore.getInstance().init(this.context);
     ApiKeyStore.getInstance().load().catch((err: Object) => {
       hilog.warn(DOMAIN, TAG, 'AI 设置加载失败: ' + JSON.stringify(err));
+    });
+
+    // 初始化 RAG 向量化 Key 存储，并把已持久化的向量块加载回内存（重启后立即可检索）
+    EmbeddingKeyStore.getInstance().init(this.context);
+    EmbeddingKeyStore.getInstance().load().catch((err: Object) => {
+      hilog.warn(DOMAIN, TAG, '向量化设置加载失败: ' + JSON.stringify(err));
+    });
+    RagRuntime.getInstance().hydrate().then((count: number) => {
+      hilog.info(DOMAIN, TAG, `RAG 已恢复 ${count} 个向量块`);
+    }).catch((err: Object) => {
+      hilog.warn(DOMAIN, TAG, 'RAG 向量恢复失败: ' + JSON.stringify(err));
     });
 
     this.initDistributedFocus();
