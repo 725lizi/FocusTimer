@@ -641,7 +641,7 @@ struct Statistics {
         .fontSize(18)
         .fontWeight(FontWeight.Bold)
 
-      Text(this.weeklyReport || '暂无报告数据')
+      Text(this.weeklyReport.length > 0 ? MarkdownLite.stripBoldMarkers(this.weeklyReport) : '暂无报告数据')
         .fontSize(13)
         .fontColor(Constants.COLOR_TEXT_SUB)
         .maxLines(4)

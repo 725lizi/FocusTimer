@@ -1,4 +1,5 @@
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { MarkdownLite } from './MarkdownLite';
 
 const DOMAIN = 0x0001;
 const TAG = "ShareManager";
@@ -36,7 +37,8 @@ export class ShareManager {
     const shareData: ShareData = {
       type: 'study_report',
       title: '本周学习报告',
-      content: weeklyReport,
+      // 分享出去是纯文本、无法加粗，统一去掉 Markdown 的 ** 标记，避免对方看到星号
+      content: MarkdownLite.stripBoldMarkers(weeklyReport),
       shareTime: Date.now(),
       appName: '鸿端时记'
     };
