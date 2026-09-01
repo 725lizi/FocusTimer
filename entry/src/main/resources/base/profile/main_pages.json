@@ -5,6 +5,7 @@
     "pages/Statistics",
     "pages/Report",
     "pages/DeviceWhitelistPage",
-    "pages/EncryptedFolderPage"
+    "pages/EncryptedFolderPage",
+    "pages/KnowledgeBase"
   ]
 }

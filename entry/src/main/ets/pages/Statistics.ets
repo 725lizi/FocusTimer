@@ -1,6 +1,6 @@
 import { Constants } from '../model/Constants';
 import { BottomNavBar } from '../components/BottomNavBar';
-import { promptAction } from '@kit.ArkUI';
+import { promptAction, router } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { CalendarSyncManager } from '../common/CalendarSyncManager';
 import { ShareManager } from '../common/ShareManager';
@@ -320,6 +320,16 @@ struct Statistics {
           .fontWeight(FontWeight.Bold)
           .fontColor(Constants.COLOR_TEXT)
         Blank()
+        Button('🧠 知识库')
+          .height(32)
+          .fontSize(13)
+          .margin({ right: 8 })
+          .backgroundColor('#6C5CE7')
+          .fontColor(Color.White)
+          .borderRadius(16)
+          .onClick(() => {
+            router.pushUrl({ url: 'pages/KnowledgeBase' });
+          })
         Button('📤 分享')
           .height(32)
           .fontSize(13)
