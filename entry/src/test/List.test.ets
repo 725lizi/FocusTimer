@@ -9,6 +9,7 @@ import offlineAndCardTest from './OfflineCacheAndCard.test';
 import aiReportLogicTest from './AiReportLogic.test';
 import aiNetworkLogicTest from './AiNetworkLogic.test';
 import markdownLiteTest from './MarkdownLite.test';
+import textChunkerTest from './TextChunker.test';
 
 export default function testsuite() {
   localUnitTest();
@@ -22,4 +23,5 @@ export default function testsuite() {
   aiReportLogicTest();
   aiNetworkLogicTest();
   markdownLiteTest();
+  textChunkerTest();
 }
