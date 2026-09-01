@@ -52,6 +52,7 @@ export class Constants {
   static readonly TABLE_DEVICE_WHITELIST: string = 'device_whitelist';
   static readonly TABLE_ENCRYPTED_FOLDER: string = 'encrypted_folder';
   static readonly TABLE_PENDING_SYNC: string = 'pending_sync';
+  static readonly TABLE_RAG_CHUNK: string = 'rag_vector_chunk';
 
   // ====== 分布式 ======
   static readonly KVSTORE_ID: string = 'hongduan_kvstore';

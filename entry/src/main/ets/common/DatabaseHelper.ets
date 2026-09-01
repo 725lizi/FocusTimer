@@ -101,12 +101,29 @@ export class DatabaseHelper {
         created_at INTEGER NOT NULL
       )`;
 
+      const createRagChunkTable = `CREATE TABLE IF NOT EXISTS ${Constants.TABLE_RAG_CHUNK} (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        source_id TEXT NOT NULL,
+        source_type TEXT NOT NULL,
+        source_title TEXT DEFAULT '',
+        source_time INTEGER NOT NULL,
+        chunk_index INTEGER NOT NULL,
+        text TEXT DEFAULT '',
+        vector TEXT NOT NULL,
+        model TEXT DEFAULT '',
+        created_at INTEGER NOT NULL
+      )`;
+      const createRagSourceIndex =
+        `CREATE INDEX IF NOT EXISTS idx_rag_chunk_source ON ${Constants.TABLE_RAG_CHUNK}(source_id)`;
+
       await this.rdbStore.executeSql(createSessionTable);
       await this.rdbStore.executeSql(createNoteTable);
       await this.rdbStore.executeSql(createSubjectTagTable);
       await this.rdbStore.executeSql(createDeviceWhitelistTable);
       await this.rdbStore.executeSql(createEncryptedFolderTable);
       await this.rdbStore.executeSql(createPendingSyncTable);
+      await this.rdbStore.executeSql(createRagChunkTable);
+      await this.rdbStore.executeSql(createRagSourceIndex);
 
       hilog.info(DOMAIN, TAG, '所有数据表创建完成');
     } catch (err) {
