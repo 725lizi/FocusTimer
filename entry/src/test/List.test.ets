@@ -10,6 +10,8 @@ import aiReportLogicTest from './AiReportLogic.test';
 import aiNetworkLogicTest from './AiNetworkLogic.test';
 import markdownLiteTest from './MarkdownLite.test';
 import textChunkerTest from './TextChunker.test';
+import vectorMathTest from './VectorMath.test';
+import embeddingParserTest from './EmbeddingParser.test';
 
 export default function testsuite() {
   localUnitTest();
@@ -24,4 +26,6 @@ export default function testsuite() {
   aiNetworkLogicTest();
   markdownLiteTest();
   textChunkerTest();
+  vectorMathTest();
+  embeddingParserTest();
 }

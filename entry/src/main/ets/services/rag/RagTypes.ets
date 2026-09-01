@@ -23,3 +23,17 @@ export interface TextChunk extends ChunkMeta {
   /** 块正文（已去除首尾空白） */
   text: string;
 }
+
+/** 一个文本块被向量化后得到的「嵌入向量」，即用一串数字表示这段文字的语义 */
+export type EmbeddingVector = number[];
+
+/** 已向量化的文本块：文本块 + 它的向量，后续存入本地向量库用于相似度检索 */
+export interface EmbeddedChunk extends TextChunk {
+  vector: EmbeddingVector;
+}
+
+/** 一次向量化请求的单条输入（文本 + 可选的客户端侧序号，用于和返回结果对齐） */
+export interface EmbeddingInputItem {
+  text: string;
+  index: number;
+}
