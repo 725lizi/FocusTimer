@@ -87,9 +87,15 @@ struct KnowledgeBase {
     this.status = 'working';
     this.isAsking = true;
 
+    // 性能埋点：askStart=点发送时刻；gotFirst 保证“首字耗时”只记一次
+    const askStart: number = Date.now();
+    let gotFirst: boolean = false;
+
     try {
       await RagRuntime.getInstance().ask(question, embedKey, llmKey, {
         onPlan: (plan: QaPlan) => {
+          // 到这一步 = 问题向量化(联网) + 本地检索 + 规划 已完成
+          console.info(`[RAG-Perf] plan ready(embed+retrieve)=${Date.now() - askStart}ms, mode=${plan.mode}, used=${plan.usedCount}`);
           this.qaMode = plan.mode;
           this.citations = plan.citations;
           this.status = 'streaming';
@@ -100,15 +106,23 @@ struct KnowledgeBase {
           }
         },
         onDelta: (delta: string) => {
+          if (!gotFirst) {
+            gotFirst = true;
+            // TTFT：从点发送到看到第一个字（含问题向量化+检索+大模型出首字）
+            console.info(`[RAG-Perf] TTFT first-token=${Date.now() - askStart}ms`);
+          }
           this.answer += delta;
         },
         onError: (kind: LlmErrorKind, message: string) => {
           this.status = 'failed';
           this.isAsking = false;
           this.hint = HttpErrorMapper.userMessage(kind);
+          console.info(`[RAG-Perf] ask failed after=${Date.now() - askStart}ms, kind=${kind}`);
           console.error('RAG QA error: ' + kind + ' ' + message);
         },
         onComplete: (fullText: string) => {
+          // 整段回答完成总耗时
+          console.info(`[RAG-Perf] ask done total=${Date.now() - askStart}ms, answerLen=${fullText.length}`);
           this.answer = fullText;
           this.status = 'succeeded';
           this.isAsking = false;
@@ -141,6 +155,7 @@ struct KnowledgeBase {
     }
     this.rebuilding = true;
     this.rebuildHint = '正在读取笔记并向量化…';
+    const rebuildStart: number = Date.now();   // 性能埋点：重建知识库起点
     let noteCount: number = 0;
     let rs: relationalStore.ResultSet | null = null;
     try {
@@ -168,9 +183,12 @@ struct KnowledgeBase {
       }
       this.indexedCount = RagRuntime.getInstance().indexedCount();
       this.rebuildHint = '';
+      // 重建总耗时（读笔记+逐篇切块+分批向量化+落盘）
+      console.info(`[RAG-Perf] rebuild done notes=${noteCount}, chunks=${this.indexedCount}, cost=${Date.now() - rebuildStart}ms`);
       this.showToast(noteCount > 0 ? `知识库已更新，共 ${noteCount} 篇笔记` : '没有可索引的笔记');
     } catch (err) {
       this.rebuildHint = '';
+      console.info(`[RAG-Perf] rebuild failed after=${Date.now() - rebuildStart}ms, processedNotes=${noteCount}`);
       this.showToast('重建失败，请检查网络或 Key');
       console.error('rebuildIndex failed: ' + JSON.stringify(err));
     } finally {
