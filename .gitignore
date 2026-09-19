@@ -26,3 +26,5 @@
 
 # 构建产物
 *.hap
+# Windows folder metadata
+desktop.ini
