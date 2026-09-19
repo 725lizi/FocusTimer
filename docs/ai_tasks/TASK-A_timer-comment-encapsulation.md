@@ -1,4 +1,4 @@
-# Codex 任务单 A：修正 TimerEngine 过时注释 + 收窄 extractNoteKeywords 可见性
+# AI 协作任务单 A：修正 TimerEngine 过时注释 + 收窄 extractNoteKeywords 可见性
 
 > 类型：小步重构（不改变任何运行时行为）
 > 预计改动：2 个源文件 + 1 个测试文件

@@ -15,6 +15,7 @@ import embeddingParserTest from './EmbeddingParser.test';
 import vectorStoreAndRetrieverTest from './VectorStoreAndRetriever.test';
 import indexPipelineTest from './IndexPipeline.test';
 import qaPlannerTest from './QaPlanner.test';
+import mindMapAiPureTest from './MindMapAiPure.test';
 
 export default function testsuite() {
   localUnitTest();
@@ -34,4 +35,5 @@ export default function testsuite() {
   vectorStoreAndRetrieverTest();
   indexPipelineTest();
   qaPlannerTest();
+  mindMapAiPureTest();
 }

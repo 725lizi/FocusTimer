@@ -285,6 +285,15 @@ struct Statistics {
     this.showAiSettings = true;
   }
 
+  // 打开「复盘脑图」页：由 mindmap-harmony 组件渲染 DeepSeek / 本地规则脑图
+  private openMindMapReview(): void {
+    try {
+      router.pushUrl({ url: 'pages/MindMapReview' });
+    } catch (err) {
+      console.error('openMindMapReview pushUrl failed: ' + JSON.stringify(err));
+    }
+  }
+
   private async saveAiSettings(): Promise<void> {
     try {
       const store = ApiKeyStore.getInstance();
@@ -558,6 +567,20 @@ struct Statistics {
             }
             .width('100%')
             .margin({ bottom: 8 })
+
+            // 复盘脑图入口：在线走 DeepSeek 生成，无网 / 无 Key / 坏 JSON 自动降级本地规则树
+            Button('🧠 生成复盘脑图')
+              .width('100%')
+              .height(34)
+              .fontSize(13)
+              .margin({ bottom: 8 })
+              .backgroundColor(Color.White)
+              .fontColor(Constants.COLOR_PRIMARY)
+              .borderRadius(17)
+              .border({ width: 1, color: Constants.COLOR_PRIMARY })
+              .onClick(() => {
+                this.openMindMapReview();
+              })
 
             if (this.reportHint.length > 0) {
               Text(this.reportHint)

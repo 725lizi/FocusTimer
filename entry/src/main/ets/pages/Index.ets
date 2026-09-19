@@ -374,6 +374,7 @@ struct Index {
     SedentaryReminderManager.getInstance().startMonitoring(() => {
       console.info('🪑 久坐提醒触发');
     });
+
     this.timerId = setInterval(() => {
       const completed: boolean = this.timerEngine.tick();
       this.syncFromEngine();
