@@ -43,6 +43,10 @@
 | --- | --- | --- |
 | ![数据统计](shot-stats.png) | ![学习分析周报](shot-report.png) | ![桌面卡片](screenshot_card.png) |
 
+| AI 复盘脑图（DeepSeek 生成） | 规则兜底脑图（断网 / 无 Key） |
+| --- | --- |
+| ![AI 复盘脑图](docs/screenshots/mindmap-review-ai.png) | ![规则兜底脑图](docs/screenshots/mindmap-review-rule.png) |
+
 ## 🛠️ 快速上手
 
 1. 使用 DevEco Studio 打开本项目
