@@ -33,6 +33,7 @@
 - 纯逻辑（提示词组装、JSON 提取规整、规则脑图）由 25 个离线单元测试守护，并与组件库真实反序列化接口做过 2 万组随机数据交叉审计。
 - 组件仓库与落地说明：[github.com/725lizi/MindMap-HarmonyOS](https://github.com/725lizi/MindMap-HarmonyOS)。
 - 技术文章（华为开发者社区）：[我用 ArkTS 自研了一个鸿蒙原生思维导图组件，已上架 ohpm，并让 DeepSeek 驱动它渲染复盘脑图](https://developer.huawei.com/consumer/cn/blog/topic/03225493630433160)。
+- 技术文章（掘金）：[我用 ArkTS 自研了一个鸿蒙原生思维导图组件，已上架 ohpm，并让 DeepSeek 驱动它渲染复盘脑图](https://juejin.cn/post/7688341026176532516)。
 
 ## 📸 截图
 
