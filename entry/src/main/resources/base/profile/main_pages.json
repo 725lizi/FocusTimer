@@ -7,6 +7,7 @@
     "pages/DeviceWhitelistPage",
     "pages/EncryptedFolderPage",
     "pages/KnowledgeBase",
-    "pages/MindMapReview"
+    "pages/MindMapReview",
+    "pages/NoteMindMap"
   ]
 }

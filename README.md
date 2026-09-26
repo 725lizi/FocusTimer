@@ -18,6 +18,7 @@
 - **数据统计**：日 / 周 / 月维度可视化报表，科目学习时长分布一目了然
 - **学习分析周报**：本地汇总学习数据，按三维评分模型给出针对性改进建议
 - **AI 复盘脑图**：接入 DeepSeek 大模型，基于本周专注记录生成思维导图结构化数据，由自研开源鸿蒙组件 [mindmap-harmony](https://github.com/725lizi/MindMap-HarmonyOS) 渲染；无网 / 无 Key / 返回异常时自动降级为本地规则脑图，功能永远有产出
+- **笔记转脑图**：笔记列表任意笔记一键生成思维导图，多级编号、缩进与项目符号如实分层，散文笔记由 AI 自动归纳分支；支持断网规则兜底，加密笔记本期暂不支持
 - **桌面卡片**：桌面小组件实时显示计时状态与今日目标
 - **久坐提醒**：长时间久坐自动提醒，联动穿戴设备
 - **数据安全**：加密文件夹、设备白名单、流转二次确认
@@ -49,6 +50,10 @@
 | --- | --- |
 | ![AI 复盘脑图](docs/screenshots/mindmap-review-ai.png) | ![规则兜底脑图](docs/screenshots/mindmap-review-rule.png) |
 
+| 笔记转脑图 · AI 生成（多级编号 4 层） | 笔记转脑图 · 规则兜底（AI 关闭 / 断网） | 笔记转脑图 · 散文自动归纳 |
+| --- | --- | --- |
+| ![笔记 AI 脑图](docs/screenshots/note-mindmap-ai.png) | ![笔记规则脑图](docs/screenshots/note-mindmap-rule.png) | ![笔记散文脑图](docs/screenshots/note-mindmap-prose.png) |
+
 ## 🛠️ 快速上手
 
 1. 使用 DevEco Studio 打开本项目
@@ -59,7 +64,7 @@
 
 > GitHub Actions 云端无法获取 HarmonyOS NEXT API 24 SDK（华为官方仅允许登录开发者中心下载），
 > 因此云端 CI 仅执行**仓库规范性校验**（关键文件、配置与测试目录完整性检查）；
-> 应用构建与全部 193 个单元测试请在**本地 DevEco Studio** 中执行。
+> 应用构建与全部 209 个单元测试请在**本地 DevEco Studio** 中执行。
 
 **日常更新**：直接向 `main` 分支提交并推送即可，CI 自动完成仓库规范校验，无需额外操作。
 

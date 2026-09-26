@@ -16,6 +16,7 @@ import vectorStoreAndRetrieverTest from './VectorStoreAndRetriever.test';
 import indexPipelineTest from './IndexPipeline.test';
 import qaPlannerTest from './QaPlanner.test';
 import mindMapAiPureTest from './MindMapAiPure.test';
+import noteMindMapPureTest from './NoteMindMapPure.test';
 
 export default function testsuite() {
   localUnitTest();
@@ -36,4 +37,5 @@ export default function testsuite() {
   indexPipelineTest();
   qaPlannerTest();
   mindMapAiPureTest();
+  noteMindMapPureTest();
 }

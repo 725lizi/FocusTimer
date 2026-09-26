@@ -1,7 +1,7 @@
 import { relationalStore } from '@kit.ArkData';
 import { BottomNavBar } from '../components/BottomNavBar';
 import { Constants } from '../model/Constants';
-import { promptAction } from '@kit.ArkUI';
+import { promptAction, router } from '@kit.ArkUI';
 import { SubjectTagManager } from '../common/SubjectTagManager';
 import { SubjectTagModel } from '../model/SubjectTagModel';
 import { DatabaseHelper } from '../common/DatabaseHelper';
@@ -15,6 +15,7 @@ interface NoteItem {
   title: string;
   content: string;
   lastEditTime: string;
+  is_encrypted: number;
 }
 
 /** 笔记数据库值 */
@@ -98,7 +99,8 @@ struct Notes {
             id: resultSet.getString(resultSet.getColumnIndex('id')),
             title: resultSet.getString(resultSet.getColumnIndex('title')),
             content: resultSet.getString(resultSet.getColumnIndex('content')),
-            lastEditTime: this.formatTime(resultSet.getLong(resultSet.getColumnIndex('updated_at')))
+            lastEditTime: this.formatTime(resultSet.getLong(resultSet.getColumnIndex('updated_at'))),
+            is_encrypted: resultSet.getLong(resultSet.getColumnIndex('is_encrypted'))
           };
           dbNotes.push(noteItem);
         }
@@ -358,19 +360,38 @@ struct Notes {
                 }
                 .layoutWeight(1)
                 .alignItems(HorizontalAlign.Start)
+                .onClick(() => {
+                  this.editIndex = index;
+                  this.editTitle = item.title;
+                  this.editContent = item.content;
+                  this.aiParseResult = '';
+                  this.isEditing = true;
+                  this.saveDraft();
+                })
+
+                // 右侧脑图入口（与左 Column 为兄弟节点，点击不会连带打开编辑）
+                if (item.is_encrypted === 1) {
+                  Text('🔒')
+                    .fontSize(16)
+                    .fontColor('#CCCCCC')
+                    .margin({ left: 10 })
+                } else {
+                  Text('🧠 脑图')
+                    .fontSize(12)
+                    .fontColor(Constants.COLOR_PRIMARY)
+                    .backgroundColor('#EEF2FF')
+                    .borderRadius(14)
+                    .padding({ left: 10, right: 10, top: 6, bottom: 6 })
+                    .margin({ left: 10 })
+                    .onClick(() => {
+                      this.openNoteMindMap(item.id);
+                    })
+                }
               }
               .width('100%')
               .padding(16)
               .backgroundColor(Color.White)
               .borderRadius(12)
-              .onClick(() => {
-                this.editIndex = index;
-                this.editTitle = item.title;
-                this.editContent = item.content;
-                this.aiParseResult = '';
-                this.isEditing = true;
-                this.saveDraft();
-              })
             })
           }
           .width('100%')
@@ -415,6 +436,15 @@ struct Notes {
       promptAction.showToast({ message: message });
     } catch (err) {
       console.error('showToast failed: ' + JSON.stringify(err));
+    }
+  }
+
+  // ====== 打开单篇笔记的脑图页 ======
+  private openNoteMindMap(noteId: string): void {
+    try {
+      router.pushUrl({ url: 'pages/NoteMindMap', params: { noteId: noteId } });
+    } catch (err) {
+      console.error('Notes openNoteMindMap failed: ' + JSON.stringify(err));
     }
   }
 
@@ -498,7 +528,8 @@ struct Notes {
           id: existingNote.id,
           title: this.editTitle,
           content: this.editContent,
-          lastEditTime: timeStr
+          lastEditTime: timeStr,
+          is_encrypted: this.isEncrypted ? 1 : 0
         };
         this.noteList = updated;
       } else {
@@ -507,7 +538,8 @@ struct Notes {
           id: newId,
           title: this.editTitle || '无标题',
           content: this.editContent,
-          lastEditTime: timeStr
+          lastEditTime: timeStr,
+          is_encrypted: this.isEncrypted ? 1 : 0
         };
         this.noteList = [newNote, ...this.noteList];
       }
