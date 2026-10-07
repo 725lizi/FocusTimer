@@ -6,10 +6,10 @@ import { Constants } from '../model/Constants';
  */
 @Component
 export struct TimerRingSection {
-  // 当前剩余秒数 / 总秒数 / 是否运行中，均由父页面传入
-  currentSecond: number = 0;
-  totalSecond: number = 0;
-  isRunning: boolean = false;
+  // 当前剩余秒数 / 总秒数 / 是否运行中，均由父页面传入；装饰器让父页面变化时单向同步给本组件
+  @Prop currentSecond: number = 0;
+  @Prop totalSecond: number = 0;
+  @Prop isRunning: boolean = false;
   // 开始或暂停、重置两个动作的回调
   onToggle: () => void = () => {};
   onReset: () => void = () => {};

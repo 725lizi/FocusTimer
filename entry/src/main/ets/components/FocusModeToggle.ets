@@ -3,7 +3,7 @@ import { Constants } from '../model/Constants';
 /** 专注免打扰模式开关行；开关状态由父页面持有，切换经回调上抛 */
 @Component
 export struct FocusModeToggle {
-  isOn: boolean = false;
+  @Prop isOn: boolean = false;
   onChange: (isOn: boolean) => void = () => {};
 
   build() {

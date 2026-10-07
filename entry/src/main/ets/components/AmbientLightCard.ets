@@ -3,7 +3,7 @@ import { Constants } from '../model/Constants';
 /** 环境光线展示卡片：低于暗光阈值时提示护眼；光线数值由父页面传感器采集后传入 */
 @Component
 export struct AmbientLightCard {
-  lightValue: number = 0;
+  @Prop lightValue: number = 0;
 
   build() {
     Row() {

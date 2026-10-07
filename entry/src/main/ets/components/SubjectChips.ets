@@ -4,8 +4,8 @@ import { SubjectTagModel } from '../model/SubjectTagModel';
 /** 科目标签横向滑动选择器；选中项由父页面通过 selectedId 控制，点击经回调上抛 */
 @Component
 export struct SubjectChips {
-  tags: SubjectTagModel[] = [];
-  selectedId: string = '';
+  @Prop tags: SubjectTagModel[] = [];
+  @Prop selectedId: string = '';
   onSelect: (id: string) => void = () => {};
 
   build() {

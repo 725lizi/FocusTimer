@@ -3,8 +3,8 @@ import { Constants } from '../model/Constants';
 /** 今日数据卡片：今日专注次数与累计分钟数 */
 @Component
 export struct TodayStatsCard {
-  count: number = 0;
-  minutes: number = 0;
+  @Prop count: number = 0;
+  @Prop minutes: number = 0;
 
   build() {
     Row() {

@@ -3,9 +3,9 @@ import { Constants } from '../model/Constants';
 /** 专注时长档位选择器；计时运行中禁用切换，点击档位经回调把下标上抛父页面 */
 @Component
 export struct DurationSelector {
-  selectedIndex: number = Constants.DEFAULT_INDEX;
+  @Prop selectedIndex: number = Constants.DEFAULT_INDEX;
   // 是否禁用（计时运行中不允许切换档位）
-  disabled: boolean = false;
+  @Prop disabled: boolean = false;
   onSelect: (index: number) => void = () => {};
 
   build() {

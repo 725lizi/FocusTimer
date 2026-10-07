@@ -3,10 +3,10 @@ import { Constants } from '../model/Constants';
 /** 今日学习目标卡片：已专注分钟数 / 目标分钟数 + 进度条 + 鼓励文案 */
 @Component
 export struct DailyGoalCard {
-  todayFocusMinutes: number = 0;
-  dailyGoalMinutes: number = 120;
+  @Prop todayFocusMinutes: number = 0;
+  @Prop dailyGoalMinutes: number = 120;
   // 已计算好的进度百分比（0~100），由父页面统一计算后传入
-  dailyProgressValue: number = 0;
+  @Prop dailyProgressValue: number = 0;
 
   build() {
     Column() {
