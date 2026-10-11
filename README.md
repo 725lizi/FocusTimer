@@ -40,7 +40,7 @@
 
 | 专注计时 | 笔记流转 | 多端设备选择 |
 | --- | --- | --- |
-| ![专注计时](shot-timer.png) | ![笔记流转](shot-notes.png) | ![多端设备选择](shot-transfer.png) |
+| ![专注计时](shot-timer.png) | ![笔记流转](shot-notes.png) | ![多端设备选择](shot-device.png) |
 
 | 数据统计 | 学习分析周报 | 桌面卡片 |
 | --- | --- | --- |
