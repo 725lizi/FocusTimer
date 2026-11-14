@@ -2,15 +2,15 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "鸿端时记 - 鸿蒙分布式学习计时与笔记应用"
+      "value": "鸿蒙智绘队 - 鸿蒙分布式学习计时与笔记应用"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "鸿端时记主入口"
+      "value": "鸿端时计主入口"
     },
     {
       "name": "EntryAbility_label",
-      "value": "鸿端时记"
+      "value": "鸿端时计"
     },
     {
       "name": "permission_distributed_datasync_reason",
@@ -50,7 +50,7 @@
     },
     {
       "name": "FocusTimercard_display_name",
-      "value": "FocusTimercard"
+      "value": "鸿端时计"
     },
     {
       "name": "permission_require_form_reason",

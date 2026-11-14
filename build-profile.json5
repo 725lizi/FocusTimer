@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\qq959\\.ohos\\config\\default_FocusTimer3_1k4xKMzLjFOHgIKBgaye70jonn4JBd7zq7fnUYlrE3Y=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B3D0C51EFDCF40005E4CF3E817441BD08B2BFA8257F5C8FB5E4D531B09C112AD2C6F770DB431CD7",
+          "profile": "C:\\Users\\qq959\\.ohos\\config\\default_FocusTimer3_1k4xKMzLjFOHgIKBgaye70jonn4JBd7zq7fnUYlrE3Y=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\qq959\\.ohos\\config\\default_FocusTimer3_1k4xKMzLjFOHgIKBgaye70jonn4JBd7zq7fnUYlrE3Y=.p12",
+          "storePassword": "0000001BB5D208C317640069B06B7A109CE5B615FBBBCD549F072C29931EA06D71D53102D51994ABF222AE"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",

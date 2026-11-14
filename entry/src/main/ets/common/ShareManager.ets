@@ -40,7 +40,7 @@ export class ShareManager {
       // 分享出去是纯文本、无法加粗，统一去掉 Markdown 的 ** 标记，避免对方看到星号
       content: MarkdownLite.stripBoldMarkers(weeklyReport),
       shareTime: Date.now(),
-      appName: '鸿端时记'
+      appName: '鸿端时计'
     };
     return shareData;
   }
@@ -54,7 +54,7 @@ export class ShareManager {
       title: noteTitle,
       content: noteContent,
       shareTime: Date.now(),
-      appName: '鸿端时记'
+      appName: '鸿端时计'
     };
     return shareData;
   }

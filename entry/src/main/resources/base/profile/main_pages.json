@@ -8,6 +8,7 @@
     "pages/EncryptedFolderPage",
     "pages/KnowledgeBase",
     "pages/MindMapReview",
-    "pages/NoteMindMap"
+    "pages/NoteMindMap",
+    "pages/FocusProfile"
   ]
 }

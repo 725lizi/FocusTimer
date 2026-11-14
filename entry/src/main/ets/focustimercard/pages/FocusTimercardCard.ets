@@ -8,6 +8,10 @@ struct FocusTimercardCard {
   @LocalStorageProp('focusTime') focusTime: string = '25:00';
   @LocalStorageProp('taskInfo') taskInfo: string = '今日待学：高等数学';
   @LocalStorageProp('todayMinutes') todayMinutes: string = '0分钟';
+  @LocalStorageProp('cardStatus') cardStatus: string = 'idle';
+  @LocalStorageProp('remainMs') remainMs: number = 0;
+
+  private timerController: TextTimerController = new TextTimerController();
 
   readonly actionType: string = 'router';
   readonly abilityName: string = 'EntryAbility';
@@ -23,14 +27,29 @@ struct FocusTimercardCard {
         .width('100%')
         .padding({ left: 12, top: 8, bottom: 2 })
 
-      // 倒计时
-      Text(this.focusTime)
-        .fontSize(28)
-        .fontWeight(FontWeight.Bold)
-        .fontColor('#4A90D9')
-        .width('100%')
-        .textAlign(TextAlign.Center)
-        .margin({ top: 4 })
+      // 专注中：系统 TextTimer 组件每秒走字（基于系统时间，离开/回桌面自动校准、不漂移）
+      if (this.cardStatus === 'running' && this.remainMs > 0) {
+        TextTimer({ isCountDown: true, count: this.remainMs, controller: this.timerController })
+          .format('mm:ss')
+          .fontSize(28)
+          .fontWeight(FontWeight.Bold)
+          .fontColor('#4A90D9')
+          .margin({ top: 4 })
+          .onAppear(() => {
+            // TextTimer 需在组件出现后由控制器启动（在 aboutToAppear 中调用不生效）；
+            // TextTimer 无 textAlign 属性，宽度自适应、由外层 Column 默认水平居中
+            this.timerController.start();
+          })
+      } else {
+        // 暂停 / 完成 / 空闲：静态数字
+        Text(this.focusTime)
+          .fontSize(28)
+          .fontWeight(FontWeight.Bold)
+          .fontColor('#4A90D9')
+          .width('100%')
+          .textAlign(TextAlign.Center)
+          .margin({ top: 4 })
+      }
 
       // 今日任务
       Text(this.taskInfo)

@@ -44,8 +44,10 @@ export class DeepSeekClient {
    * @param apiKey 用户本地保存的 Key
    * @param body 已组装好的请求体（含 messages、stream=true）
    * @param callbacks 流式回调
+   * @param baseUrl 可选端点；默认 DeepSeek，画像洞察可传入 Queen 的 OpenAI 兼容端点
    */
-  public startStream(apiKey: string, body: ChatCompletionRequest, callbacks: StreamCallbacks): void {
+  public startStream(apiKey: string, body: ChatCompletionRequest, callbacks: StreamCallbacks,
+    baseUrl: string = AiConfig.BASE_URL): void {
     this.cancelInternal(); // 清掉上一次未结束的请求
     this.settled = false;
     this.accumulated = '';
@@ -91,7 +93,7 @@ export class DeepSeekClient {
       readTimeout: AiConfig.READ_TIMEOUT_MS
     };
 
-    const url: string = AiConfig.BASE_URL + AiConfig.CHAT_PATH;
+    const url: string = baseUrl + AiConfig.CHAT_PATH;
     // 流式必须用 requestInStream：正文通过 on('dataReceive') 逐段回调，
     // 这里的结束回调第二个参数只是 HTTP 状态码（number），不是完整响应体。
     httpRequest.requestInStream(url, options, (err: BusinessError, statusCode: number) => {

@@ -17,6 +17,8 @@ import indexPipelineTest from './IndexPipeline.test';
 import qaPlannerTest from './QaPlanner.test';
 import mindMapAiPureTest from './MindMapAiPure.test';
 import noteMindMapPureTest from './NoteMindMapPure.test';
+import focusProfileStatsTest from './FocusProfileStats.test';
+import focusInsightRulesTest from './FocusInsightRules.test';
 
 export default function testsuite() {
   localUnitTest();
@@ -38,4 +40,6 @@ export default function testsuite() {
   qaPlannerTest();
   mindMapAiPureTest();
   noteMindMapPureTest();
+  focusProfileStatsTest();
+  focusInsightRulesTest();
 }

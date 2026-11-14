@@ -64,16 +64,6 @@
     ],
     "requestPermissions": [
       {
-        "name": "ohos.permission.REQUIRE_FORM",
-        "reason": "$string:permission_require_form_reason",
-        "usedScene": {
-          "abilities": [
-            "EntryAbility"
-          ],
-          "when": "inuse"
-        }
-      },
-      {
         "name": "ohos.permission.DISTRIBUTED_DATASYNC",
         "reason": "$string:permission_distributed_datasync_reason",
         "usedScene": {

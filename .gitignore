@@ -28,3 +28,11 @@
 *.hap
 # Windows folder metadata
 desktop.ini
+
+# 签名密钥库（含私钥，不进公开仓库）
+/sign/
+
+# PPT 与预览的临时/中间产物
+/_decktmp/
+/preview/
+/deck_src.pptx

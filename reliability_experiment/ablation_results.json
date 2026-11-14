@@ -1,0 +1,1844 @@
+{
+  "_model": "DeepSeek",
+  "_declaration": "本文件是离线消融实验结果，基于人工合成的测试用例；只描述这 60 条用例，不代表真实模型成功率。真实成功率与 p50/p95 延迟必须用真实 API 在设备上实测。",
+  "crossCheck": {
+    "against": "fault_corpus.jsonl 的 expect 标签（与 validate_corpus.mjs 同一套判定）",
+    "ok": 60,
+    "total": 60,
+    "mismatched": []
+  },
+  "taskSet": {
+    "corpus": "fault_corpus.jsonl",
+    "kind": "content",
+    "total": 60,
+    "structured": 30,
+    "bare": 30,
+    "excludedNetwork": 20,
+    "excludedNote": "网络类样本不参与本脚本；网络错误的降级由样本库与后续设备实测覆盖"
+  },
+  "levels": {
+    "G0": {
+      "definition": "raw 直接 JSON.parse；成功 = 解析成功且结果是含 children 数组的对象",
+      "structured": {
+        "ok": 23,
+        "total": 30,
+        "rate": 76.7
+      },
+      "bare": {
+        "ok": 16,
+        "total": 30,
+        "rate": 53.3
+      },
+      "total": {
+        "ok": 39,
+        "total": 60,
+        "rate": 65
+      },
+      "failBreakdown": {
+        "parseError": 17,
+        "shapeError": 4
+      }
+    },
+    "G1": {
+      "definition": "本层不新增处理，对比 structured / bare 两批：原始可解析率 + 裸 parse 后天然满足软 Schema 的比例",
+      "parseRate": {
+        "structured": 76.7,
+        "bare": 53.3,
+        "total": 65
+      },
+      "softSchemaRate": {
+        "structured": {
+          "ok": 18,
+          "total": 30,
+          "rate": 60
+        },
+        "bare": {
+          "ok": 7,
+          "total": 30,
+          "rate": 23.3
+        },
+        "total": {
+          "ok": 25,
+          "total": 60,
+          "rate": 41.7
+        }
+      },
+      "deltaPp": {
+        "parsePp": 23.3,
+        "softSchemaPp": 36.7
+      }
+    },
+    "G2": {
+      "definition": "extract → normalize → 硬逻辑 structuralOk；本层无兜底，失败即失败",
+      "structured": {
+        "ok": 27,
+        "direct": 19,
+        "repaired": 8,
+        "fail": 3,
+        "total": 30,
+        "rate": 90
+      },
+      "bare": {
+        "ok": 24,
+        "direct": 8,
+        "repaired": 16,
+        "fail": 6,
+        "total": 30,
+        "rate": 80
+      },
+      "ok": 51,
+      "direct": 27,
+      "repaired": 24,
+      "fail": 9,
+      "rate": 85,
+      "softSchemaOnSuccess": {
+        "ok": 47,
+        "total": 51,
+        "rate": 92.2
+      },
+      "softSchemaOverall": {
+        "ok": 47,
+        "total": 60,
+        "rate": 78.3
+      },
+      "rescuedFromG0Fail": {
+        "count": 8,
+        "ids": [
+          "S19",
+          "S20",
+          "B08",
+          "B09",
+          "B10",
+          "B11",
+          "B12",
+          "B13"
+        ],
+        "byCase": {
+          "fence": 4,
+          "chatter": 4
+        }
+      },
+      "failByCase": {
+        "truncated": 3,
+        "no_braces": 3,
+        "empty": 3
+      }
+    },
+    "G3": {
+      "definition": "G2 失败改由本地规则树兜底（RuleMindMapBuilder 的移植，数字来自 summary_fixture.json）",
+      "structured": {
+        "direct": 19,
+        "repaired": 8,
+        "rule": 3,
+        "failed": 0,
+        "total": 30
+      },
+      "bare": {
+        "direct": 8,
+        "repaired": 16,
+        "rule": 6,
+        "failed": 0,
+        "total": 30
+      },
+      "direct": 27,
+      "repaired": 24,
+      "rule": 9,
+      "failed": 0,
+      "source": {
+        "llm": 51,
+        "rule": 9,
+        "failed": 0
+      },
+      "usabilityRate": 100,
+      "fallbackRate": 15,
+      "ruleTree": {
+        "nodes": 19,
+        "depth": 3,
+        "structuralOk": true,
+        "softSchemaOk": true
+      }
+    }
+  },
+  "samples": [
+    {
+      "id": "S01",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S02",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S03",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S04",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S05",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S06",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S07",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S08",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S09",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S10",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S11",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S12",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S13",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S14",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S15",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S16",
+      "batch": "structured",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S17",
+      "batch": "structured",
+      "case_type": "envelope",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S18",
+      "batch": "structured",
+      "case_type": "envelope",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S19",
+      "batch": "structured",
+      "case_type": "fence",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": true
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S20",
+      "batch": "structured",
+      "case_type": "chatter",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": true
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S21",
+      "batch": "structured",
+      "case_type": "truncated",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": "INVALID",
+        "hardOk": false,
+        "repaired": false,
+        "outcome": "fail",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "rule",
+        "source": "rule",
+        "fallback": true
+      }
+    },
+    {
+      "id": "S22",
+      "batch": "structured",
+      "case_type": "no_braces",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": "NO_JSON",
+        "normalizeError": null,
+        "hardOk": false,
+        "repaired": false,
+        "outcome": "fail",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "rule",
+        "source": "rule",
+        "fallback": true
+      }
+    },
+    {
+      "id": "S23",
+      "batch": "structured",
+      "case_type": "empty",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": "EMPTY",
+        "normalizeError": null,
+        "hardOk": false,
+        "repaired": false,
+        "outcome": "fail",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "rule",
+        "source": "rule",
+        "fallback": true
+      }
+    },
+    {
+      "id": "S24",
+      "batch": "structured",
+      "case_type": "missing_id",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S25",
+      "batch": "structured",
+      "case_type": "duplicate_id",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S26",
+      "batch": "structured",
+      "case_type": "missing_children",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S27",
+      "batch": "structured",
+      "case_type": "wrong_children_type",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S28",
+      "batch": "structured",
+      "case_type": "wrong_depth",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S29",
+      "batch": "structured",
+      "case_type": "long_text",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "S30",
+      "batch": "structured",
+      "case_type": "missing_text",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B01",
+      "batch": "bare",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B02",
+      "batch": "bare",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B03",
+      "batch": "bare",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B04",
+      "batch": "bare",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B05",
+      "batch": "bare",
+      "case_type": "clean",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B06",
+      "batch": "bare",
+      "case_type": "envelope",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B07",
+      "batch": "bare",
+      "case_type": "envelope",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": true
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B08",
+      "batch": "bare",
+      "case_type": "fence",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": true
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B09",
+      "batch": "bare",
+      "case_type": "fence",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": true
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B10",
+      "batch": "bare",
+      "case_type": "fence",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": true
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B11",
+      "batch": "bare",
+      "case_type": "chatter",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": true
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B12",
+      "batch": "bare",
+      "case_type": "chatter",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": true
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B13",
+      "batch": "bare",
+      "case_type": "chatter",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": true
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B14",
+      "batch": "bare",
+      "case_type": "truncated",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": "INVALID",
+        "hardOk": false,
+        "repaired": false,
+        "outcome": "fail",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "rule",
+        "source": "rule",
+        "fallback": true
+      }
+    },
+    {
+      "id": "B15",
+      "batch": "bare",
+      "case_type": "truncated",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": "INVALID",
+        "hardOk": false,
+        "repaired": false,
+        "outcome": "fail",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "rule",
+        "source": "rule",
+        "fallback": true
+      }
+    },
+    {
+      "id": "B16",
+      "batch": "bare",
+      "case_type": "no_braces",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": "NO_JSON",
+        "normalizeError": null,
+        "hardOk": false,
+        "repaired": false,
+        "outcome": "fail",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "rule",
+        "source": "rule",
+        "fallback": true
+      }
+    },
+    {
+      "id": "B17",
+      "batch": "bare",
+      "case_type": "no_braces",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": "NO_JSON",
+        "normalizeError": null,
+        "hardOk": false,
+        "repaired": false,
+        "outcome": "fail",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "rule",
+        "source": "rule",
+        "fallback": true
+      }
+    },
+    {
+      "id": "B18",
+      "batch": "bare",
+      "case_type": "empty",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": "EMPTY",
+        "normalizeError": null,
+        "hardOk": false,
+        "repaired": false,
+        "outcome": "fail",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "rule",
+        "source": "rule",
+        "fallback": true
+      }
+    },
+    {
+      "id": "B19",
+      "batch": "bare",
+      "case_type": "empty",
+      "G0": {
+        "parseOk": false,
+        "shapeOk": false,
+        "ok": false
+      },
+      "G1": {
+        "parseOk": false,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": "EMPTY",
+        "normalizeError": null,
+        "hardOk": false,
+        "repaired": false,
+        "outcome": "fail",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "rule",
+        "source": "rule",
+        "fallback": true
+      }
+    },
+    {
+      "id": "B20",
+      "batch": "bare",
+      "case_type": "missing_id",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B21",
+      "batch": "bare",
+      "case_type": "missing_id",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B22",
+      "batch": "bare",
+      "case_type": "duplicate_id",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B23",
+      "batch": "bare",
+      "case_type": "duplicate_id",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B24",
+      "batch": "bare",
+      "case_type": "missing_children",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B25",
+      "batch": "bare",
+      "case_type": "missing_children",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B26",
+      "batch": "bare",
+      "case_type": "wrong_children_type",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B27",
+      "batch": "bare",
+      "case_type": "wrong_children_type",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B28",
+      "batch": "bare",
+      "case_type": "wrong_depth",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": false,
+        "outcome": "direct",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "direct",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B29",
+      "batch": "bare",
+      "case_type": "long_text",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": false,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    },
+    {
+      "id": "B30",
+      "batch": "bare",
+      "case_type": "missing_text",
+      "G0": {
+        "parseOk": true,
+        "shapeOk": true,
+        "ok": true
+      },
+      "G1": {
+        "parseOk": true,
+        "softSchemaOk": false
+      },
+      "G2": {
+        "extractError": null,
+        "normalizeError": null,
+        "hardOk": true,
+        "repaired": true,
+        "outcome": "repaired",
+        "softSchemaOk": true,
+        "rescuedFromG0Fail": false
+      },
+      "G3": {
+        "outcome": "repaired",
+        "source": "llm",
+        "fallback": false
+      }
+    }
+  ]
+}

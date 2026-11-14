@@ -8,6 +8,9 @@ export interface CardData {
   focusTime: string;
   taskInfo: string;
   todayMinutes: string;
+  // 专注状态（running/paused/done/idle）与动态倒计时剩余毫秒（running 时 >0）
+  cardStatus: string;
+  remainMs: number;
 }
 
 /**
@@ -45,13 +48,47 @@ export class CardDataBuilder {
    * @param lastDurationMinutes 上次专注分钟数
    * @param subject 当前科目名称（可为空字符串）
    */
-  static build(todayMinutes: number, lastDurationMinutes: number, subject: string): CardData {
+  /**
+   * 按「专注状态」组装卡片数据（事件驱动更新用）。
+   * @param todayMinutes 今日累计分钟数（进行中不含本次，完成后含本次）
+   * @param focusMinutes 大字号展示的分钟数：
+   *                     running=本次目标时长、paused=本次已专注、done/idle=本次时长或 0
+   * @param subject 当前科目名称（可为空字符串）
+   * @param status 专注状态：running（专注中）/ paused（已暂停）/ done（已完成）/ idle（空闲）
+   */
+  static buildWith(todayMinutes: number, focusMinutes: number, subject: string, status: string,
+    remainMs: number = 0): CardData {
+    const subj: string = subject || '';
+    let title: string = '专注计时';
+    let taskInfo: string = CardDataBuilder.formatTaskInfo(subj);
+
+    if (status === 'running') {
+      title = '专注中';
+      taskInfo = subj ? `正在专注：${subj}` : '正在专注';
+    } else if (status === 'paused') {
+      title = '已暂停';
+      taskInfo = subj ? `暂停于：${subj}` : '已暂停';
+    } else {
+      // done / idle：恢复默认标题与「今日待学」文案
+      title = '专注计时';
+      taskInfo = CardDataBuilder.formatTaskInfo(subj);
+    }
+
     const data: CardData = {
-      title: '专注计时',
-      focusTime: CardDataBuilder.formatFocusTime(lastDurationMinutes),
-      taskInfo: CardDataBuilder.formatTaskInfo(subject),
-      todayMinutes: CardDataBuilder.formatTodayMinutes(todayMinutes)
+      title: title,
+      focusTime: CardDataBuilder.formatFocusTime(focusMinutes),
+      taskInfo: taskInfo,
+      todayMinutes: CardDataBuilder.formatTodayMinutes(todayMinutes),
+      cardStatus: status,
+      remainMs: remainMs
     };
     return data;
+  }
+
+  /**
+   * 组装一张完整卡片所需的展示数据（空闲/默认状态，向后兼容）
+   */
+  static build(todayMinutes: number, lastDurationMinutes: number, subject: string): CardData {
+    return CardDataBuilder.buildWith(todayMinutes, lastDurationMinutes, subject, 'idle', 0);
   }
 }

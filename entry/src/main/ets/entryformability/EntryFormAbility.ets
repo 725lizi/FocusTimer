@@ -57,7 +57,9 @@ export default class EntryFormAbility extends FormExtensionAbility {
       title: '专注计时',
       focusTime: '00:00',
       taskInfo: '今日待学：未选择',
-      todayMinutes: '0分钟'
+      todayMinutes: '0分钟',
+      cardStatus: 'idle',
+      remainMs: 0
     };
     return formBindingData.createFormBindingData(cardData);
   }
@@ -89,8 +91,15 @@ export default class EntryFormAbility extends FormExtensionAbility {
       const todayMinutes = await prefs.get('todayTotal', 0) as number;
       const lastDuration = await prefs.get('lastDuration', 0) as number;
       const lastSubject = await prefs.get('lastSubject', '') as string;
+      const cardStatus = await prefs.get('cardStatus', 'idle') as string;
+      const endTimestamp = await prefs.get('endTimestamp', 0) as number;
+      let remainMs: number = 0;
+      // running 时按结束时间戳实时换算剩余，卡片即使被系统重建也能校准、不漂移
+      if (cardStatus === 'running' && endTimestamp > 0) {
+        remainMs = Math.max(0, endTimestamp - Date.now());
+      }
 
-      return CardDataBuilder.build(todayMinutes, lastDuration, lastSubject);
+      return CardDataBuilder.buildWith(todayMinutes, lastDuration, lastSubject, cardStatus, remainMs);
     } catch (err) {
       console.error('加载卡片数据失败: ' + JSON.stringify(err));
       return CardDataBuilder.build(0, 0, '');

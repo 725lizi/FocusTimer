@@ -197,26 +197,58 @@ struct Index {
       this.todayFocusMinutes = dbMinutes;
       this.updateDailyProgress();
 
-      // 写入 preferences，供桌面卡片读取
-      const prefs = await preferences.getPreferences(getContext(this), 'focusUserPrefs');
-      await prefs.put('todayTotal', dbMinutes);                                    // 今日累计分钟数
-      await prefs.put('lastDuration', Math.floor(this.totalSecond / 60));          // 本次计时时长（分钟）
-      await prefs.put('lastSubject', tagName || '未分类');                         // 本次科目名
-      await prefs.flush();
-
-      // 计时完成后主动刷新桌面卡片
-      try {
-        await EntryFormAbility.requestUpdate(getContext(this));
-        this.showToast('桌面卡片已更新');
-      } catch (cardErr) {
-        console.error('卡片更新异常: ' + JSON.stringify(cardErr));
-        this.showToast('卡片更新失败，请重新添加桌面卡片');
-      }
+      // 计时完成：事件驱动刷新桌面卡片（写数据 + 主动推送）
+      await this.pushCardSnapshot('done');
+      this.showToast('桌面卡片已更新');
 
     } catch (err) {
       console.error('saveSessionToDb failed: ' + JSON.stringify(err));
     }
   }
+  // 事件驱动刷新桌面卡片：开始/暂停/完成/重置时把当前状态写入并主动推送
+  private async pushCardSnapshot(status: string): Promise<void> {
+    try {
+      let focusMinutes: number = 0;
+      if (status === 'running') {
+        focusMinutes = Math.floor(this.totalSecond / 60);                            // 本次目标时长
+      } else if (status === 'paused') {
+        focusMinutes = Math.floor((this.totalSecond - this.currentSecond) / 60);     // 本次已专注
+      } else if (status === 'done') {
+        focusMinutes = Math.floor(this.totalSecond / 60);                            // 本次实际时长
+      } else {
+        focusMinutes = 0;                                                            // idle
+      }
+
+      let subject: string = '';
+      try {
+        const tagName = await SubjectTagManager.getInstance().getTagName(this.selectedSubjectTagId);
+        subject = tagName || '';
+      } catch (err) {
+        console.error('pushCard getTagName failed: ' + JSON.stringify(err));
+      }
+
+      const dbMinutes = await FocusSessionStore.getInstance().getTodayTotalMinutes();
+
+      // running：记录本次结束时间戳，供卡片动态倒计时并随时校准；其余状态置 0
+      let endTimestamp: number = 0;
+      if (status === 'running') {
+        endTimestamp = Date.now() + this.currentSecond * 1000;
+      }
+
+      const prefs = await preferences.getPreferences(getContext(this), 'focusUserPrefs');
+      await prefs.put('todayTotal', dbMinutes);
+      await prefs.put('lastDuration', focusMinutes);
+      await prefs.put('lastSubject', subject);
+      await prefs.put('cardStatus', status);
+      await prefs.put('endTimestamp', endTimestamp);
+      await prefs.flush();
+
+      await EntryFormAbility.requestUpdate(getContext(this));
+    } catch (err) {
+      console.error('pushCardSnapshot failed: ' + JSON.stringify(err));
+    }
+  }
+
   // 更新每日进度，确保不会出现 NaN 或 undefined
   private updateDailyProgress(): void {
     if (this.dailyGoalMinutes <= 0) {
@@ -389,12 +421,17 @@ struct Index {
         this.triggerRestReminder();
       }
     }, 1000);
+
+    // 开始专注：立刻推送一次，桌面卡片显示「专注中」与目标时长
+    this.pushCardSnapshot('running');
   }
 
   private pauseTimer(): void {
     this.timerEngine.pause();
     this.syncFromEngine();
     this.stopRunningSideEffects();
+    // 暂停：推送本次已专注时长，桌面卡片显示「已暂停」
+    this.pushCardSnapshot('paused');
   }
 
   private resetTimer(): void {
@@ -408,6 +445,8 @@ struct Index {
     this.timerEngine.reset();
     this.syncFromEngine();
     this.saveContinuationState();
+    // 重置（放弃本次）：卡片回到空闲状态
+    this.pushCardSnapshot('idle');
   }
 
   private onTimerComplete(): void {

@@ -1,0 +1,3287 @@
+{
+  "_model": "DeepSeek",
+  "_declaration": "本文件是离线事实一致性核查结果，全部基于人工合成的测试用例；只描述这 60 条用例，不代表真实模型的事实一致率。真实云端事实一致率需用户配置 API Key 后在设备上实测。",
+  "scope": {
+    "corpus": "fault_corpus.jsonl",
+    "contentSamples": 60,
+    "excludedNetworkSamples": 20,
+    "fixture": "summary_fixture.json",
+    "fixtureBlock": "primary"
+  },
+  "whitelist": {
+    "numbers": [
+      0,
+      1,
+      2,
+      3,
+      30,
+      40,
+      50,
+      80,
+      100,
+      150
+    ],
+    "subjects": {
+      "数学": 80,
+      "英语": 40,
+      "物理": 30
+    }
+  },
+  "metrics": {
+    "claims": {
+      "total": 344,
+      "consistent": 344,
+      "inconsistent": 0,
+      "rate": 100
+    },
+    "byType": {
+      "number": {
+        "total": 256,
+        "consistent": 256,
+        "inconsistent": 0,
+        "rate": 100
+      },
+      "subject": {
+        "total": 56,
+        "consistent": 56,
+        "inconsistent": 0,
+        "rate": 100
+      },
+      "direction": {
+        "total": 32,
+        "consistent": 32,
+        "inconsistent": 0,
+        "rate": 100
+      }
+    },
+    "trees": {
+      "total": 60,
+      "fromLlm": 51,
+      "fromRule": 9,
+      "fullyConsistent": 60,
+      "rate": 100
+    }
+  },
+  "inconsistencies": [],
+  "trees": [
+    {
+      "sampleId": "B01",
+      "batch": "bare",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 7,
+      "consistent": 7,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B02",
+      "batch": "bare",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 8,
+      "consistent": 8,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B03",
+      "batch": "bare",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 4,
+      "consistent": 4,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B04",
+      "batch": "bare",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 5,
+      "consistent": 5,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B05",
+      "batch": "bare",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 7,
+      "consistent": 7,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B06",
+      "batch": "bare",
+      "caseType": "envelope",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 5,
+      "consistent": 5,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B07",
+      "batch": "bare",
+      "caseType": "envelope",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 6,
+      "consistent": 6,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B08",
+      "batch": "bare",
+      "caseType": "fence",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 7,
+      "consistent": 7,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B09",
+      "batch": "bare",
+      "caseType": "fence",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 7,
+      "consistent": 7,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B10",
+      "batch": "bare",
+      "caseType": "fence",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 6,
+      "consistent": 6,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B11",
+      "batch": "bare",
+      "caseType": "chatter",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 5,
+      "consistent": 5,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B12",
+      "batch": "bare",
+      "caseType": "chatter",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 7,
+      "consistent": 7,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B13",
+      "batch": "bare",
+      "caseType": "chatter",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 8,
+      "consistent": 8,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B14",
+      "batch": "bare",
+      "caseType": "truncated",
+      "g2Outcome": "fail",
+      "treeFrom": "rule",
+      "claims": 9,
+      "consistent": 9,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B15",
+      "batch": "bare",
+      "caseType": "truncated",
+      "g2Outcome": "fail",
+      "treeFrom": "rule",
+      "claims": 9,
+      "consistent": 9,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B16",
+      "batch": "bare",
+      "caseType": "no_braces",
+      "g2Outcome": "fail",
+      "treeFrom": "rule",
+      "claims": 9,
+      "consistent": 9,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B17",
+      "batch": "bare",
+      "caseType": "no_braces",
+      "g2Outcome": "fail",
+      "treeFrom": "rule",
+      "claims": 9,
+      "consistent": 9,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B18",
+      "batch": "bare",
+      "caseType": "empty",
+      "g2Outcome": "fail",
+      "treeFrom": "rule",
+      "claims": 9,
+      "consistent": 9,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B19",
+      "batch": "bare",
+      "caseType": "empty",
+      "g2Outcome": "fail",
+      "treeFrom": "rule",
+      "claims": 9,
+      "consistent": 9,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B20",
+      "batch": "bare",
+      "caseType": "missing_id",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 4,
+      "consistent": 4,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B21",
+      "batch": "bare",
+      "caseType": "missing_id",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 2,
+      "consistent": 2,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B22",
+      "batch": "bare",
+      "caseType": "duplicate_id",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 7,
+      "consistent": 7,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B23",
+      "batch": "bare",
+      "caseType": "duplicate_id",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 11,
+      "consistent": 11,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B24",
+      "batch": "bare",
+      "caseType": "missing_children",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 3,
+      "consistent": 3,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B25",
+      "batch": "bare",
+      "caseType": "missing_children",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 4,
+      "consistent": 4,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B26",
+      "batch": "bare",
+      "caseType": "wrong_children_type",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 5,
+      "consistent": 5,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B27",
+      "batch": "bare",
+      "caseType": "wrong_children_type",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 2,
+      "consistent": 2,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B28",
+      "batch": "bare",
+      "caseType": "wrong_depth",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 1,
+      "consistent": 1,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B29",
+      "batch": "bare",
+      "caseType": "long_text",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 5,
+      "consistent": 5,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "本周总专注 150 分钟，比上周的 100 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "本周总专注 150 分钟，比上周的 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "B30",
+      "batch": "bare",
+      "caseType": "missing_text",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 1,
+      "consistent": 1,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S01",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 7,
+      "consistent": 7,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S02",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 7,
+      "consistent": 7,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S03",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 11,
+      "consistent": 11,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S04",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 4,
+      "consistent": 4,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S05",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 12,
+      "consistent": 12,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S06",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 4,
+      "consistent": 4,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S07",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 7,
+      "consistent": 7,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S08",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 5,
+      "consistent": 5,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S09",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 8,
+      "consistent": 8,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S10",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 1,
+      "consistent": 1,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S11",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 5,
+      "consistent": 5,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S12",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 2,
+      "consistent": 2,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S13",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 3,
+      "consistent": 3,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S14",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 7,
+      "consistent": 7,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S15",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 7,
+      "consistent": 7,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S16",
+      "batch": "structured",
+      "caseType": "clean",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 1,
+      "consistent": 1,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S17",
+      "batch": "structured",
+      "caseType": "envelope",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 2,
+      "consistent": 2,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S18",
+      "batch": "structured",
+      "caseType": "envelope",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 6,
+      "consistent": 6,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S19",
+      "batch": "structured",
+      "caseType": "fence",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 5,
+      "consistent": 5,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S20",
+      "batch": "structured",
+      "caseType": "chatter",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 2,
+      "consistent": 2,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S21",
+      "batch": "structured",
+      "caseType": "truncated",
+      "g2Outcome": "fail",
+      "treeFrom": "rule",
+      "claims": 9,
+      "consistent": 9,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S22",
+      "batch": "structured",
+      "caseType": "no_braces",
+      "g2Outcome": "fail",
+      "treeFrom": "rule",
+      "claims": 9,
+      "consistent": 9,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S23",
+      "batch": "structured",
+      "caseType": "empty",
+      "g2Outcome": "fail",
+      "treeFrom": "rule",
+      "claims": 9,
+      "consistent": 9,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "本周 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "上周 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S24",
+      "batch": "structured",
+      "caseType": "missing_id",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 5,
+      "consistent": 5,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S25",
+      "batch": "structured",
+      "caseType": "duplicate_id",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 5,
+      "consistent": 5,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "被中断 1 次",
+          "value": 1,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "本周专注 150 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "数学 80 分钟",
+          "value": 80,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "数学 80 分钟",
+          "value": "数学 80",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "平均每次 50 分钟",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S26",
+      "batch": "structured",
+      "caseType": "missing_children",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 4,
+      "consistent": 4,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S27",
+      "batch": "structured",
+      "caseType": "wrong_children_type",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 2,
+      "consistent": 2,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S28",
+      "batch": "structured",
+      "caseType": "wrong_depth",
+      "g2Outcome": "direct",
+      "treeFrom": "llm",
+      "claims": 3,
+      "consistent": 3,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "上周专注 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "英语 40 分钟",
+          "value": 40,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "英语 40 分钟",
+          "value": "英语 40",
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S29",
+      "batch": "structured",
+      "caseType": "long_text",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 7,
+      "consistent": 7,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "物理 30 分钟",
+          "value": 30,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "subject",
+          "text": "物理 30 分钟",
+          "value": "物理 30",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "本周总专注 150 分钟，比上周的 100 分钟",
+          "value": 150,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "本周总专注 150 分钟，比上周的 100 分钟",
+          "value": 100,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    },
+    {
+      "sampleId": "S30",
+      "batch": "structured",
+      "caseType": "missing_text",
+      "g2Outcome": "repaired",
+      "treeFrom": "llm",
+      "claims": 4,
+      "consistent": 4,
+      "inconsistent": 0,
+      "fullyConsistent": true,
+      "detail": [
+        {
+          "type": "number",
+          "text": "环比增加 50%",
+          "value": 50,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "direction",
+          "text": "环比增加 50%",
+          "value": "up",
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "共专注 3 次",
+          "value": 3,
+          "ok": true,
+          "reason": ""
+        },
+        {
+          "type": "number",
+          "text": "活跃 2 天",
+          "value": 2,
+          "ok": true,
+          "reason": ""
+        }
+      ]
+    }
+  ],
+  "selfCheck": {
+    "passed": true,
+    "cases": [
+      {
+        "name": "含底稿外数字（999）",
+        "passed": true,
+        "detail": "不一致声明 1 条，其中含 number 类：true"
+      },
+      {
+        "name": "环比方向写反（减少）",
+        "passed": true,
+        "detail": "不一致声明 1 条，其中含 direction 类：true"
+      },
+      {
+        "name": "科目数字错误（数学 40 分钟）",
+        "passed": true,
+        "detail": "不一致声明 1 条，其中含 subject 类：true"
+      },
+      {
+        "name": "完全合规树（规则树本身）",
+        "passed": true,
+        "detail": "不一致声明 0 条（应为 0）"
+      }
+    ]
+  },
+  "boundary": [
+    "只覆盖离线可复现的「事实声明是否与底稿一致」，不覆盖真实模型的事实一致率。",
+    "不计算 p50/p95 延迟，不预测真实成功率，不做健康/心理诊断，不编造因果或效率百分比。",
+    "C 类（环比方向）只认「周对比语境」里的方向词，避免把行动建议「减少中断次数」误判成环比声明。",
+    "全部为合成数据，比例是人为编排的测试配额，不能用来估计真实模型的任何比率。"
+  ]
+}

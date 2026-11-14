@@ -1,0 +1,768 @@
+﻿SLIDE SIZE: 12192000 6858000 13.333333333333334 7.5
+NUM SLIDES: 15
+
+====================================================================================================
+SLIDE 1  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(1.11,0.86) size=(11.39x0.36)
+      p0 lvl=0 align=LEFT (1): '2026 第八届全球校园人工智能算法精英大赛 · 算法创新赛（AI+软件创新）'
+          run=('2026 第八届全球校园人工智能算法精英大赛 · 算法创新赛（AI+软件创新）', 12.0, 'False', '8A97A8', '微软雅黑')
+  [LINE (9)] id=3 name='Connector 3' pos=(1.11,1.55) size=(0.97x0.01)
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(1.06,2.03) size=(11.39x1.28)
+      p0 lvl=0 align=LEFT (1): '鸿端时计'
+          run=('鸿端时计', 60.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=5 name='AutoShape 5' pos=(1.11,3.42) size=(11.11x0.64)
+      p0 lvl=0 align=LEFT (1): 'AI 专注复盘脑图'
+          run=('AI 专注复盘脑图', 28.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=6 name='AutoShape 6' pos=(1.11,4.31) size=(10.56x0.47)
+      p0 lvl=0 align=LEFT (1): '把一周专注计时与笔记，一键生成可交互的复盘脑图'
+          run=('把一周专注计时与笔记，一键生成可交互的复盘脑图', 17.0, 'False', '3F4A5C', '微软雅黑')
+  [LINE (9)] id=7 name='Connector 7' pos=(1.11,6.27) size=(11.11x0.01)
+  [TEXT_BOX (17)] id=8 name='AutoShape 8' pos=(1.11,6.42) size=(11.39x0.42)
+      p0 lvl=0 align=LEFT (1): '团队：鸿蒙智绘队\u3000\u3000参赛编号：AIC-2026-55350386\u3000\u3000赛题：AI+软件创新'
+          run=('团队：鸿蒙智绘队\u3000\u3000参赛编号：AIC-2026-55350386\u3000\u3000赛题：AI+软件创新', 12.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '各位评委老师好，我们是鸿蒙智绘队，参赛编号 AIC-2026-55350386。\n我们的作品「鸿端时计」是一款 AI 专注复盘应用，能把一周的专注计时和笔记，一键生成一张可交互的复盘脑图，让专注数据真正产生洞察。\n下面我从痛点、方案、核心技术、实验验证和应用价值五个方面汇报。'
+
+====================================================================================================
+SLIDE 2  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(6.94x0.28)
+      p0 lvl=0 align=LEFT (1): '作品速览 · OVERVIEW'
+          run=('作品速览 · OVERVIEW', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '把专注数据，一键变成可复盘的脑图'
+          run=('把专注数据，一键变成可复盘的脑图', 27.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(0.97,1.72) size=(5.28x0.33)
+      p0 lvl=0 align=LEFT (1): '痛点'
+          run=('痛点', 14.0, 'True', 'C4392B', '微软雅黑')
+  [TEXT_BOX (17)] id=5 name='AutoShape 5' pos=(0.97,2.08) size=(5.28x0.67)
+      p0 lvl=0 align=LEFT (1): '计时软件只记录数字，复盘靠手工整理、难以坚持；鸿蒙生态缺少原生脑图组件。'
+          run=('计时软件只记录数字，复盘靠手工整理、难以坚持；鸿蒙生态缺少原生脑图组件。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=6 name='AutoShape 6' pos=(7.08,1.72) size=(5.28x0.33)
+      p0 lvl=0 align=LEFT (1): '方案'
+          run=('方案', 14.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=7 name='AutoShape 7' pos=(7.08,2.08) size=(5.28x0.67)
+      p0 lvl=0 align=LEFT (1): 'AI 自动结构化 + 自研脑图组件渲染，支持手势编辑、一键导出与桌面卡片。'
+          run=('AI 自动结构化 + 自研脑图组件渲染，支持手势编辑、一键导出与桌面卡片。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [LINE (9)] id=8 name='Connector 8' pos=(0.97,3.02) size=(11.39x0.01)
+  [LINE (9)] id=9 name='Connector 9' pos=(2.79,4.42) size=(1.92x0.01)
+  [LINE (9)] id=10 name='Connector 10' pos=(5.71,4.42) size=(1.92x0.01)
+  [LINE (9)] id=11 name='Connector 11' pos=(8.62,4.42) size=(1.92x0.01)
+  [TEXT_BOX (17)] id=12 name='AutoShape 12' pos=(0.97,3.44) size=(2.64x1.17)
+      p0 lvl=0 align=CENTER (2): '100%'
+          run=('100%', 60.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=13 name='AutoShape 13' pos=(0.97,4.67) size=(2.64x0.33)
+      p0 lvl=0 align=CENTER (2): '最终生成成功率'
+          run=('最终生成成功率', 13.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=14 name='AutoShape 14' pos=(0.97,5.03) size=(2.64x0.31)
+      p0 lvl=0 align=CENTER (2): '100 次真实调用实验'
+          run=('100 次真实调用实验', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=15 name='AutoShape 15' pos=(3.89,3.44) size=(2.64x1.17)
+      p0 lvl=0 align=CENTER (2): '267'
+          run=('267', 60.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=16 name='AutoShape 16' pos=(3.89,4.67) size=(2.64x0.33)
+      p0 lvl=0 align=CENTER (2): '单元测试全部通过'
+          run=('单元测试全部通过', 13.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=17 name='AutoShape 17' pos=(3.89,5.03) size=(2.64x0.31)
+      p0 lvl=0 align=CENTER (2): '应用 193 + 组件 74'
+          run=('应用 193 + 组件 74', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=18 name='AutoShape 18' pos=(6.81,3.44) size=(2.64x1.17)
+      p0 lvl=0 align=CENTER (2): '<2s'
+          run=('<2s', 60.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=19 name='AutoShape 19' pos=(6.81,4.67) size=(2.64x0.33)
+      p0 lvl=0 align=CENTER (2): '单次脑图生成耗时'
+          run=('单次脑图生成耗时', 13.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=20 name='AutoShape 20' pos=(6.81,5.03) size=(2.64x0.31)
+      p0 lvl=0 align=CENTER (2): '秒级返回，可直接交互'
+          run=('秒级返回，可直接交互', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=21 name='AutoShape 21' pos=(9.72,3.44) size=(2.64x1.17)
+      p0 lvl=0 align=CENTER (2): '0'
+          run=('0', 60.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=22 name='AutoShape 22' pos=(9.72,4.67) size=(2.64x0.33)
+      p0 lvl=0 align=CENTER (2): '布局节点重叠'
+          run=('布局节点重叠', 13.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=23 name='AutoShape 23' pos=(9.72,5.03) size=(2.64x0.31)
+      p0 lvl=0 align=CENTER (2): '100 棵随机树验证'
+          run=('100 棵随机树验证', 10.0, 'False', '8A97A8', '微软雅黑')
+  [LINE (9)] id=24 name='Connector 24' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=25 name='AutoShape 25' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '数据来源：本机 100 次真实 API 调用实验、单元测试报告、布局算法实验'
+          run=('数据来源：本机 100 次真实 API 调用实验、单元测试报告、布局算法实验', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=26 name='AutoShape 26' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 02'
+          run=('鸿端时计 · 02', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '这一页是作品速览。痛点是：计时软件只记录专注时长，复盘还要手工整理、很难坚持，鸿蒙生态也缺少原生脑图组件。\n我们的方案是用 AI 把计时和笔记自动结构化，再由自研鸿蒙脑图组件渲染，支持手势编辑和一键导出。\n四个关键指标：100 次真实调用最终成功率 100%，267 个单元测试全部通过，单次生成 2 秒内，布局算法做到 0 节点重叠。'
+
+====================================================================================================
+SLIDE 3  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(6.94x0.28)
+      p0 lvl=0 align=LEFT (1): '背景与痛点 · BACKGROUND'
+          run=('背景与痛点 · BACKGROUND', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '专注被记录下来了，但复盘很少真正发生'
+          run=('专注被记录下来了，但复盘很少真正发生', 27.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(0.97,1.69) size=(11.39x0.39)
+      p0 lvl=0 align=LEFT (1): '越来越多人使用番茄钟与专注计时，但“记录时长”并不等于“获得成长”。'
+          run=('越来越多人使用番茄钟与专注计时，但“记录时长”并不等于“获得成长”。', 14.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=5 name='AutoShape 5' pos=(1.18,2.50) size=(3.47x0.72)
+      p0 lvl=0 align=LEFT (1): '01'
+          run=('01', 40.0, 'True', '2B5FA3', '微软雅黑')
+  [LINE (9)] id=6 name='Connector 6' pos=(1.18,3.33) size=(3.26x0.01)
+  [TEXT_BOX (17)] id=7 name='AutoShape 7' pos=(1.18,3.47) size=(3.47x0.39)
+      p0 lvl=0 align=LEFT (1): '只记数字，不产生洞察'
+          run=('只记数字，不产生洞察', 16.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=8 name='AutoShape 8' pos=(1.18,3.94) size=(3.47x1.67)
+      p0 lvl=0 align=LEFT (1): '计时软件只留下“专注了多少分钟”，一周后仍是一堆数字，无法看清时间究竟花在了哪里。'
+          run=('计时软件只留下“专注了多少分钟”，一周后仍是一堆数字，无法看清时间究竟花在了哪里。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=9 name='AutoShape 9' pos=(4.93,2.50) size=(3.47x0.72)
+      p0 lvl=0 align=LEFT (1): '02'
+          run=('02', 40.0, 'True', '2B5FA3', '微软雅黑')
+  [LINE (9)] id=10 name='Connector 10' pos=(4.93,3.33) size=(3.26x0.01)
+  [TEXT_BOX (17)] id=11 name='AutoShape 11' pos=(4.93,3.47) size=(3.47x0.39)
+      p0 lvl=0 align=LEFT (1): '手工复盘成本高、难坚持'
+          run=('手工复盘成本高、难坚持', 16.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=12 name='AutoShape 12' pos=(4.93,3.94) size=(3.47x1.67)
+      p0 lvl=0 align=LEFT (1): '整理笔记、绘制脑图要在多个工具间切换、耗时费力，复盘往往半途而废。'
+          run=('整理笔记、绘制脑图要在多个工具间切换、耗时费力，复盘往往半途而废。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=13 name='AutoShape 13' pos=(8.68,2.50) size=(3.47x0.72)
+      p0 lvl=0 align=LEFT (1): '03'
+          run=('03', 40.0, 'True', '2B5FA3', '微软雅黑')
+  [LINE (9)] id=14 name='Connector 14' pos=(8.68,3.33) size=(3.26x0.01)
+  [TEXT_BOX (17)] id=15 name='AutoShape 15' pos=(8.68,3.47) size=(3.47x0.39)
+      p0 lvl=0 align=LEFT (1): '鸿蒙缺少原生脑图能力'
+          run=('鸿蒙缺少原生脑图能力', 16.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=16 name='AutoShape 16' pos=(8.68,3.94) size=(3.47x1.67)
+      p0 lvl=0 align=LEFT (1): 'HarmonyOS 生态缺少成熟的脑图组件，AI 应用想把思维结构可视化，只能从零自研。'
+          run=('HarmonyOS 生态缺少成熟的脑图组件，AI 应用想把思维结构可视化，只能从零自研。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [LINE (9)] id=17 name='Connector 17' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=18 name='AutoShape 18' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '来源：团队对专注计时类产品使用流程的调研与鸿蒙生态组件现状梳理'
+          run=('来源：团队对专注计时类产品使用流程的调研与鸿蒙生态组件现状梳理', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=19 name='AutoShape 19' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 03'
+          run=('鸿端时计 · 03', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '我们观察到，越来越多人使用专注计时软件，但记录并不等于成长。\n三个痛点：第一，计时软件只记录时长，一周后只有数字，无法发现时间花在了哪里；第二，手工复盘要切换工具、整理笔记、画图，成本高、很难坚持；第三，鸿蒙生态缺少成熟脑图组件，AI 应用想可视化思维结构只能从零自研。\n这三点正是鸿端时计要解决的问题。'
+
+====================================================================================================
+SLIDE 4  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(6.94x0.28)
+      p0 lvl=0 align=LEFT (1): '产品定位 · POSITIONING'
+          run=('产品定位 · POSITIONING', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '把“记录—复盘—再行动”跑成闭环的 AI 效率应用'
+          run=('把“记录—复盘—再行动”跑成闭环的 AI 效率应用', 27.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(0.97,1.83) size=(5.00x0.28)
+      p0 lvl=0 align=LEFT (1): '产品类型'
+          run=('产品类型', 12.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=5 name='AutoShape 5' pos=(0.97,2.14) size=(5.00x0.69)
+      p0 lvl=0 align=LEFT (1): 'AI 专注复盘应用：一个鸿蒙原生应用，加一个可复用的脑图组件。'
+          run=('AI 专注复盘应用：一个鸿蒙原生应用，加一个可复用的脑图组件。', 14.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=6 name='AutoShape 6' pos=(0.97,3.00) size=(5.00x0.28)
+      p0 lvl=0 align=LEFT (1): '目标用户'
+          run=('目标用户', 12.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=7 name='AutoShape 7' pos=(0.97,3.31) size=(5.00x0.92)
+      p0 lvl=0 align=LEFT (1): '有专注计时习惯、需要周期性复盘的学生与职场人；同时向鸿蒙开发者输出可复用脑图组件。'
+          run=('有专注计时习惯、需要周期性复盘的学生与职场人；同时向鸿蒙开发者输出可复用脑图组件。', 14.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=8 name='AutoShape 8' pos=(0.97,4.44) size=(5.00x0.28)
+      p0 lvl=0 align=LEFT (1): '核心功能'
+          run=('核心功能', 12.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=9 name='AutoShape 9' pos=(0.97,4.75) size=(5.14x1.03)
+      p0 lvl=0 align=LEFT (1): 'AI 一键生成脑图 · 手势缩放编辑 · 节点快录 · 专注计时 · 桌面卡片 · 导出分享。'
+          run=('AI 一键生成脑图 · 手势缩放编辑 · 节点快录 · 专注计时 · 桌面卡片 · 导出分享。', 14.0, 'False', '3F4A5C', '微软雅黑')
+  [PICTURE (13)] id=10 name='Picture 10' pos=(6.47,1.78) size=(5.56x4.21)
+      IMAGE: image.png ext=png size=100387
+  [TEXT_BOX (17)] id=11 name='AutoShape 11' pos=(6.47,6.06) size=(5.56x0.28)
+      p0 lvl=0 align=CENTER (2): '图 1 · 用户使用闭环'
+          run=('图 1 · 用户使用闭环', 11.0, 'False', '8A97A8', '微软雅黑')
+  [LINE (9)] id=12 name='Connector 12' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=13 name='AutoShape 13' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '来源：作品功能架构与用户操作流程梳理'
+          run=('来源：作品功能架构与用户操作流程梳理', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=14 name='AutoShape 14' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 04'
+          run=('鸿端时计 · 04', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '鸿端时计定位为一款 AI 专注复盘应用，由一个鸿蒙原生应用和一个可复用脑图组件构成。\n目标用户两类：一是有专注计时习惯、需要周期性复盘的学生和职场人，二是需要脑图能力的鸿蒙开发者。\n右图是用户闭环：专注计时与记录产生数据，AI 一键生成复盘脑图，用户手势编辑、导出分享，洞察再指导下一轮行动，形成记录、复盘、再行动的闭环。'
+
+====================================================================================================
+SLIDE 5  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(6.94x0.28)
+      p0 lvl=0 align=LEFT (1): '系统架构 · ARCHITECTURE'
+          run=('系统架构 · ARCHITECTURE', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '四层分层架构，上层调用下层能力'
+          run=('四层分层架构，上层调用下层能力', 27.0, 'True', '12264A', '微软雅黑')
+  [AUTO_SHAPE (1)] id=4 name='AutoShape 4' pos=(0.97,1.75) size=(1.81x0.94)
+  [TEXT_BOX (17)] id=5 name='AutoShape 5' pos=(0.97,1.75) size=(1.81x0.94)
+      p0 lvl=0 align=CENTER (2): '应用层'
+          run=('应用层', 15.0, 'True', 'FFFFFF', '微软雅黑')
+      p1 lvl=0 align=CENTER (2): 'APPLICATION'
+          run=('APPLICATION', 9.0, 'True', 'FFFFFF', '微软雅黑')
+  [AUTO_SHAPE (1)] id=6 name='AutoShape 6' pos=(2.89,1.75) size=(9.47x0.94)
+  [TEXT_BOX (17)] id=7 name='AutoShape 7' pos=(3.14,1.75) size=(9.06x0.94)
+      p0 lvl=0 align=LEFT (1): '鸿端时计 App：专注计时 · 节点快录 · AI 复盘入口 · 手势编辑 · 导出分享 · 桌面卡片'
+          run=('鸿端时计 App：专注计时 · 节点快录 · AI 复盘入口 · 手势编辑 · 导出分享 · 桌面卡片', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [AUTO_SHAPE (1)] id=8 name='AutoShape 8' pos=(0.97,2.81) size=(1.81x0.94)
+  [TEXT_BOX (17)] id=9 name='AutoShape 9' pos=(0.97,2.81) size=(1.81x0.94)
+      p0 lvl=0 align=CENTER (2): 'AI 服务层'
+          run=('AI 服务层', 15.0, 'True', 'FFFFFF', '微软雅黑')
+      p1 lvl=0 align=CENTER (2): 'AI SERVICE'
+          run=('AI SERVICE', 9.0, 'True', 'FFFFFF', '微软雅黑')
+  [AUTO_SHAPE (1)] id=10 name='AutoShape 10' pos=(2.89,2.81) size=(9.47x0.94)
+  [TEXT_BOX (17)] id=11 name='AutoShape 11' pos=(3.14,2.81) size=(9.06x0.94)
+      p0 lvl=0 align=LEFT (1): '大模型调用 · 结构化 Prompt 约束 · JSON 抽取与规整 · 本地规则树兜底'
+          run=('大模型调用 · 结构化 Prompt 约束 · JSON 抽取与规整 · 本地规则树兜底', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [AUTO_SHAPE (1)] id=12 name='AutoShape 12' pos=(0.97,3.86) size=(1.81x0.94)
+  [TEXT_BOX (17)] id=13 name='AutoShape 13' pos=(0.97,3.86) size=(1.81x0.94)
+      p0 lvl=0 align=CENTER (2): '组件层（自研）'
+          run=('组件层（自研）', 15.0, 'True', 'FFFFFF', '微软雅黑')
+      p1 lvl=0 align=CENTER (2): 'MINDMAP SDK'
+          run=('MINDMAP SDK', 9.0, 'True', 'FFFFFF', '微软雅黑')
+  [AUTO_SHAPE (1)] id=14 name='AutoShape 14' pos=(2.89,3.86) size=(9.47x0.94)
+  [TEXT_BOX (17)] id=15 name='AutoShape 15' pos=(3.14,3.86) size=(9.06x0.94)
+      p0 lvl=0 align=LEFT (1): 'mindmap-harmony：树节点模型 · 布局引擎 · Canvas 渲染 · 手势缩放交互'
+          run=('mindmap-harmony：树节点模型 · 布局引擎 · Canvas 渲染 · 手势缩放交互', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [AUTO_SHAPE (1)] id=16 name='AutoShape 16' pos=(0.97,4.92) size=(1.81x0.94)
+  [TEXT_BOX (17)] id=17 name='AutoShape 17' pos=(0.97,4.92) size=(1.81x0.94)
+      p0 lvl=0 align=CENTER (2): '数据与平台'
+          run=('数据与平台', 15.0, 'True', 'FFFFFF', '微软雅黑')
+      p1 lvl=0 align=CENTER (2): 'DATA & PLATFORM'
+          run=('DATA & PLATFORM', 9.0, 'True', 'FFFFFF', '微软雅黑')
+  [AUTO_SHAPE (1)] id=18 name='AutoShape 18' pos=(2.89,4.92) size=(9.47x0.94)
+  [TEXT_BOX (17)] id=19 name='AutoShape 19' pos=(3.14,4.92) size=(9.06x0.94)
+      p0 lvl=0 align=LEFT (1): '本地数据持久化 · 偏好与密钥管理 · HarmonyOS SDK / ArkUI · ohpm 分发'
+          run=('本地数据持久化 · 偏好与密钥管理 · HarmonyOS SDK / ArkUI · ohpm 分发', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [LINE (9)] id=20 name='Connector 20' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=21 name='AutoShape 21' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '蓝色两层为本作品核心自研成果：AI 可靠生成链路与鸿蒙脑图组件'
+          run=('蓝色两层为本作品核心自研成果：AI 可靠生成链路与鸿蒙脑图组件', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=22 name='AutoShape 22' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 05'
+          run=('鸿端时计 · 05', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '系统采用四层分层架构。最上层是应用层，即鸿端时计 App，承载专注计时、节点快录、AI 复盘、手势编辑、导出和桌面卡片。\n第二层是 AI 服务层，负责调用大模型，并用结构化 Prompt、JSON 抽取、本地规则树三级容错保证输出可靠。\n第三层是自研鸿蒙脑图组件 mindmap-harmony，包含树节点模型、布局引擎、Canvas 渲染和手势交互；最底层负责本地持久化、密钥管理，基于 HarmonyOS 和 ohpm 分发。两条蓝色层正是我们的核心自研成果。'
+
+====================================================================================================
+SLIDE 6  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(8.33x0.28)
+      p0 lvl=0 align=LEFT (1): '核心技术 ① · AI 可靠生成'
+          run=('核心技术 ① · AI 可靠生成', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '三级容错，把不稳定的模型输出变成可用脑图'
+          run=('三级容错，把不稳定的模型输出变成可用脑图', 26.0, 'True', '12264A', '微软雅黑')
+  [PICTURE (13)] id=4 name='Picture 4' pos=(1.25,1.89) size=(3.89x4.26)
+      IMAGE: image.png ext=png size=161458
+  [TEXT_BOX (17)] id=5 name='AutoShape 5' pos=(1.11,6.22) size=(4.17x0.28)
+      p0 lvl=0 align=CENTER (2): '图 2 · AI 三级容错流程'
+          run=('图 2 · AI 三级容错流程', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=6 name='AutoShape 6' pos=(5.83,1.75) size=(6.53x0.36)
+      p0 lvl=0 align=LEFT (1): '01 · 结构化 Prompt 约束'
+          run=('01 · 结构化 Prompt 约束', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=7 name='AutoShape 7' pos=(5.83,2.14) size=(6.39x0.75)
+      p0 lvl=0 align=LEFT (1): '在提示词中明确 JSON Schema、字段与层级，温度设 0.4，让模型按统一规范输出。'
+          run=('在提示词中明确 JSON Schema、字段与层级，温度设 0.4，让模型按统一规范输出。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=8 name='AutoShape 8' pos=(5.83,3.00) size=(6.53x0.36)
+      p0 lvl=0 align=LEFT (1): '02 · JSON 抽取与规整'
+          run=('02 · JSON 抽取与规整', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=9 name='AutoShape 9' pos=(5.83,3.39) size=(6.39x0.75)
+      p0 lvl=0 align=LEFT (1): '模型夹带解释文字或代码块时，自动抽取 JSON 片段、补全字段、归一化结构。'
+          run=('模型夹带解释文字或代码块时，自动抽取 JSON 片段、补全字段、归一化结构。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=10 name='AutoShape 10' pos=(5.83,4.25) size=(6.53x0.36)
+      p0 lvl=0 align=LEFT (1): '03 · 本地规则树兜底'
+          run=('03 · 本地规则树兜底', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=11 name='AutoShape 11' pos=(5.83,4.64) size=(6.39x0.75)
+      p0 lvl=0 align=LEFT (1): '解析仍失败时，用预置规则把文本切分成树，离线或异常情况下仍能成图。'
+          run=('解析仍失败时，用预置规则把文本切分成树，离线或异常情况下仍能成图。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [AUTO_SHAPE (1)] id=12 name='AutoShape 12' pos=(5.83,5.56) size=(6.53x0.61)
+  [TEXT_BOX (17)] id=13 name='AutoShape 13' pos=(5.83,5.56) size=(6.53x0.61)
+      p0 lvl=0 align=CENTER (2): '任一级成功即返回、逐级兜底，最终生成成功率 100%'
+          run=('任一级成功即返回、逐级兜底，最终生成成功率 100%', 13.0, 'True', '2B5FA3', '微软雅黑')
+  [LINE (9)] id=14 name='Connector 14' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=15 name='AutoShape 15' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '来源：AI 生成链路设计，实验数据见下一页'
+          run=('来源：AI 生成链路设计，实验数据见下一页', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=16 name='AutoShape 16' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 06'
+          run=('鸿端时计 · 06', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '第一项核心技术是 AI 三级可靠生成。大模型直接输出很不稳定，我们实测直接调用的解析成功率为 0。\n三级容错：第一级用结构化 Prompt 明确 JSON Schema、字段和层级，温度 0.4；第二级在模型夹带文字或代码块时抽取 JSON、补全字段、归一化；第三级用本地规则树切分文本，离线也能成图。\n任一级成功即返回、逐级兜底，最终 100 次实验生成成功率 100%。'
+
+====================================================================================================
+SLIDE 7  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(8.33x0.28)
+      p0 lvl=0 align=LEFT (1): '实验证据 ① · 100 次真实调用'
+          run=('实验证据 ① · 100 次真实调用', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '裸调用成功率 0%，三级方案稳定在 100%'
+          run=('裸调用成功率 0%，三级方案稳定在 100%', 26.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(0.97,1.61) size=(11.39x0.33)
+      p0 lvl=0 align=LEFT (1): '实验设置：同一批 100 组真实计时 / 笔记输入，逐级叠加策略，统计最终生成成功率。'
+          run=('实验设置：同一批 100 组真实计时 / 笔记输入，逐级叠加策略，统计最终生成成功率。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=5 name='AutoShape 5' pos=(0.97,2.22) size=(2.78x0.75)
+      p0 lvl=0 align=LEFT (1): '直接 LLM 输出'
+          run=('直接 LLM 输出', 14.0, 'True', '12264A', '微软雅黑')
+  [AUTO_SHAPE (1)] id=6 name='AutoShape 6' pos=(3.89,2.44) size=(6.11x0.31)
+  [TEXT_BOX (17)] id=7 name='AutoShape 7' pos=(10.17,2.22) size=(1.25x0.75)
+      p0 lvl=0 align=LEFT (1): '0%'
+          run=('0%', 16.0, 'True', 'C4392B', '微软雅黑')
+  [TEXT_BOX (17)] id=8 name='AutoShape 8' pos=(0.97,3.11) size=(2.78x0.75)
+      p0 lvl=0 align=LEFT (1): '+ 结构化 Prompt'
+          run=('+ 结构化 Prompt', 14.0, 'True', '12264A', '微软雅黑')
+  [AUTO_SHAPE (1)] id=9 name='AutoShape 9' pos=(3.89,3.33) size=(6.11x0.31)
+  [AUTO_SHAPE (1)] id=10 name='AutoShape 10' pos=(3.89,3.33) size=(6.11x0.31)
+  [TEXT_BOX (17)] id=11 name='AutoShape 11' pos=(10.17,3.11) size=(1.25x0.75)
+      p0 lvl=0 align=LEFT (1): '100%'
+          run=('100%', 16.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=12 name='AutoShape 12' pos=(0.97,4.00) size=(2.78x0.75)
+      p0 lvl=0 align=LEFT (1): '+ JSON 抽取规整'
+          run=('+ JSON 抽取规整', 14.0, 'True', '12264A', '微软雅黑')
+  [AUTO_SHAPE (1)] id=13 name='AutoShape 13' pos=(3.89,4.22) size=(6.11x0.31)
+  [AUTO_SHAPE (1)] id=14 name='AutoShape 14' pos=(3.89,4.22) size=(6.11x0.31)
+  [TEXT_BOX (17)] id=15 name='AutoShape 15' pos=(10.17,4.00) size=(1.25x0.75)
+      p0 lvl=0 align=LEFT (1): '100%'
+          run=('100%', 16.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=16 name='AutoShape 16' pos=(0.97,4.89) size=(2.78x0.75)
+      p0 lvl=0 align=LEFT (1): '+ 本地规则树兜底'
+          run=('+ 本地规则树兜底', 14.0, 'True', '12264A', '微软雅黑')
+  [AUTO_SHAPE (1)] id=17 name='AutoShape 17' pos=(3.89,5.11) size=(6.11x0.31)
+  [AUTO_SHAPE (1)] id=18 name='AutoShape 18' pos=(3.89,5.11) size=(6.11x0.31)
+  [TEXT_BOX (17)] id=19 name='AutoShape 19' pos=(10.17,4.89) size=(1.25x0.75)
+      p0 lvl=0 align=LEFT (1): '100%'
+          run=('100%', 16.0, 'True', '2B5FA3', '微软雅黑')
+  [AUTO_SHAPE (1)] id=20 name='AutoShape 20' pos=(0.97,5.83) size=(11.39x0.56)
+  [TEXT_BOX (17)] id=21 name='AutoShape 21' pos=(0.97,5.83) size=(11.39x0.56)
+      p0 lvl=0 align=CENTER (2): '结构化 Prompt 是关键一跃（0 → 100），后两级保障异常 / 离线下仍为 100%'
+          run=('结构化 Prompt 是关键一跃（0 → 100），后两级保障异常 / 离线下仍为 100%', 13.0, 'True', '2B5FA3', '微软雅黑')
+  [LINE (9)] id=22 name='Connector 22' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=23 name='AutoShape 23' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '来源：本机 ai_experiment.py，100 组真实调用；异常恢复率均为 0（约束后无异常进入后级）'
+          run=('来源：本机 ai_experiment.py，100 组真实调用；异常恢复率均为 0（约束后无异常进入后级）', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=24 name='AutoShape 24' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 07'
+          run=('鸿端时计 · 07', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '这是第一项实验证据。我们准备同一批 100 组真实计时和笔记输入，逐级叠加策略，统计成功率。\n直接让大模型输出，100 组没有一组能解析成合法脑图，成功率 0；加上结构化 Prompt 后直接解析跳到 100%；再叠加 JSON 抽取和规则树兜底，最终成功率稳定 100%。\n说明结构化约束是关键一跃，后两级保证异常和离线情况下依然可用。'
+
+====================================================================================================
+SLIDE 8  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(8.33x0.28)
+      p0 lvl=0 align=LEFT (1): '核心技术 ② · 鸿蒙脑图布局算法'
+          run=('核心技术 ② · 鸿蒙脑图布局算法', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '按子树大小分配空间，脑图更紧凑且零重叠'
+          run=('按子树大小分配空间，脑图更紧凑且零重叠', 26.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(0.97,1.78) size=(5.17x0.28)
+      p0 lvl=0 align=LEFT (1): '算法机制 · MECHANISM'
+          run=('算法机制 · MECHANISM', 12.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=5 name='AutoShape 5' pos=(0.97,2.17) size=(5.17x0.36)
+      p0 lvl=0 align=LEFT (1): '01 · 四分支不均布局'
+          run=('01 · 四分支不均布局', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=6 name='AutoShape 6' pos=(0.97,2.56) size=(5.17x0.75)
+      p0 lvl=0 align=LEFT (1): '根节点向上下左右生长，按各子树实际包围盒分配方向空间，而非均分画布。'
+          run=('根节点向上下左右生长，按各子树实际包围盒分配方向空间，而非均分画布。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=7 name='AutoShape 7' pos=(0.97,3.47) size=(5.17x0.36)
+      p0 lvl=0 align=LEFT (1): '02 · 递归压缩'
+          run=('02 · 递归压缩', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=8 name='AutoShape 8' pos=(0.97,3.86) size=(5.17x0.75)
+      p0 lvl=0 align=LEFT (1): '自底向上计算子树尺寸，相邻分支边界贴合，压缩多余空隙。'
+          run=('自底向上计算子树尺寸，相邻分支边界贴合，压缩多余空隙。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=9 name='AutoShape 9' pos=(0.97,4.78) size=(5.17x0.36)
+      p0 lvl=0 align=LEFT (1): '03 · 防重叠'
+          run=('03 · 防重叠', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=10 name='AutoShape 10' pos=(0.97,5.17) size=(5.17x0.75)
+      p0 lvl=0 align=LEFT (1): '布局时检测相交并推开节点，保证节点与连线零重叠。'
+          run=('布局时检测相交并推开节点，保证节点与连线零重叠。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=11 name='AutoShape 11' pos=(6.53,1.78) size=(5.83x0.28)
+      p0 lvl=0 align=LEFT (1): 'Naive：四方向均分画布，留白多'
+          run=('Naive：四方向均分画布，留白多', 12.0, 'True', '8A97A8', '微软雅黑')
+  [AUTO_SHAPE (1)] id=12 name='AutoShape 12' pos=(6.53,2.08) size=(5.83x1.44)
+  [LINE (9)] id=13 name='Connector 13' pos=(8.72,2.80) size=(1.44x0.01)
+  [LINE (9)] id=14 name='Connector 14' pos=(6.53,2.80) size=(5.83x0.01)
+  [AUTO_SHAPE (1)] id=15 name='AutoShape 15' pos=(7.83,2.29) size=(0.31x0.31)
+  [AUTO_SHAPE (1)] id=16 name='AutoShape 16' pos=(10.75,2.29) size=(0.31x0.31)
+  [AUTO_SHAPE (1)] id=17 name='AutoShape 17' pos=(7.83,3.01) size=(0.31x0.31)
+  [AUTO_SHAPE (1)] id=18 name='AutoShape 18' pos=(10.75,3.01) size=(0.31x0.31)
+  [TEXT_BOX (17)] id=19 name='AutoShape 19' pos=(6.53,3.64) size=(5.83x0.28)
+      p0 lvl=0 align=LEFT (1): 'Ours：按子树大小分配并压缩，饱满'
+          run=('Ours：按子树大小分配并压缩，饱满', 12.0, 'True', '2B5FA3', '微软雅黑')
+  [AUTO_SHAPE (1)] id=20 name='AutoShape 20' pos=(6.53,3.94) size=(5.83x1.67)
+  [AUTO_SHAPE (1)] id=21 name='AutoShape 21' pos=(9.00,4.03) size=(0.89x0.44)
+  [AUTO_SHAPE (1)] id=22 name='AutoShape 22' pos=(7.78,4.58) size=(1.33x0.39)
+  [AUTO_SHAPE (1)] id=23 name='AutoShape 23' pos=(9.78,4.56) size=(1.64x0.44)
+  [AUTO_SHAPE (1)] id=24 name='AutoShape 24' pos=(8.83,5.08) size=(1.22x0.42)
+  [AUTO_SHAPE (1)] id=25 name='AutoShape 25' pos=(9.26,4.64) size=(0.36x0.28)
+  [TEXT_BOX (17)] id=26 name='AutoShape 26' pos=(6.53,5.69) size=(5.83x0.28)
+      p0 lvl=0 align=CENTER (2): '图 3 · 布局对比：均分 vs 按需压缩'
+          run=('图 3 · 布局对比：均分 vs 按需压缩', 11.0, 'False', '8A97A8', '微软雅黑')
+  [LINE (9)] id=27 name='Connector 27' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=28 name='AutoShape 28' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '来源：自研布局算法设计，定量结果见下一页'
+          run=('来源：自研布局算法设计，定量结果见下一页', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=29 name='AutoShape 29' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 08'
+          run=('鸿端时计 · 08', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '第二项核心技术是自研鸿蒙脑图布局算法。朴素放射布局把四个方向均分，不管分支实际多大，结果有的方向挤、有的方向空。\n我们做三件事：按子树实际包围盒分配方向空间；自底向上递归计算、让相邻分支贴合压缩；检测相交并推开节点，保证零重叠。\n右侧上为朴素均分、下为我们的按需分配，明显更紧凑饱满，下一页是定量实验。'
+
+====================================================================================================
+SLIDE 9  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(8.33x0.28)
+      p0 lvl=0 align=LEFT (1): '实验证据 ② · 布局算法'
+          run=('实验证据 ② · 布局算法', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '零重叠前提下，垂直空间平均压缩约 10%'
+          run=('零重叠前提下，垂直空间平均压缩约 10%', 26.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(0.97,1.61) size=(11.39x0.31)
+      p0 lvl=0 align=LEFT (1): '设置：每种规模随机生成 100 棵树取平均（叶子 5.1→49.8，深度 2.7→6.8）；vp 为视图像素，ms 为毫秒。'
+          run=('设置：每种规模随机生成 100 棵树取平均（叶子 5.1→49.8，深度 2.7→6.8）；vp 为视图像素，ms 为毫秒。', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [TABLE (19)] id=5 name='Table 5' pos=(0.97,2.03) size=(11.39x2.94)
+      TABLE rows=5 cols=7
+        r0: c0='节点数' | c1='Naive 高(vp)' | c2='Ours 高(vp)' | c3='节省(vp)' | c4='压缩率' | c5='重叠 (N/O)' | c6='耗时 (ms)'
+        r1: c0='10' | c1='340' | c2='319' | c3='21' | c4='6.7%' | c5='0 / 0' | c6='0.012'
+        r2: c0='20' | c1='617' | c2='539' | c3='78' | c4='13.4%' | c5='0 / 0' | c6='0.018'
+        r3: c0='50' | c1='1538' | c2='1360' | c3='178' | c4='11.9%' | c5='0 / 0' | c6='0.030'
+        r4: c0='100' | c1='3021' | c2='2713' | c3='308' | c4='10.4%' | c5='0 / 0' | c6='0.053'
+  [LINE (9)] id=6 name='Connector 6' pos=(4.18,5.76) size=(1.08x0.01)
+  [LINE (9)] id=7 name='Connector 7' pos=(8.07,5.76) size=(1.08x0.01)
+  [TEXT_BOX (17)] id=8 name='AutoShape 8' pos=(0.97,5.22) size=(3.61x0.58)
+      p0 lvl=0 align=CENTER (2): '≈10%'
+          run=('≈10%', 26.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=9 name='AutoShape 9' pos=(0.97,5.86) size=(3.61x0.42)
+      p0 lvl=0 align=CENTER (2): '垂直空间平均压缩，100 节点省 308vp'
+          run=('垂直空间平均压缩，100 节点省 308vp', 11.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=10 name='AutoShape 10' pos=(4.86,5.22) size=(3.61x0.58)
+      p0 lvl=0 align=CENTER (2): '0'
+          run=('0', 26.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=11 name='AutoShape 11' pos=(4.86,5.86) size=(3.61x0.42)
+      p0 lvl=0 align=CENTER (2): '各规模节点重叠数（N 与 O 均为 0）'
+          run=('各规模节点重叠数（N 与 O 均为 0）', 11.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=12 name='AutoShape 12' pos=(8.75,5.22) size=(3.61x0.58)
+      p0 lvl=0 align=CENTER (2): '0.053ms'
+          run=('0.053ms', 26.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=13 name='AutoShape 13' pos=(8.75,5.86) size=(3.61x0.42)
+      p0 lvl=0 align=CENTER (2): '100 节点耗时，近线性、无性能负担'
+          run=('100 节点耗时，近线性、无性能负担', 11.0, 'False', '3F4A5C', '微软雅黑')
+  [LINE (9)] id=14 name='Connector 14' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=15 name='AutoShape 15' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '来源：本机布局算法实验脚本，100 棵 / 规模'
+          run=('来源：本机布局算法实验脚本，100 棵 / 规模', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=16 name='AutoShape 16' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 09'
+          run=('鸿端时计 · 09', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '第二项实验针对布局算法。对 10、20、50、100 节点四种规模各随机生成 100 棵树，叶子 5.1 到 49.8、深度 2.7 到 6.8，取平均。\n我们的布局在保证 0 节点重叠的前提下，垂直占用比朴素布局平均压缩约 10%，100 节点节省 308 个视图像素。\n布局耗时随节点数近线性增长，100 节点仅 0.053 毫秒，没有性能负担，算法更紧凑且稳定高效。'
+
+====================================================================================================
+SLIDE 10  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(8.33x0.28)
+      p0 lvl=0 align=LEFT (1): '功能展示 ① · 核心功能'
+          run=('功能展示 ① · 核心功能', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '核心 AI 功能：一键生成、手势交互、随手记录'
+          run=('核心 AI 功能：一键生成、手势交互、随手记录', 26.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(1.81,1.72) size=(2.36x0.33)
+      p0 lvl=0 align=CENTER (2): 'AI 复盘脑图'
+          run=('AI 复盘脑图', 14.0, 'True', '12264A', '微软雅黑')
+  [AUTO_SHAPE (1)] id=5 name='AutoShape 5' pos=(1.81,2.11) size=(2.36x4.19)
+  [PICTURE (13)] id=6 name='Picture 6' pos=(2.03,2.11) size=(1.93x4.19)
+      IMAGE: image.png ext=png size=62419
+  [TEXT_BOX (17)] id=7 name='AutoShape 7' pos=(5.49,1.72) size=(2.36x0.33)
+      p0 lvl=0 align=CENTER (2): '手势缩放编辑'
+          run=('手势缩放编辑', 14.0, 'True', '12264A', '微软雅黑')
+  [AUTO_SHAPE (1)] id=8 name='AutoShape 8' pos=(5.49,2.11) size=(2.36x4.19)
+  [PICTURE (13)] id=9 name='Picture 9' pos=(5.69,2.11) size=(1.94x4.19)
+      IMAGE: image.png ext=png size=86425
+  [TEXT_BOX (17)] id=10 name='AutoShape 10' pos=(9.17,1.72) size=(2.36x0.33)
+      p0 lvl=0 align=CENTER (2): '节点键盘快录'
+          run=('节点键盘快录', 14.0, 'True', '12264A', '微软雅黑')
+  [AUTO_SHAPE (1)] id=11 name='AutoShape 11' pos=(9.17,2.11) size=(2.36x4.19)
+  [PICTURE (13)] id=12 name='Picture 12' pos=(9.38,2.11) size=(1.94x4.19)
+      IMAGE: image.png ext=png size=108496
+  [LINE (9)] id=13 name='Connector 13' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=14 name='AutoShape 14' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '截图回传后填入，占位框不进入最终稿'
+          run=('截图回传后填入，占位框不进入最终稿', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=15 name='AutoShape 15' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 10'
+          run=('鸿端时计 · 10', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '核心功能有三项。第一，AI 复盘脑图：一键把一周计时和笔记生成结构完整的脑图。\n第二，手势缩放编辑：双指缩放、拖动，点选节点即可增删改。第三，节点键盘快录：随时打开键盘快速记录想法并挂到对应节点。\n这一页用三张真机截图展示，截图后我会填入。'
+
+====================================================================================================
+SLIDE 11  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(8.33x0.28)
+      p0 lvl=0 align=LEFT (1): '功能展示 ② · 辅助与扩展'
+          run=('功能展示 ② · 辅助与扩展', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '辅助功能完整，并预留模型与场景扩展接口'
+          run=('辅助功能完整，并预留模型与场景扩展接口', 26.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(0.97,2.08) size=(5.97x0.31)
+      p0 lvl=0 align=LEFT (1): '01 · 专注计时'
+          run=('01 · 专注计时', 14.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=5 name='AutoShape 5' pos=(0.97,2.42) size=(5.97x0.36)
+      p0 lvl=0 align=LEFT (1): '番茄钟与正计时，稳定运行、自动记录。'
+          run=('番茄钟与正计时，稳定运行、自动记录。', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=6 name='AutoShape 6' pos=(0.97,2.89) size=(5.97x0.31)
+      p0 lvl=0 align=LEFT (1): '02 · 桌面小组件'
+          run=('02 · 桌面小组件', 14.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=7 name='AutoShape 7' pos=(0.97,3.22) size=(5.97x0.36)
+      p0 lvl=0 align=LEFT (1): '桌面卡片快速查看今日专注、一键进入应用。'
+          run=('桌面卡片快速查看今日专注、一键进入应用。', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=8 name='AutoShape 8' pos=(0.97,3.69) size=(5.97x0.31)
+      p0 lvl=0 align=LEFT (1): '03 · 周数据统计'
+          run=('03 · 周数据统计', 14.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=9 name='AutoShape 9' pos=(0.97,4.03) size=(5.97x0.36)
+      p0 lvl=0 align=LEFT (1): '按日、按任务汇总专注时长与分布。'
+          run=('按日、按任务汇总专注时长与分布。', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=10 name='AutoShape 10' pos=(0.97,4.50) size=(5.97x0.31)
+      p0 lvl=0 align=LEFT (1): '04 · 导出与分享'
+          run=('04 · 导出与分享', 14.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=11 name='AutoShape 11' pos=(0.97,4.83) size=(5.97x0.36)
+      p0 lvl=0 align=LEFT (1): '脑图导出为图片，便于存档与社交分享。'
+          run=('脑图导出为图片，便于存档与社交分享。', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=12 name='AutoShape 12' pos=(0.97,5.31) size=(5.97x0.31)
+      p0 lvl=0 align=LEFT (1): '05 · 扩展接口'
+          run=('05 · 扩展接口', 14.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=13 name='AutoShape 13' pos=(0.97,5.64) size=(5.97x0.36)
+      p0 lvl=0 align=LEFT (1): '组件化、模型可升级，预留多技术融合路径。'
+          run=('组件化、模型可升级，预留多技术融合路径。', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [AUTO_SHAPE (1)] id=14 name='AutoShape 14' pos=(7.36,2.08) size=(2.22x3.94)
+  [PICTURE (13)] id=15 name='Picture 15' pos=(7.61,2.08) size=(1.72x3.94)
+      IMAGE: image.png ext=png size=69756
+  [AUTO_SHAPE (1)] id=16 name='AutoShape 16' pos=(10.00,2.08) size=(2.22x3.94)
+  [PICTURE (13)] id=17 name='Picture 17' pos=(10.21,2.08) size=(1.79x3.94)
+      IMAGE: image.png ext=png size=238708
+  [TEXT_BOX (17)] id=18 name='AutoShape 18' pos=(7.36,6.11) size=(4.86x0.28)
+      p0 lvl=0 align=CENTER (2): '左：专注计时\u3000右：桌面小组件（专注中动态倒计时）'
+          run=('左：专注计时\u3000右：桌面小组件（专注中动态倒计时）', 10.0, 'False', '96A2B2', '微软雅黑')
+  [LINE (9)] id=19 name='Connector 19' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=20 name='AutoShape 20' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '功能覆盖记录、统计、展示、分享全链路'
+          run=('功能覆盖记录、统计、展示、分享全链路', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=21 name='AutoShape 21' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 11'
+          run=('鸿端时计 · 11', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '除核心 AI 功能外，辅助功能也完整：专注计时支持番茄钟和正计时、自动记录；桌面小组件快速查看和进入；周数据按日、按任务汇总；脑图可导出图片、方便分享。\n架构上组件化、模型可升级，并预留多技术融合的扩展路径。\n右侧两张截图分别是专注计时和桌面小组件，截图后填入。'
+
+====================================================================================================
+SLIDE 12  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(8.33x0.28)
+      p0 lvl=0 align=LEFT (1): '应用价值 · 场景与案例'
+          run=('应用价值 · 场景与案例', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '三类高频场景，让复盘自然发生'
+          run=('三类高频场景，让复盘自然发生', 26.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(0.97,1.78) size=(5.00x0.28)
+      p0 lvl=0 align=LEFT (1): '典型场景 · SCENARIOS'
+          run=('典型场景 · SCENARIOS', 12.0, 'True', '2B5FA3', '微软雅黑')
+  [TEXT_BOX (17)] id=5 name='AutoShape 5' pos=(0.97,2.17) size=(5.00x0.36)
+      p0 lvl=0 align=LEFT (1): '01 · 学生周复盘'
+          run=('01 · 学生周复盘', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=6 name='AutoShape 6' pos=(0.97,2.56) size=(5.00x0.81)
+      p0 lvl=0 align=LEFT (1): '一周专注后，AI 汇总各科计时与笔记生成周复盘脑图，看清时间分配与薄弱点。'
+          run=('一周专注后，AI 汇总各科计时与笔记生成周复盘脑图，看清时间分配与薄弱点。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=7 name='AutoShape 7' pos=(0.97,3.50) size=(5.00x0.36)
+      p0 lvl=0 align=LEFT (1): '02 · 任务与项目规划'
+          run=('02 · 任务与项目规划', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=8 name='AutoShape 8' pos=(0.97,3.89) size=(5.00x0.81)
+      p0 lvl=0 align=LEFT (1): '任务拆解笔记一键转脑图，手势调整层级、补充节点，快速理清思路。'
+          run=('任务拆解笔记一键转脑图，手势调整层级、补充节点，快速理清思路。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=9 name='AutoShape 9' pos=(0.97,4.83) size=(5.00x0.36)
+      p0 lvl=0 align=LEFT (1): '03 · 鸿蒙开发者集成'
+          run=('03 · 鸿蒙开发者集成', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=10 name='AutoShape 10' pos=(0.97,5.22) size=(5.00x0.81)
+      p0 lvl=0 align=LEFT (1): '经 ohpm 引入 mindmap-harmony，在自有应用中快速获得脑图展示能力。'
+          run=('经 ohpm 引入 mindmap-harmony，在自有应用中快速获得脑图展示能力。', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [PICTURE (13)] id=11 name='Picture 11' pos=(6.06,2.08) size=(6.11x3.90)
+      IMAGE: image.png ext=png size=146626
+  [TEXT_BOX (17)] id=12 name='AutoShape 12' pos=(6.06,6.06) size=(6.11x0.28)
+      p0 lvl=0 align=CENTER (2): '图 4 · 案例：一周专注复盘脑图'
+          run=('图 4 · 案例：一周专注复盘脑图', 11.0, 'False', '8A97A8', '微软雅黑')
+  [LINE (9)] id=13 name='Connector 13' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=14 name='AutoShape 14' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '来源：典型使用场景与真实复盘案例整理'
+          run=('来源：典型使用场景与真实复盘案例整理', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=15 name='AutoShape 15' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 12'
+          run=('鸿端时计 · 12', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '应用价值方面，鸿端时计适用于三类高频场景。\n第一，学生周复盘：一周专注后 AI 汇总各科计时和笔记成脑图，看清时间分配和薄弱点；第二，任务项目规划：拆解笔记一键转脑图、手势调整；第三，开发者经 ohpm 引入组件快速获得脑图能力。\n右图是一个真实的一周专注复盘脑图案例。'
+
+====================================================================================================
+SLIDE 13  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(8.33x0.28)
+      p0 lvl=0 align=LEFT (1): '成果佐证 · 试用与公开成果'
+          run=('成果佐证 · 试用与公开成果', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '已上架 ohpm 并开源，试用数据持续回收'
+          run=('已上架 ohpm 并开源，试用数据持续回收', 26.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(0.97,1.75) size=(5.28x0.31)
+      p0 lvl=0 align=LEFT (1): '用户试用 · 10 人小样本（回收中）'
+          run=('用户试用 · 10 人小样本（回收中）', 13.0, 'True', '2B5FA3', '微软雅黑')
+  [LINE (9)] id=5 name='Connector 5' pos=(0.97,2.10) size=(5.28x0.01)
+  [TEXT_BOX (17)] id=6 name='AutoShape 6' pos=(0.97,2.25) size=(3.61x0.36)
+      p0 lvl=0 align=LEFT (1): '整体满意度（1-5）'
+          run=('整体满意度（1-5）', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=7 name='AutoShape 7' pos=(4.44,2.25) size=(1.81x0.36)
+      p0 lvl=0 align=RIGHT (3): '待回收'
+          run=('待回收', 13.0, 'False', '96A2B2', '微软雅黑')
+  [TEXT_BOX (17)] id=8 name='AutoShape 8' pos=(0.97,2.83) size=(3.61x0.36)
+      p0 lvl=0 align=LEFT (1): '一键生成帮助（1-5）'
+          run=('一键生成帮助（1-5）', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=9 name='AutoShape 9' pos=(4.44,2.83) size=(1.81x0.36)
+      p0 lvl=0 align=RIGHT (3): '待回收'
+          run=('待回收', 13.0, 'False', '96A2B2', '微软雅黑')
+  [TEXT_BOX (17)] id=10 name='AutoShape 10' pos=(0.97,3.42) size=(3.61x0.36)
+      p0 lvl=0 align=LEFT (1): '继续 / 推荐意愿'
+          run=('继续 / 推荐意愿', 13.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=11 name='AutoShape 11' pos=(4.44,3.42) size=(1.81x0.36)
+      p0 lvl=0 align=RIGHT (3): '待回收'
+          run=('待回收', 13.0, 'False', '96A2B2', '微软雅黑')
+  [TEXT_BOX (17)] id=12 name='AutoShape 12' pos=(0.97,4.06) size=(5.28x0.61)
+      p0 lvl=0 align=LEFT (1): '问卷回收后回填均值，并生成满意度柱状图（图 5）。'
+          run=('问卷回收后回填均值，并生成满意度柱状图（图 5）。', 12.0, 'False', '8A97A8', '微软雅黑')
+  [LINE (9)] id=13 name='Connector 13' pos=(4.35,3.92) size=(4.36x0.01)
+  [TEXT_BOX (17)] id=14 name='AutoShape 14' pos=(6.81,1.75) size=(5.56x0.31)
+      p0 lvl=0 align=LEFT (1): '公开成果 · 均可核验'
+          run=('公开成果 · 均可核验', 13.0, 'True', '2B5FA3', '微软雅黑')
+  [LINE (9)] id=15 name='Connector 15' pos=(6.81,2.10) size=(5.56x0.01)
+  [TEXT_BOX (17)] id=16 name='AutoShape 16' pos=(6.81,2.22) size=(5.56x0.33)
+      p0 lvl=0 align=LEFT (1): 'ohpm 包中心'
+          run=('ohpm 包中心', 14.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=17 name='AutoShape 17' pos=(6.81,2.56) size=(5.56x0.33)
+      p0 lvl=0 align=LEFT (1): 'mindmap-harmony 已上架'
+          run=('mindmap-harmony 已上架', 12.0, 'False', '3F4A5C', 'Consolas')
+  [TEXT_BOX (17)] id=18 name='AutoShape 18' pos=(6.81,2.97) size=(5.56x0.33)
+      p0 lvl=0 align=LEFT (1): 'GitHub 开源'
+          run=('GitHub 开源', 14.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=19 name='AutoShape 19' pos=(6.81,3.31) size=(5.56x0.33)
+      p0 lvl=0 align=LEFT (1): '组件 MIT · 应用 Apache-2.0'
+          run=('组件 MIT · 应用 Apache-2.0', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=20 name='AutoShape 20' pos=(6.81,3.72) size=(5.56x0.33)
+      p0 lvl=0 align=LEFT (1): '华为开发者社区'
+          run=('华为开发者社区', 14.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=21 name='AutoShape 21' pos=(6.81,4.06) size=(5.56x0.33)
+      p0 lvl=0 align=LEFT (1): '技术博客已发布'
+          run=('技术博客已发布', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=22 name='AutoShape 22' pos=(6.81,4.47) size=(5.56x0.33)
+      p0 lvl=0 align=LEFT (1): '掘金'
+          run=('掘金', 14.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=23 name='AutoShape 23' pos=(6.81,4.81) size=(5.56x0.33)
+      p0 lvl=0 align=LEFT (1): '技术解析文章已发布'
+          run=('技术解析文章已发布', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=24 name='AutoShape 24' pos=(6.81,5.22) size=(5.56x0.33)
+      p0 lvl=0 align=LEFT (1): '软件著作权'
+          run=('软件著作权', 14.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=25 name='AutoShape 25' pos=(6.81,5.56) size=(5.56x0.33)
+      p0 lvl=0 align=LEFT (1): '已提交申请，受理中'
+          run=('已提交申请，受理中', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [LINE (9)] id=26 name='Connector 26' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=27 name='AutoShape 27' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '作品已公开、可被复用，非停留在演示原型'
+          run=('作品已公开、可被复用，非停留在演示原型', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=28 name='AutoShape 28' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 13'
+          run=('鸿端时计 · 13', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '佐证分两块。用户试用：正通过在线问卷回收 10 位试用者反馈，含整体满意度、一键生成是否有帮助、是否愿意继续或推荐，回收后回填均值并出柱状图。\n公开成果均可核验：组件已上架 ohpm；组件和应用在 GitHub 开源，分别为 MIT 和 Apache-2.0；华为开发者社区和掘金发布了技术文章；软著已提交申请。\n这证明作品已公开、可被复用，而非停留在演示原型。'
+
+====================================================================================================
+SLIDE 14  layout=
+  [TEXT_BOX (17)] id=2 name='AutoShape 2' pos=(0.97,0.56) size=(8.33x0.28)
+      p0 lvl=0 align=LEFT (1): '总结与展望'
+          run=('总结与展望', 11.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,0.92) size=(11.39x0.58)
+      p0 lvl=0 align=LEFT (1): '核心成果已验证，向多场景与多技术融合演进'
+          run=('核心成果已验证，向多场景与多技术融合演进', 26.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(0.97,1.78) size=(5.28x0.31)
+      p0 lvl=0 align=LEFT (1): '核心成果 · RESULTS'
+          run=('核心成果 · RESULTS', 13.0, 'True', '2B5FA3', '微软雅黑')
+  [LINE (9)] id=5 name='Connector 5' pos=(0.97,2.13) size=(5.28x0.01)
+  [TEXT_BOX (17)] id=6 name='AutoShape 6' pos=(0.97,2.28) size=(5.28x0.36)
+      p0 lvl=0 align=LEFT (1): '01 · 可靠生成'
+          run=('01 · 可靠生成', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=7 name='AutoShape 7' pos=(0.97,2.67) size=(5.28x0.67)
+      p0 lvl=0 align=LEFT (1): '三级容错，100 次真实调用最终成功率 100%。'
+          run=('三级容错，100 次真实调用最终成功率 100%。', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=8 name='AutoShape 8' pos=(0.97,3.42) size=(5.28x0.36)
+      p0 lvl=0 align=LEFT (1): '02 · 紧凑布局'
+          run=('02 · 紧凑布局', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=9 name='AutoShape 9' pos=(0.97,3.81) size=(5.28x0.67)
+      p0 lvl=0 align=LEFT (1): '0 重叠、垂直空间平均省约 10%，耗时近线性。'
+          run=('0 重叠、垂直空间平均省约 10%，耗时近线性。', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=10 name='AutoShape 10' pos=(0.97,4.56) size=(5.28x0.36)
+      p0 lvl=0 align=LEFT (1): '03 · 完整产品'
+          run=('03 · 完整产品', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=11 name='AutoShape 11' pos=(0.97,4.94) size=(5.28x0.67)
+      p0 lvl=0 align=LEFT (1): '267 个单测全通过，已上架 ohpm 并开源。'
+          run=('267 个单测全通过，已上架 ohpm 并开源。', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [LINE (9)] id=12 name='Connector 12' pos=(4.36,3.94) size=(4.33x0.01)
+  [TEXT_BOX (17)] id=13 name='AutoShape 13' pos=(6.81,1.78) size=(5.56x0.31)
+      p0 lvl=0 align=LEFT (1): '未来规划 · ROADMAP'
+          run=('未来规划 · ROADMAP', 13.0, 'True', '2B5FA3', '微软雅黑')
+  [LINE (9)] id=14 name='Connector 14' pos=(6.81,2.13) size=(5.56x0.01)
+  [TEXT_BOX (17)] id=15 name='AutoShape 15' pos=(6.81,2.28) size=(5.56x0.36)
+      p0 lvl=0 align=LEFT (1): '算法升级'
+          run=('算法升级', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=16 name='AutoShape 16' pos=(6.81,2.67) size=(5.56x0.67)
+      p0 lvl=0 align=LEFT (1): '增强结构化约束与评测，提升复杂笔记层级准确率。'
+          run=('增强结构化约束与评测，提升复杂笔记层级准确率。', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=17 name='AutoShape 17' pos=(6.81,3.42) size=(5.56x0.36)
+      p0 lvl=0 align=LEFT (1): '多场景拓展'
+          run=('多场景拓展', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=18 name='AutoShape 18' pos=(6.81,3.81) size=(5.56x0.67)
+      p0 lvl=0 align=LEFT (1): '从专注复盘扩展到读书笔记、会议纪要、课程整理。'
+          run=('从专注复盘扩展到读书笔记、会议纪要、课程整理。', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [TEXT_BOX (17)] id=19 name='AutoShape 19' pos=(6.81,4.56) size=(5.56x0.36)
+      p0 lvl=0 align=LEFT (1): '多技术融合'
+          run=('多技术融合', 15.0, 'True', '12264A', '微软雅黑')
+  [TEXT_BOX (17)] id=20 name='AutoShape 20' pos=(6.81,4.94) size=(5.56x0.67)
+      p0 lvl=0 align=LEFT (1): '探索语音速记、多端协同与云端同步。'
+          run=('探索语音速记、多端协同与云端同步。', 12.0, 'False', '3F4A5C', '微软雅黑')
+  [LINE (9)] id=21 name='Connector 21' pos=(0.97,6.74) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=22 name='AutoShape 22' pos=(0.97,6.83) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '总结全面、展望可落地'
+          run=('总结全面、展望可落地', 10.0, 'False', '8A97A8', '微软雅黑')
+  [TEXT_BOX (17)] id=23 name='AutoShape 23' pos=(10.28,6.83) size=(2.08x0.31)
+      p0 lvl=0 align=RIGHT (3): '鸿端时计 · 14'
+          run=('鸿端时计 · 14', 10.0, 'False', '8A97A8', '微软雅黑')
+  NOTES: '核心成果三条：可靠生成，三级容错在 100 次真实调用中最终成功率 100%；紧凑布局，0 重叠下垂直空间平均省约 10%、耗时近线性；完整产品，267 个单测全通过，已上架 ohpm 并开源。\n展望：算法上提升复杂笔记层级准确率；场景上拓展到读书笔记、会议纪要、课程整理；技术上探索语音速记、多端协同和云端同步。\n方向清晰、可落地。'
+
+====================================================================================================
+SLIDE 15  layout=
+  [AUTO_SHAPE (1)] id=2 name='AutoShape 2' pos=(0.97,0.97) size=(0.56x0.04)
+  [TEXT_BOX (17)] id=3 name='AutoShape 3' pos=(0.97,1.14) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '鸿端时计 · AI 专注复盘脑图'
+          run=('鸿端时计 · AI 专注复盘脑图', 12.0, 'False', '96AAC8', '微软雅黑')
+  [TEXT_BOX (17)] id=4 name='AutoShape 4' pos=(0.97,2.08) size=(11.39x0.67)
+      p0 lvl=0 align=LEFT (1): '让每一次专注，都能被看见、被复盘'
+          run=('让每一次专注，都能被看见、被复盘', 30.0, 'True', 'FFFFFF', '微软雅黑')
+  [TEXT_BOX (17)] id=5 name='AutoShape 5' pos=(0.97,3.31) size=(8.33x0.31)
+      p0 lvl=0 align=LEFT (1): '采纳路径 · GET STARTED'
+          run=('采纳路径 · GET STARTED', 12.0, 'True', '7896C3', '微软雅黑')
+  [LINE (9)] id=6 name='Connector 6' pos=(0.97,3.69) size=(11.39x0.01)
+  [LINE (9)] id=7 name='Connector 7' pos=(4.07,4.62) size=(1.31x0.01)
+  [LINE (9)] id=8 name='Connector 8' pos=(7.96,4.62) size=(1.31x0.01)
+  [TEXT_BOX (17)] id=9 name='AutoShape 9' pos=(0.97,4.03) size=(3.61x0.36)
+      p0 lvl=0 align=CENTER (2): 'ohpm 包中心'
+          run=('ohpm 包中心', 15.0, 'True', 'FFFFFF', '微软雅黑')
+  [TEXT_BOX (17)] id=10 name='AutoShape 10' pos=(0.97,4.47) size=(3.61x0.69)
+      p0 lvl=0 align=CENTER (2): 'ohpm.openharmony.cn'
+          run=('ohpm.openharmony.cn', 11.0, 'False', '96AFD2', 'Consolas')
+      p1 lvl=0 align=CENTER (2): '搜索 mindmap-harmony'
+          run=('搜索 mindmap-harmony', 11.0, 'False', '96AFD2', 'Consolas')
+  [TEXT_BOX (17)] id=11 name='AutoShape 11' pos=(4.86,4.03) size=(3.61x0.36)
+      p0 lvl=0 align=CENTER (2): 'GitHub 源码'
+          run=('GitHub 源码', 15.0, 'True', 'FFFFFF', '微软雅黑')
+  [TEXT_BOX (17)] id=12 name='AutoShape 12' pos=(4.86,4.47) size=(3.61x0.69)
+      p0 lvl=0 align=CENTER (2): 'github.com/725lizi'
+          run=('github.com/725lizi', 10.0, 'False', '96AFD2', 'Consolas')
+      p1 lvl=0 align=CENTER (2): '/MindMap-HarmonyOS'
+          run=('/MindMap-HarmonyOS', 10.0, 'False', '96AFD2', 'Consolas')
+  [TEXT_BOX (17)] id=13 name='AutoShape 13' pos=(8.75,4.03) size=(3.61x0.36)
+      p0 lvl=0 align=CENTER (2): '应用安装包'
+          run=('应用安装包', 15.0, 'True', 'FFFFFF', '微软雅黑')
+  [TEXT_BOX (17)] id=14 name='AutoShape 14' pos=(8.75,4.47) size=(3.61x0.69)
+      p0 lvl=0 align=CENTER (2): '正式签名 HAP'
+          run=('正式签名 HAP', 11.0, 'False', '96AFD2', '微软雅黑')
+      p1 lvl=0 align=CENTER (2): '随本次材料提供'
+          run=('随本次材料提供', 11.0, 'False', '96AFD2', '微软雅黑')
+  [LINE (9)] id=15 name='Connector 15' pos=(0.97,6.13) size=(11.39x0.01)
+  [TEXT_BOX (17)] id=16 name='AutoShape 16' pos=(0.97,6.31) size=(6.94x0.36)
+      p0 lvl=0 align=LEFT (1): '鸿蒙智绘队'
+          run=('鸿蒙智绘队', 13.0, 'False', 'A0B4D2', '微软雅黑')
+  [TEXT_BOX (17)] id=17 name='AutoShape 17' pos=(6.94,6.31) size=(5.42x0.36)
+      p0 lvl=0 align=RIGHT (3): '参赛编号 AIC-2026-55350386'
+          run=('参赛编号 AIC-2026-55350386', 13.0, 'False', 'A0B4D2', 'Consolas')
+  [PICTURE (13)] id=18 name='Picture 18' pos=(11.67,6.91) size=(1.67x0.59)
+      IMAGE: image.png ext=png size=7316
+  NOTES: '最后是采纳路径：脑图组件可在 ohpm 包中心搜索 mindmap-harmony 引入；完整组件源码在 GitHub 的 MindMap-HarmonyOS 仓库；应用正式签名安装包随本次材料提供。\n我们是鸿蒙智绘队，参赛编号 AIC-2026-55350386。\n鸿端时计希望让每一次专注都能被看见、被复盘。汇报到这里，谢谢各位评委，欢迎提问。'

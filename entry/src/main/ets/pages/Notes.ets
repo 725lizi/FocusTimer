@@ -561,7 +561,7 @@ struct Notes {
     this.showDeviceList = true;
     setTimeout(() => {
       this.isSearching = false;
-      this.availableDevices = ['黎姿的平板', '黎姿的MatePad'];
+      this.availableDevices = ['我的平板', '我的MatePad'];
     }, 2000);
   }
 

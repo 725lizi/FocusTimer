@@ -17,4 +17,15 @@ export class AiConfig {
   static readonly KEY_API_KEY: string = 'deepseek_api_key';
   static readonly KEY_MODEL: string = 'deepseek_model';
   static readonly KEY_LLM_ENABLED: string = 'llm_enabled';
+
+  /**
+   * 通义千问（Queen，阿里云百炼）的 OpenAI 兼容端点。
+   * 画像洞察首选 Queen；与 DeepSeek 同属 OpenAI 兼容协议，可复用同一套客户端与容错逻辑。
+   */
+  static readonly QUEEN_BASE_URL: string = 'https://dashscope.aliyuncs.com/compatible-mode/v1';
+  /** Queen 默认模型名，可在设置里改；具体以用户账号实际可用模型为准 */
+  static readonly QUEEN_DEFAULT_MODEL: string = 'qwen-max';
+  /** Queen 的 Key 与模型在 preferences 里的存储键名（与 DeepSeek 的 Key 分开存） */
+  static readonly KEY_QUEEN_API_KEY: string = 'queen_api_key';
+  static readonly KEY_QUEEN_MODEL: string = 'queen_model';
 }

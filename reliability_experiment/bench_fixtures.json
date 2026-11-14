@@ -1,0 +1,86 @@
+{
+  "_declaration": "本文件是人工合成的测试底稿集合，不是真实用户数据，不含任何真实个人隐私；仅用于模型对比实测的数字来源，不部署设备、不代表真实模型输出或真实成功率。",
+  "schemaVersion": "1.0",
+  "fixtures": [
+    {
+      "id": "week_a_150",
+      "label": "中等负荷周（150 分钟，3 科目）",
+      "totalMinutes": 150,
+      "lastWeekMinutes": 100,
+      "weekOverWeekPercent": 50,
+      "sessionCount": 3,
+      "activeDays": 2,
+      "avgMinutesPerSession": 50,
+      "interruptCount": 1,
+      "subjects": [
+        { "name": "数学", "minutes": 80 },
+        { "name": "英语", "minutes": 40 },
+        { "name": "物理", "minutes": 30 }
+      ]
+    },
+    {
+      "id": "week_b_320",
+      "label": "高负荷周（320 分钟，4 科目）",
+      "totalMinutes": 320,
+      "lastWeekMinutes": 240,
+      "weekOverWeekPercent": 33,
+      "sessionCount": 7,
+      "activeDays": 5,
+      "avgMinutesPerSession": 46,
+      "interruptCount": 3,
+      "subjects": [
+        { "name": "高数", "minutes": 120 },
+        { "name": "英语", "minutes": 90 },
+        { "name": "专业课", "minutes": 70 },
+        { "name": "阅读", "minutes": 40 }
+      ]
+    },
+    {
+      "id": "week_c_60",
+      "label": "低负荷周（60 分钟，2 科目）",
+      "totalMinutes": 60,
+      "lastWeekMinutes": 150,
+      "weekOverWeekPercent": -60,
+      "sessionCount": 2,
+      "activeDays": 1,
+      "avgMinutesPerSession": 30,
+      "interruptCount": 0,
+      "subjects": [
+        { "name": "英语", "minutes": 40 },
+        { "name": "数学", "minutes": 20 }
+      ]
+    },
+    {
+      "id": "week_d_zero",
+      "label": "空数据周（0 分钟，考验空数据路径）",
+      "totalMinutes": 0,
+      "lastWeekMinutes": 0,
+      "weekOverWeekPercent": 0,
+      "sessionCount": 0,
+      "activeDays": 0,
+      "avgMinutesPerSession": 0,
+      "interruptCount": 0,
+      "subjects": [
+        { "name": "数学", "minutes": 0 },
+        { "name": "英语", "minutes": 0 },
+        { "name": "物理", "minutes": 0 }
+      ]
+    },
+    {
+      "id": "week_e_205",
+      "label": "科目时长并列周（205 分钟，含时长并列）",
+      "totalMinutes": 205,
+      "lastWeekMinutes": 180,
+      "weekOverWeekPercent": 14,
+      "sessionCount": 5,
+      "activeDays": 4,
+      "avgMinutesPerSession": 41,
+      "interruptCount": 2,
+      "subjects": [
+        { "name": "英语", "minutes": 60 },
+        { "name": "语文", "minutes": 60 },
+        { "name": "数学", "minutes": 85 }
+      ]
+    }
+  ]
+}

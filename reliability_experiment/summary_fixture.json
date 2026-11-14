@@ -1,0 +1,58 @@
+{
+  "_model": "DeepSeek",
+  "_declaration": "本文件是人工合成的测试底稿，不是真实用户数据，不含任何真实个人隐私；仅用于「三级容错」离线测试用例的数字来源，不部署设备、不代表真实模型输出或真实成功率。",
+  "fixtureId": "week_summary_synthetic",
+  "schemaVersion": "1.0",
+  "primary": {
+    "label": "本周复盘底稿（内容类样本的唯一数字来源）",
+    "window": "本周 vs 上周",
+    "totalMinutes": 150,
+    "lastWeekMinutes": 100,
+    "weekOverWeekPercent": 50,
+    "sessionCount": 3,
+    "activeDays": 2,
+    "avgMinutesPerSession": 50,
+    "interruptCount": 1,
+    "subjects": [
+      {
+        "name": "数学",
+        "minutes": 80
+      },
+      {
+        "name": "英语",
+        "minutes": 40
+      },
+      {
+        "name": "物理",
+        "minutes": 30
+      }
+    ],
+    "subjectTotalMinutes": 150
+  },
+  "zero": {
+    "label": "全 0 底稿（仅用于零数据/空数据场景，不与 primary 混用）",
+    "window": "本周 vs 上周",
+    "totalMinutes": 0,
+    "lastWeekMinutes": 0,
+    "weekOverWeekPercent": 0,
+    "sessionCount": 0,
+    "activeDays": 0,
+    "avgMinutesPerSession": 0,
+    "interruptCount": 0,
+    "subjects": [
+      {
+        "name": "数学",
+        "minutes": 0
+      },
+      {
+        "name": "英语",
+        "minutes": 0
+      },
+      {
+        "name": "物理",
+        "minutes": 0
+      }
+    ],
+    "subjectTotalMinutes": 0
+  }
+}
