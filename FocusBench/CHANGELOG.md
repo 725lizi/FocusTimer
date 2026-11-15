@@ -6,7 +6,7 @@
 
 ### Added
 
-- `tests/verify_scorer.mjs`：评分器确定性回归，8 个构造用例（环比写法识别、方向写反、行动分支干扰、编造数字、编造科目、禁止表述、空响应），不联网，`node tests/verify_scorer.mjs` 一键运行。
+- `tests/verify_scorer.mjs`：评分器确定性回归，9 个构造用例（环比写法识别、方向写反、行动分支干扰、汉字方向词在间隙、编造数字、编造科目、禁止表述、空响应），不联网，`node tests/verify_scorer.mjs` 一键运行。
 - 真实接口下逐条记录 token 用量（prompt / completion），报告 meta 增加 token 汇总与均值；配置单价环境变量后可估算成本。
 - 报告 meta 补充模型名、接口主机名（只保留 host）、温度、max_tokens、运行开始时间，便于复现。
 - 事实一致性未通过的样本，原始响应落盘到 `report/failed_raw/`，明细中以 `rawFile` 指向，重复运行按 `runN_` 前缀区分。
@@ -21,6 +21,7 @@
 ### Fixed
 
 - `CHANGELOG` 与 `README` 中的适配器文件名与实际不符（实为 `adapters/mock_adapter.mjs`、`adapters/openai_compat_adapter.mjs`）。
+- 修复环比方向误判：当「环比」与百分数之间夹「减少/下降/增长」等汉字且数字本身无符号时（如「环比减少 65%」），旧逻辑把数字解析成正数，与底稿负号相反；现按间隙方向词定符号，显式符号写法（「环比-13%」）仍以符号为准。修复后 mock 基线回到 dev 59/60、locked 20/20。
 
 ## [1.0.0] - 2026-11-15
 

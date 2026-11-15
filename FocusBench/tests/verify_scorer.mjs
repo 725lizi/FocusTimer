@@ -212,6 +212,26 @@ const baseSubjects = [{ name: '数学', minutes: 255 }];
   check('空响应= failed', [r.outcome, r.factConsistent], ['failed', false]);
 }
 
+// ---- 9. 「环比减少 65%」汉字方向词在间隙里、数字无符号，必须判 down 且一致 ----
+{
+  const sample = makeSample({
+    totalMinutes: 78,
+    lastWeekMinutes: 225,
+    wow: -65,
+    subjects: [{ name: '专业课', minutes: 78 }],
+    direction: 'down',
+    numbers: [78, 225, 65, 9, 0],
+  });
+  const raw = makeRaw(
+    ['本周78分钟', '上周225分钟', '环比减少 65%'],
+    ['专业课', '78分钟'],
+    ['平均每次9分钟', '中断0次'],
+    ['先追平上周225分钟'],
+  );
+  const r = scoreSample(sample, { raw, httpStatus: 200, latencyMs: 1200, errorKind: null });
+  check('环比减少65% 判 down 一致', [r.factDirectionOk, r.factConsistent], [true, true]);
+}
+
 console.log('');
 console.log(`用例合计 ${pass + fail}，PASS ${pass}，FAIL ${fail}`);
 if (fail > 0) process.exit(1);

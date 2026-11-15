@@ -145,7 +145,16 @@ function checkFacts(sample, tree) {
   const wowMatch = dirText.match(/环比[^0-9+\-－]{0,6}([+\-－＋]?\d+(?:\.\d+)?)\s*%/);
   let wowValue = null;
   if (wowMatch) {
-    wowValue = parseFloat(wowMatch[1].replace(/[－＋]/g, (c) => (c === '－' ? '-' : '+')));
+    const rawNumber = wowMatch[1];
+    let v = parseFloat(rawNumber.replace(/[－＋]/g, (c) => (c === '－' ? '-' : '+')));
+    // 数字本身没有显式正负号时，用「环比」与数字之间的汉字方向词定符号，
+    // 否则「环比减少 65%」会被解析成正 65，与底稿 -65 相反。
+    const hasExplicitSign = /^[+\-－＋]/.test(rawNumber);
+    if (!hasExplicitSign) {
+      if (DOWN_WORDS.some((w) => wowMatch[0].includes(w))) v = -Math.abs(v);
+      else if (UP_WORDS.some((w) => wowMatch[0].includes(w))) v = Math.abs(v);
+    }
+    wowValue = v;
   }
 
   const upSignal = hasUp || signUp;
