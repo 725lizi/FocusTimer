@@ -75,7 +75,6 @@ export async function call(sample) {
       body: JSON.stringify(body),
     });
     httpStatus = res.status;
-    const latencyMs = Math.round(performance.now() - startedAt);
 
     if (!res.ok) {
       // 尽量消费掉响应体，避免连接悬挂；失败内容不参与评分
@@ -84,11 +83,14 @@ export async function call(sample) {
       } catch {
         // 忽略读取失败
       }
+      // 失败响应没有可评内容，延迟按「收到响应头」计
+      const latencyMs = Math.round(performance.now() - startedAt);
       return {
         raw: null,
         httpStatus,
         latencyMs,
         errorKind: mapHttpStatus(res.status),
+        usage: null,
       };
     }
 
@@ -96,8 +98,12 @@ export async function call(sample) {
     try {
       data = await res.json();
     } catch {
-      return { raw: null, httpStatus, latencyMs, errorKind: 'bad_request' };
+      const latencyMs = Math.round(performance.now() - startedAt);
+      return { raw: null, httpStatus, latencyMs, errorKind: 'bad_request', usage: null };
     }
+
+    // 端到端延迟：包含响应体完全接收的时间，再算一次
+    const latencyMs = Math.round(performance.now() - startedAt);
 
     const content =
       data &&
@@ -106,17 +112,24 @@ export async function call(sample) {
       data.choices[0].message &&
       data.choices[0].message.content;
 
+    // token 用量：缺失时给 null，不用 0 冒充
+    const u = data && data.usage;
+    const usage =
+      u && typeof u.prompt_tokens === 'number' && typeof u.completion_tokens === 'number'
+        ? { promptTokens: u.prompt_tokens, completionTokens: u.completion_tokens }
+        : null;
+
     if (typeof content !== 'string' || content.trim() === '') {
-      return { raw: null, httpStatus, latencyMs, errorKind: 'empty' };
+      return { raw: null, httpStatus, latencyMs, errorKind: 'empty', usage };
     }
 
-    return { raw: content, httpStatus, latencyMs, errorKind: null };
+    return { raw: content, httpStatus, latencyMs, errorKind: null, usage };
   } catch (err) {
     const latencyMs = Math.round(performance.now() - startedAt);
     let errorKind = 'network';
     if (err && (err.name === 'AbortError' || err.code === 'ABORT_ERR')) {
       errorKind = 'timeout';
     }
-    return { raw: null, httpStatus, latencyMs, errorKind };
+    return { raw: null, httpStatus, latencyMs, errorKind, usage: null };
   }
 }

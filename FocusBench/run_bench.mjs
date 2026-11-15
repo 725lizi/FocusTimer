@@ -59,6 +59,15 @@ function printUsage() {
   console.log('用法：node run_bench.mjs [--adapter mock|openai] [--dataset dev|locked|both] [--repeat N] [--out <path>]');
 }
 
+// 只保留主机名，避免把完整 URL（可能含查询参数）写进报告
+function hostOnly(url) {
+  try {
+    return new URL(url).host;
+  } catch {
+    return '';
+  }
+}
+
 // ---------- 数据集读取 ----------
 async function loadJsonl(filePath) {
   const text = await readFile(filePath, 'utf8');
@@ -120,6 +129,9 @@ function summarize(records) {
   let forbiddenHitCount = 0;
   const errorKindCounts = {};
   const latencies = [];
+  let promptTokensTotal = 0;
+  let completionTokensTotal = 0;
+  let usageSamples = 0;
 
   for (const r of records) {
     if (outcomeCounts[r.outcome] !== undefined) {
@@ -135,12 +147,30 @@ function summarize(records) {
     if (typeof r.latencyMs === 'number' && Number.isFinite(r.latencyMs)) {
       latencies.push(r.latencyMs);
     }
+    // token 用量只在拿到实际 usage 时累计，不用 0 冒充
+    if (typeof r.promptTokens === 'number' && typeof r.completionTokens === 'number') {
+      promptTokensTotal += r.promptTokens;
+      completionTokensTotal += r.completionTokens;
+      usageSamples += 1;
+    }
   }
 
   const outcomeRatios = {};
   for (const key of OUTCOMES) {
     outcomeRatios[key] = ratio(outcomeCounts[key], total);
   }
+
+  const tokenUsage =
+    usageSamples === 0
+      ? null
+      : {
+          promptTokensTotal,
+          completionTokensTotal,
+          tokensTotal: promptTokensTotal + completionTokensTotal,
+          promptTokensAvg: Number((promptTokensTotal / usageSamples).toFixed(1)),
+          completionTokensAvg: Number((completionTokensTotal / usageSamples).toFixed(1)),
+          usageSamples,
+        };
 
   return {
     total,
@@ -153,6 +183,7 @@ function summarize(records) {
     forbiddenHitCount,
     errorKindCounts,
     latencies,
+    tokenUsage,
   };
 }
 
@@ -190,8 +221,30 @@ function printSummary(summary, adapterName, label) {
       const p95 = percentile(sorted, 95);
       console.log(`延迟（ms）：p50=${p50}  p95=${p95}  n=${sorted.length}`);
     }
+    // token 与成本
+    const t = summary.tokenUsage;
+    if (t === null) {
+      console.log('token：未取得 usage 字段（接口未返回用量）');
+    } else {
+      console.log(
+        `token：prompt=${t.promptTokensTotal}  completion=${t.completionTokensTotal}  合计=${t.tokensTotal}  有效样本=${t.usageSamples}`,
+      );
+      console.log(`token 均值：prompt=${t.promptTokensAvg}  completion=${t.completionTokensAvg}`);
+      // 成本估算：单价按「元 / 百万 token」，未配置则不算
+      const priceIn = parseFloat(process.env.FOCUSBENCH_PRICE_INPUT || '');
+      const priceOut = parseFloat(process.env.FOCUSBENCH_PRICE_OUTPUT || '');
+      if (Number.isFinite(priceIn) || Number.isFinite(priceOut)) {
+        const pin = Number.isFinite(priceIn) ? priceIn : 0;
+        const pout = Number.isFinite(priceOut) ? priceOut : 0;
+        const cost = t.promptTokensTotal / 1e6 * pin + t.completionTokensTotal / 1e6 * pout;
+        console.log(`估算成本：${cost.toFixed(4)} 元（单价：输入 ${pin} 元/百万 token，输出 ${pout} 元/百万 token）`);
+      } else {
+        console.log('未配置单价（FOCUSBENCH_PRICE_INPUT / FOCUSBENCH_PRICE_OUTPUT），未计算成本');
+      }
+    }
   } else {
     console.log('mock 模式不统计真实延迟');
+    console.log('mock 模式不统计 token 用量与成本');
   }
 }
 
@@ -215,6 +268,8 @@ function buildCsv(records) {
     'softOk',
     'factConsistent',
     'latencyMs',
+    'promptTokens',
+    'completionTokens',
     'httpStatus',
     'errorKind',
   ];
@@ -230,6 +285,8 @@ function buildCsv(records) {
         csvEscape(r.softOk),
         csvEscape(r.factConsistent),
         csvEscape(r.latencyMs),
+        csvEscape(r.promptTokens),
+        csvEscape(r.completionTokens),
         csvEscape(r.httpStatus),
         csvEscape(r.errorKind),
       ].join(','),
@@ -246,14 +303,39 @@ async function runOnce(adapter, datasets) {
     for (const sample of ds.samples) {
       const adapterResult = await adapter.call(sample);
       const scored = scoreSample(sample, adapterResult);
-      records.push(scored);
+      // 附加 token 用量（mock 或接口未返回 usage 时为 null）
+      const usage = adapterResult && adapterResult.usage ? adapterResult.usage : null;
+      records.push({
+        ...scored,
+        promptTokens: usage ? usage.promptTokens : null,
+        completionTokens: usage ? usage.completionTokens : null,
+        // 保留原始响应供事后核查；写报告时会转成文件路径，不直接塞进 JSON
+        _raw: adapterResult && typeof adapterResult.raw === 'string' ? adapterResult.raw : null,
+      });
     }
   }
   return records;
 }
 
+// 把未通过事实一致的样本原始响应落盘，便于事后核查
+async function dumpFailedRaw(records, outDir, prefix) {
+  const dir = path.join(outDir, 'failed_raw');
+  for (const r of records) {
+    const raw = r._raw;
+    if (r.factConsistent === true) continue;
+    if (typeof raw !== 'string' || raw === '') continue;
+    if (!existsSync(dir)) {
+      await mkdir(dir, { recursive: true });
+    }
+    const fname = `${prefix}${r.sample_id}.txt`;
+    await writeFile(path.join(dir, fname), raw, 'utf8');
+    r.rawFile = path.join('failed_raw', fname);
+  }
+}
+
 async function main() {
   const opts = parseArgs(process.argv.slice(2));
+  const runStartedAt = new Date().toISOString();
   const adapter = await getAdapter(opts.adapter);
   const datasets = await loadDatasets(opts.dataset);
 
@@ -285,6 +367,12 @@ async function main() {
 
     const label = opts.repeat > 1 ? `第 ${run}/${opts.repeat} 轮` : '';
     printSummary(summary, opts.adapter, label);
+
+    // 每轮都落盘该轮未通过的原始响应（重复运行时前缀 runN_，避免互相覆盖）
+    const outDirForDump = path.dirname(
+      path.isAbsolute(opts.out) ? opts.out : path.join(__dirname, opts.out),
+    );
+    await dumpFailedRaw(records, outDirForDump, opts.repeat > 1 ? `run${run}_` : '');
 
     repeatRuns.push({
       run,
@@ -325,13 +413,24 @@ async function main() {
         }
       : null;
 
+  // 清掉内存里的原始响应，避免把长文本塞进 JSON 正文
+  for (const r of lastRecords) {
+    delete r._raw;
+  }
+
   const report = {
     meta: {
       adapter: opts.adapter,
       dataset: opts.dataset,
       repeat: opts.repeat,
       generatedAt: new Date().toISOString(),
+      runStartedAt,
       nodeVersion: process.version,
+      model: opts.adapter === 'openai' ? (process.env.FOCUSBENCH_MODEL || 'deepseek-chat') : 'mock',
+      baseUrlHost: opts.adapter === 'openai' ? hostOnly(process.env.FOCUSBENCH_BASE_URL || 'https://api.deepseek.com') : '',
+      temperature: opts.adapter === 'openai' ? 0.4 : null,
+      maxTokens: opts.adapter === 'openai' ? 900 : null,
+      tokenUsage: lastSummary.tokenUsage,
       totalSamples: lastSummary.total,
       outcomeCounts: lastSummary.outcomeCounts,
       outcomeRatios: lastSummary.outcomeRatios,

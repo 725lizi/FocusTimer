@@ -68,6 +68,22 @@ function normalizeNumber(token) {
   return String(n);
 }
 
+// 从树里取出"总体情况"分支的子树文本；找不到时按常见别名取第一个一级分支，再不行才退回全文。
+// 方向词只应在讲「本周 vs 上周」的分支里判断，否则「下周行动：减少中断」会被误判成环比下降。
+function directionText(tree, fullText) {
+  if (tree == null || typeof tree !== 'object' || !Array.isArray(tree.children)) return fullText;
+  const LEVEL1_ALIASES = ['总体情况', '总体', '整体情况', '整体', '本周概况', '本周情况'];
+  let picked = tree.children.find(
+    (c) => typeof c.text === 'string' && LEVEL1_ALIASES.some((a) => c.text.includes(a)),
+  );
+  // 分支名被改写时，退化为第一个一级分支（约定里它就是总体情况）
+  if (!picked && tree.children.length > 0) picked = tree.children[0];
+  if (!picked) return fullText;
+  const parts = [];
+  collectText(picked, parts);
+  return parts.join('\n');
+}
+
 // 事实核查：对最终树做数字/科目/方向/禁止表述检查。
 function checkFacts(sample, tree) {
   const textParts = [];
@@ -112,19 +128,44 @@ function checkFacts(sample, tree) {
   }
 
   // ---- 方向 ----
-  const hasUp = UP_WORDS.some((w) => text.includes(w));
-  const hasDown = DOWN_WORDS.some((w) => text.includes(w));
-  const hasFlat = FLAT_WORDS.some((w) => text.includes(w));
+  // 只在「总体情况」分支里判断，避免「下周行动：减少中断」这类措辞干扰环比方向
+  const dirText = directionText(tree, text);
+  const hasUp = UP_WORDS.some((w) => dirText.includes(w));
+  const hasDown = DOWN_WORDS.some((w) => dirText.includes(w));
+  const hasFlat = FLAT_WORDS.some((w) => dirText.includes(w));
+  // 符号表达也合法：模型常写「环比+33%」「环比-13%」「环比264%」，不一定带增减汉字
+  const signUp = /[+＋]\s*\d+(\.\d+)?\s*%/.test(dirText);
+  const signDown = /[-－]\s*\d+(\.\d+)?\s*%/.test(dirText);
+
+  // 最可靠：直接取「环比」后面那个百分数，与输入口径比对符号
+  const wow =
+    sample && sample.input && typeof sample.input.weekOverWeekPercent === 'number'
+      ? sample.input.weekOverWeekPercent
+      : null;
+  const wowMatch = dirText.match(/环比[^0-9+\-－]{0,6}([+\-－＋]?\d+(?:\.\d+)?)\s*%/);
+  let wowValue = null;
+  if (wowMatch) {
+    wowValue = parseFloat(wowMatch[1].replace(/[－＋]/g, (c) => (c === '－' ? '-' : '+')));
+  }
+
+  const upSignal = hasUp || signUp;
+  const downSignal = hasDown || signDown;
 
   let factDirectionOk = false;
   if (direction === 'up') {
-    factDirectionOk = hasUp && !hasDown;
+    factDirectionOk = upSignal && !downSignal;
   } else if (direction === 'down') {
-    factDirectionOk = hasDown && !hasUp;
+    factDirectionOk = downSignal && !upSignal;
   } else if (direction === 'flat') {
-    factDirectionOk = hasFlat && !hasUp && !hasDown;
+    factDirectionOk = hasFlat && !upSignal && !downSignal;
   } else if (direction === 'none') {
-    factDirectionOk = !hasUp && !hasDown;
+    factDirectionOk = !upSignal && !downSignal;
+  }
+
+  // 环比百分数一旦可解析且与输入同号，就以它为准，覆盖词表判断
+  if (wowValue !== null && wow !== null) {
+    const sameSign = (wowValue > 0 && wow > 0) || (wowValue < 0 && wow < 0) || (wowValue === 0 && wow === 0);
+    factDirectionOk = sameSign && direction === (wow > 0 ? 'up' : wow < 0 ? 'down' : 'flat');
   }
 
   // ---- 禁止表述 ----

@@ -1,6 +1,6 @@
 {
   "name": "focusbench",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "专注记录转结构化复盘的轻量可复现基准",
   "type": "module",
   "license": "MIT",
@@ -9,6 +9,7 @@
     "gen": "node gen_samples.mjs",
     "bench": "node run_bench.mjs --adapter mock",
     "bench:repeat": "node run_bench.mjs --adapter mock --repeat 2",
-    "bench:locked": "node run_bench.mjs --adapter mock --dataset locked"
+    "bench:locked": "node run_bench.mjs --adapter mock --dataset locked",
+    "test": "node tests/verify_scorer.mjs"
   }
 }
