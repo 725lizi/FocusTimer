@@ -1,0 +1,91 @@
+name: Bug 报告
+description: 报告 FocusTimer 在鸿蒙设备或模拟器上出现的异常行为
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 简要说明遇到的问题
+      placeholder: 例如：专注计时结束后未弹出提醒
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 请按 1/2/3 分步写出可复现的操作路径
+      placeholder: |
+        1. 打开应用，进入专注页
+        2. 设置 25 分钟并开始
+        3. 计时结束后观察提醒
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望表现
+      description: 你期望发生什么
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际表现
+      description: 实际发生了什么，可附错误提示原文
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: 设备与系统版本
+      description: 填写 HarmonyOS 版本与设备型号，或模拟器 API 版本
+      placeholder: 例如：HarmonyOS 5.0 / 某型号真机，或模拟器 API 12
+    validations:
+      required: true
+
+  - type: input
+    id: deveco
+    attributes:
+      label: DevEco Studio 版本
+      placeholder: 例如：DevEco Studio 26.0.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ai_related
+    attributes:
+      label: 是否与 AI 生成功能相关
+      options:
+        - 与 AI 无关
+        - 云端 AI 成功
+        - 自动降级到本地规则
+        - 不确定
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志或截图
+      description: 请勿粘贴 API Key、Token 或个人专注记录等隐私数据
+      placeholder: 可粘贴脱敏后的日志片段或拖入截图
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 自检确认
+      options:
+        - label: 我已搜索过同类 Issue
+          required: true
+        - label: 我已确认这不是签名或权限配置问题
+          required: true
+        - label: 我提交的内容不含密钥与隐私信息
+          required: true
