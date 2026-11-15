@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://focusbench.local/schema/sample.schema.json",
+  "title": "FocusBench Sample",
+  "description": "FocusBench 单条样例对象的 JSON Schema（draft-07）",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sample_id",
+    "input",
+    "task_type",
+    "expected_schema",
+    "fact_checklist",
+    "forbidden_claims",
+    "difficulty",
+    "fault_type",
+    "source_type"
+  ],
+  "properties": {
+    "sample_id": {
+      "type": "string",
+      "pattern": "^fb-(dev|locked)-\\d{3}$"
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "totalMinutes",
+        "lastWeekMinutes",
+        "weekOverWeekPercent",
+        "sessionCount",
+        "activeDays",
+        "avgMinutesPerSession",
+        "interruptCount",
+        "subjects"
+      ],
+      "properties": {
+        "totalMinutes": { "type": "number" },
+        "lastWeekMinutes": { "type": "number" },
+        "weekOverWeekPercent": { "type": "number" },
+        "sessionCount": { "type": "number" },
+        "activeDays": { "type": "number" },
+        "avgMinutesPerSession": { "type": "number" },
+        "interruptCount": { "type": "number" },
+        "subjects": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "minutes"],
+            "properties": {
+              "name": { "type": "string" },
+              "minutes": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "task_type": {
+      "type": "string",
+      "enum": ["regular", "complex", "anomaly", "longtext", "fault"]
+    },
+    "expected_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["depthMin", "depthMax", "nodeMin", "nodeMax", "leafMax", "branches"],
+      "properties": {
+        "depthMin": { "type": "number", "const": 2 },
+        "depthMax": { "type": "number", "const": 3 },
+        "nodeMin": { "type": "number", "const": 8 },
+        "nodeMax": { "type": "number", "const": 20 },
+        "leafMax": { "type": "number", "const": 16 },
+        "branches": { "type": "number", "const": 4 }
+      }
+    },
+    "fact_checklist": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numbers", "subjects", "direction"],
+      "properties": {
+        "numbers": {
+          "type": "array",
+          "items": { "type": "number" }
+        },
+        "subjects": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["up", "down", "flat", "none"]
+        }
+      }
+    },
+    "forbidden_claims": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["easy", "normal", "hard"]
+    },
+    "fault_type": {
+      "type": ["string", "null"],
+      "enum": [null, "network", "timeout", "unauthorized", "rate_limited", "server", "bad_request", "empty", "cancelled"]
+    },
+    "source_type": {
+      "type": "string",
+      "const": "synthetic"
+    }
+  }
+}
