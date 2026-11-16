@@ -91,7 +91,7 @@ export class FocusProfileStats {
     const insufficientData: boolean = sampleSize < MIN_SAMPLE_SIZE || activeDays < MIN_ACTIVE_DAYS;
 
     const cleaningNote: string =
-      `口径：按开始时间归属窗口与日期，一条记录不跨日拆分；空标签归「${UNCATEGORIZED}」。` +
+      `按开始时间归属窗口与日期，一条记录不跨日拆分；空标签归「${UNCATEGORIZED}」。` +
       `本窗口去重 ${duplicateCount} 条、剔除时长非正的无效记录 ${invalidCount} 条、` +
       `可疑极端时长（>${EXTREME_DURATION_MINUTES} 分钟）${extremeCount} 条，极端值保留并在相关事实标注。`;
 

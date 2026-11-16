@@ -434,6 +434,15 @@ struct Index {
     this.pushCardSnapshot('paused');
   }
 
+  // 计时自然完成：停止运行与系统副作用，但不计中断（区别于用户主动暂停 pauseTimer）
+  private completeTimer(): void {
+    this.timerEngine.complete();
+    this.syncFromEngine();
+    this.stopRunningSideEffects();
+    // 完成：推送本次实际时长，桌面卡片显示「已完成」
+    this.pushCardSnapshot('done');
+  }
+
   private resetTimer(): void {
     if (this.timerId !== -1) {
       clearInterval(this.timerId);
@@ -451,7 +460,7 @@ struct Index {
 
   private onTimerComplete(): void {
     console.info('⭐ 计时完成！');
-    this.pauseTimer();
+    this.completeTimer();
     this.todayFocusCount++;
     this.todayFocusMinutes += Math.floor(this.totalSecond / 60);
     this.saveSessionToDb();

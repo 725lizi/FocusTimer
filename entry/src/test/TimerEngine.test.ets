@@ -156,6 +156,26 @@ export default function timerEngineTest() {
       expect(engine.pauseCount).assertEqual(2);
     });
 
+    it('complete_shouldNotIncrementPauseCount', 0, () => {
+      // 自然完成不等于主动暂停：pauseCount 应保持 0
+      const engine = new TimerEngine(60);
+      engine.start();
+      engine.tick();
+      engine.complete();
+      expect(engine.pauseCount).assertEqual(0);
+      expect(engine.isRunning).assertFalse();
+    });
+
+    it('complete_shouldKeepExistingPauseCount', 0, () => {
+      // 若本轮内确有暂停，complete 不清零已有计数
+      const engine = new TimerEngine(60);
+      engine.start();
+      engine.pause();
+      expect(engine.pauseCount).assertEqual(1);
+      engine.complete();
+      expect(engine.pauseCount).assertEqual(1);
+    });
+
     it('restoreFromCheckpoint_shouldRebuildTotalAndRemain', 0, () => {
       const engine = new TimerEngine(1500);
       engine.start();

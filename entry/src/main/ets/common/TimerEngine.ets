@@ -4,6 +4,7 @@
  * 语义与 pages/Index.ets 的计时状态机一一对应：
  *  - start()          ↔ startTimer()  开始 / 继续计时
  *  - pause()          ↔ pauseTimer()  暂停（中断次数 +1）
+ *  - complete()       ↔ completeTimer()  自然完成（不增加中断次数）
  *  - reset()          ↔ resetTimer()  重置回总时长
  *  - tick()           ↔ setInterval 每秒回调：递减剩余秒数
  *  - getProgress()    ↔ progress getter
@@ -76,6 +77,15 @@ export class TimerEngine {
   pause(): void {
     this.running = false;
     this.pauseCountValue++;
+  }
+
+  /**
+   * 自然完成（计时归零触发，非用户主动暂停）。
+   * 仅停止运行，不增加中断计数，与 pause() 严格区分；
+   * 若本轮计时中确有暂停，pauseCount 在此之前已累计，本方法不清零。
+   */
+  complete(): void {
+    this.running = false;
   }
 
   /**
